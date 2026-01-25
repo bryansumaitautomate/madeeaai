@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import RealityCheck from "@/components/RealityCheck";
 import Process from "@/components/Process";
 import RevenueEngine from "@/components/RevenueEngine";
+import AIInfrastructure from "@/components/AIInfrastructure";
 import InfrastructureCards from "@/components/InfrastructureCard";
 import ROISimulator from "@/components/ROISimulator";
 import MadeeaMethod from "@/components/MadeeaMethod";
@@ -18,6 +19,7 @@ const Index = () => {
       <RealityCheck />
       <Process />
       <RevenueEngine />
+      <AIInfrastructure />
       <InfrastructureCards />
       <ROISimulator />
       <MadeeaMethod />
