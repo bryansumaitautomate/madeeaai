@@ -26,9 +26,10 @@ const Hero = () => {
           <a href="#audit" className="text-primary hover:brightness-125 transition-all">Free Audit</a>
         </div>
 
-        <button className="px-5 py-2 rounded-full bg-card border border-border text-xs font-mono text-secondary-foreground hover:bg-muted transition-all">
-          CLIENT LOGIN
-        </button>
+        <ControlRoomButton
+          label="CLIENT LOGIN"
+          className="px-5 py-2 text-xs"
+        />
       </nav>
 
       {/* Hero Content */}

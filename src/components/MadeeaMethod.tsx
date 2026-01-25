@@ -1,4 +1,5 @@
-import { Search, Zap, Rocket, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { Search, Zap, Rocket, ChevronRight, CheckCircle2, ArrowRight } from 'lucide-react';
+import ControlRoomButton from './ControlRoomButton';
 
 const steps = [
   {
@@ -110,9 +111,10 @@ const MadeeaMethod = () => {
         {/* Final Bridge CTA */}
         <div className="mt-20 p-12 rounded-[2rem] bg-gradient-to-b from-card to-transparent border border-border text-center">
           <h4 className="text-2xl font-light mb-6 text-foreground">Ready to see where your systems are failing?</h4>
-          <button className="px-10 py-5 bg-primary text-primary-foreground rounded-full font-bold aura-glow hover:scale-105 transition-all">
-            Book Your Audit Now
-          </button>
+          <ControlRoomButton
+            label="Book Your Audit Now"
+            icon={ArrowRight}
+          />
           <p className="mt-6 text-xs font-mono text-muted-foreground uppercase tracking-widest">Available for limited monthly cohorts</p>
         </div>
       </div>
