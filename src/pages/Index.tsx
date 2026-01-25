@@ -1,10 +1,12 @@
 import Hero from "@/components/Hero";
+import RevenueEngine from "@/components/RevenueEngine";
 import FAQ from "@/components/FAQ";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Hero />
+      <RevenueEngine />
       <FAQ />
       
       {/* Footer */}
