@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import AuraBackground from './AuraBackground';
 import SalesControlRoom from './SalesControlRoom';
 import ControlRoomButton from './ControlRoomButton';
+import madeeaLogo from '@/assets/madeea-logo.png';
 
 const Hero = () => {
   return (
@@ -12,9 +13,7 @@ const Hero = () => {
       {/* Navigation - Sticky with backdrop blur */}
       <nav className="sticky top-0 z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-4 backdrop-blur-md bg-black/10 rounded-2xl mt-4 mx-4 border border-white/10">
         <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-            <div className="w-4 h-4 bg-background rounded-sm transform rotate-45" />
-          </div>
+          <img src={madeeaLogo} alt="Madeea.io" className="w-8 h-8 object-contain" />
           <span className="text-xl font-semibold tracking-tighter text-foreground">
             MADEEA<span className="text-primary">.IO</span>
           </span>
