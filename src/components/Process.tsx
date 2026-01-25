@@ -1,29 +1,30 @@
-import { Telescope, PenTool, Rocket, RefreshCw, ArrowRight } from 'lucide-react';
+import { ClipboardCheck, Phone, Zap, TrendingUp, ArrowRight } from 'lucide-react';
 import ControlRoomButton from './ControlRoomButton';
+
 const steps = [
   {
     id: "01",
-    title: "Diagnose",
-    icon: Telescope,
-    text: "We map exactly where leads are being lost."
+    title: "Free AI Audit",
+    icon: ClipboardCheck,
+    text: "Map inefficiency across all departments. We identify where time and money are leaking."
   },
   {
     id: "02",
-    title: "Design",
-    icon: PenTool,
-    text: "A custom AI sales architecture built around your business."
+    title: "Discovery Call",
+    icon: Phone,
+    text: "Review results and identify the highest priority problem to solve first."
   },
   {
     id: "03",
-    title: "Build & Deploy",
-    icon: Rocket,
-    text: "Full system installed and connected end-to-end."
+    title: "First Automation Build",
+    icon: Zap,
+    text: "Deploy a custom solution for immediate impact. See results within weeks."
   },
   {
     id: "04",
-    title: "Optimize",
-    icon: RefreshCw,
-    text: "We monitor performance and refine logic as volume grows."
+    title: "Expand & Scale",
+    icon: TrendingUp,
+    text: "Move toward full AI Infrastructure once value is proven. Grow with confidence."
   }
 ];
 
@@ -43,10 +44,10 @@ const Process = () => {
         {/* Header */}
         <div className="mb-20">
           <span className="text-xs font-mono text-primary uppercase tracking-[0.3em] mb-4 block">
-            The Process
+            The Diagnostic Path
           </span>
           <h2 className="text-4xl md:text-5xl font-serif tracking-tight text-foreground">
-            Four Steps. <span className="italic text-muted-foreground">Full Control.</span>
+            Four Steps. <span className="italic text-muted-foreground">Proven Results.</span>
           </h2>
         </div>
 
@@ -104,12 +105,12 @@ const Process = () => {
         {/* Bottom CTA */}
         <div className="mt-20 flex flex-col items-center gap-6 w-full my-12">
           <p className="text-sm text-muted-foreground font-mono uppercase tracking-widest text-center">
-            Ready to start?
+            Start with a free audit
           </p>
           {/* Button wrapper - centered, tactile console feel */}
           <div className="flex justify-center items-center w-full">
             <ControlRoomButton
-              label="Begin Diagnosis"
+              label="Get Your Free AI Audit"
               icon={ArrowRight}
             />
           </div>
