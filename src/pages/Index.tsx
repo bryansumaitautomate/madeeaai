@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import RealityCheck from "@/components/RealityCheck";
 import RevenueEngine from "@/components/RevenueEngine";
+import MadeeaMethod from "@/components/MadeeaMethod";
 import FAQ from "@/components/FAQ";
 
 const Index = () => {
@@ -9,6 +10,7 @@ const Index = () => {
       <Hero />
       <RealityCheck />
       <RevenueEngine />
+      <MadeeaMethod />
       <FAQ />
       <footer className="border-t border-border py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
