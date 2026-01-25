@@ -1,5 +1,5 @@
-import { Telescope, PenTool, Rocket, RefreshCw } from 'lucide-react';
-
+import { Telescope, PenTool, Rocket, RefreshCw, ArrowRight } from 'lucide-react';
+import ControlRoomButton from './ControlRoomButton';
 const steps = [
   {
     id: "01",
@@ -106,9 +106,10 @@ const Process = () => {
           <p className="text-sm text-muted-foreground font-mono uppercase tracking-widest mb-6">
             Ready to start?
           </p>
-          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold shadow-[0_0_30px_rgba(26,107,255,0.4)] hover:shadow-[0_0_50px_rgba(26,107,255,0.6)] hover:scale-105 transition-all duration-300">
-            Begin Diagnosis
-          </button>
+          <ControlRoomButton
+            label="Begin Diagnosis"
+            icon={ArrowRight}
+          />
         </div>
       </div>
     </section>
