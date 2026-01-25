@@ -1,6 +1,39 @@
 import { ArrowRight } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 const FinalSignal = () => {
+  const textRef = useRef(null);
+  const isInView = useInView(textRef, { once: true, margin: "-100px" });
+
+  const textLines = [
+    {
+      content: (
+        <>
+          <span className="text-primary font-mono mr-2">&gt;</span>
+          If your leads are not handled perfectly...
+        </>
+      ),
+      className: "text-lg md:text-xl text-muted-foreground font-light"
+    },
+    {
+      content: (
+        <>
+          ...then the <span className="italic text-primary">system</span> is the problem.
+        </>
+      ),
+      className: "text-2xl md:text-4xl font-serif text-foreground"
+    },
+    {
+      content: (
+        <>
+          And systems can be <span className="italic">fixed.</span>
+        </>
+      ),
+      className: "text-3xl md:text-5xl font-serif font-medium text-foreground"
+    }
+  ];
+
   return (
     <section className="relative py-40 overflow-hidden">
       {/* Massive Blue Glow */}
@@ -19,18 +52,23 @@ const FinalSignal = () => {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        {/* Text Sequence */}
-        <div className="space-y-6 mb-16">
-          <p className="text-lg md:text-xl text-muted-foreground font-light">
-            <span className="text-primary font-mono mr-2">&gt;</span>
-            If your leads are not handled perfectly...
-          </p>
-          <p className="text-2xl md:text-4xl font-serif text-foreground">
-            ...then the <span className="italic text-primary">system</span> is the problem.
-          </p>
-          <p className="text-3xl md:text-5xl font-serif font-medium text-foreground">
-            And systems can be <span className="italic">fixed.</span>
-          </p>
+        {/* Text Sequence with staggered animation */}
+        <div ref={textRef} className="space-y-6 mb-16">
+          {textLines.map((line, index) => (
+            <motion.p
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+              className={line.className}
+            >
+              {line.content}
+            </motion.p>
+          ))}
         </div>
 
         {/* Final CTA */}
