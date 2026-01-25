@@ -57,15 +57,17 @@ const Hero = () => {
         </p>
 
         {/* CTA Section */}
-        <div className="flex flex-col items-center gap-4">
-          {/* Primary CTA - Control Room Button */}
-          <ControlRoomButton
-            label="Diagnose Your Sales System"
-            icon={ArrowRight}
-          />
+        <div className="flex flex-col items-center gap-4 w-full my-10">
+          {/* Button wrapper - centered, tactile console feel */}
+          <div className="flex justify-center items-center w-full">
+            <ControlRoomButton
+              label="Diagnose Your Sales System"
+              icon={ArrowRight}
+            />
+          </div>
           
           {/* Supporting text */}
-          <p className="text-sm text-muted-foreground font-mono">
+          <p className="text-sm text-muted-foreground font-mono text-center">
             Not a demo. Not a pitch. <span className="text-foreground">A clear diagnosis.</span>
           </p>
         </div>

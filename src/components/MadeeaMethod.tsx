@@ -109,13 +109,18 @@ const MadeeaMethod = () => {
         </div>
 
         {/* Final Bridge CTA */}
-        <div className="mt-20 p-12 rounded-[2rem] bg-gradient-to-b from-card to-transparent border border-border text-center">
-          <h4 className="text-2xl font-light mb-6 text-foreground">Ready to see where your systems are failing?</h4>
-          <ControlRoomButton
-            label="Book Your Audit Now"
-            icon={ArrowRight}
-          />
-          <p className="mt-6 text-xs font-mono text-muted-foreground uppercase tracking-widest">Available for limited monthly cohorts</p>
+        <div className="mt-20 p-12 rounded-[2rem] bg-gradient-to-b from-card to-transparent border border-border">
+          <div className="flex flex-col items-center gap-6 w-full my-8">
+            <h4 className="text-2xl font-light text-foreground text-center">Ready to see where your systems are failing?</h4>
+            {/* Button wrapper - centered, tactile console feel */}
+            <div className="flex justify-center items-center w-full">
+              <ControlRoomButton
+                label="Book Your Audit Now"
+                icon={ArrowRight}
+              />
+            </div>
+            <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest text-center">Available for limited monthly cohorts</p>
+          </div>
         </div>
       </div>
     </section>
