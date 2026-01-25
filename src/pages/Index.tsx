@@ -23,8 +23,8 @@ const Index = () => {
             </span>
           </div>
           
-          <p className="text-xs text-muted-foreground font-mono">
-            © 2024 Madeea.io — AI Sales Infrastructure
+          <p className="text-xs text-muted-foreground font-mono uppercase tracking-[0.1em]">
+            © 2025 Madeea.io — AI Sales Infrastructure
           </p>
           
           <div className="flex items-center gap-6 text-xs text-muted-foreground font-mono">
