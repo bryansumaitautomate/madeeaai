@@ -39,11 +39,11 @@ const Hero = () => {
           </span>
         </div>
 
-        {/* Main Headline - Geist Sans */}
-        <h1 className="text-5xl md:text-7xl font-light tracking-tight leading-[1.1] mb-8 text-foreground" style={{ fontFamily: "'Geist', system-ui, sans-serif" }}>
+        {/* Main Headline - Instrument Serif */}
+        <h1 className="text-5xl md:text-7xl font-serif font-normal tracking-tight leading-[1.1] mb-8 text-foreground">
           Your sales system is <br />
-          <span className="font-semibold italic">
-            <span className="underline decoration-[#1A6BFF] decoration-4 underline-offset-8">already leaking money.</span>
+          <span className="italic">
+            <span className="underline decoration-primary decoration-4 underline-offset-8">already leaking money.</span>
           </span>
         </h1>
 
