@@ -1,44 +1,44 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Zap, Clock, TrendingUp } from 'lucide-react';
+import { ArrowRight, Users, Clock, DollarSign, TrendingUp, Calculator } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { Slider } from '@/components/ui/slider';
 import ControlRoomButton from './ControlRoomButton';
 
 const ROISimulator = () => {
-  const [leadVolume, setLeadVolume] = useState(250);
-  const [bookingRate, setBookingRate] = useState(15);
-  const [dealValue, setDealValue] = useState(2500);
+  const [employees, setEmployees] = useState(10);
+  const [weeklyHours, setWeeklyHours] = useState(15);
+  const [hourlyCost, setHourlyCost] = useState(35);
 
-  // AI fixes 35% of currently missed leads
-  const AI_RECOVERY_RATE = 0.35;
+  // AI saves 75% of manual time (70-90% range, using 75% as middle)
+  const AI_EFFICIENCY_RATE = 0.75;
 
   const calculations = useMemo(() => {
-    const missedRate = (100 - bookingRate) / 100;
-    const missedLeads = leadVolume * missedRate;
-    const recoveredLeads = missedLeads * AI_RECOVERY_RATE;
-    const recoveredMonthly = recoveredLeads * dealValue;
-    const recoveredAnnual = recoveredMonthly * 12;
+    const annualManualCost = employees * weeklyHours * hourlyCost * 52;
+    const annualSavings = annualManualCost * AI_EFFICIENCY_RATE;
+    const monthlySavings = annualSavings / 12;
+    const hoursRecoveredWeekly = employees * weeklyHours * AI_EFFICIENCY_RATE;
+    const hoursRecoveredAnnual = hoursRecoveredWeekly * 52;
     
     // Generate 12-month projection with compounding effect
     const projectionData = Array.from({ length: 12 }, (_, i) => {
       const month = i + 1;
-      // Slight efficiency improvement over time (learning curve)
-      const efficiencyMultiplier = 1 + (i * 0.02);
       return {
         month: `M${month}`,
-        revenue: Math.round(recoveredMonthly * efficiencyMultiplier),
-        cumulative: Math.round(recoveredMonthly * month * (1 + (i * 0.01))),
+        savings: Math.round(monthlySavings * month),
+        monthly: Math.round(monthlySavings),
       };
     });
 
     return {
-      recoveredMonthly,
-      recoveredAnnual,
-      recoveredLeads: Math.round(recoveredLeads),
+      annualManualCost,
+      annualSavings,
+      monthlySavings,
+      hoursRecoveredWeekly: Math.round(hoursRecoveredWeekly),
+      hoursRecoveredAnnual: Math.round(hoursRecoveredAnnual),
       projectionData,
     };
-  }, [leadVolume, bookingRate, dealValue]);
+  }, [employees, weeklyHours, hourlyCost]);
 
   const formatCurrency = (value: number) => {
     if (value >= 1000000) {
@@ -62,10 +62,10 @@ const ROISimulator = () => {
         {/* Section header */}
         <div className="text-center mb-16">
           <h2 className="text-sm font-mono text-primary tracking-[0.3em] uppercase mb-4">
-            Revenue Diagnostic
+            Efficiency Calculator
           </h2>
           <p className="text-3xl md:text-5xl font-serif font-light tracking-tight text-foreground">
-            Calculate your <span className="italic">invisible</span> revenue leak.
+            Calculate your <span className="italic">hidden</span> operational cost.
           </p>
         </div>
 
@@ -87,86 +87,92 @@ const ROISimulator = () => {
             </div>
 
             <div className="space-y-10">
-              {/* Lead Volume */}
+              {/* Number of Employees */}
               <div className="space-y-4">
                 <div className="flex justify-between items-baseline">
-                  <label className="text-sm font-medium text-secondary-foreground">
-                    Monthly Lead Volume
+                  <label className="text-sm font-medium text-secondary-foreground flex items-center gap-2">
+                    <Users size={16} className="text-muted-foreground" />
+                    Number of Employees
                   </label>
                   <span className="text-2xl font-mono text-foreground tabular-nums">
-                    {leadVolume.toLocaleString()}
+                    {employees}
                   </span>
                 </div>
                 <Slider
-                  value={[leadVolume]}
-                  onValueChange={(v) => setLeadVolume(v[0])}
-                  min={0}
-                  max={1000}
-                  step={10}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-[10px] font-mono text-muted-foreground uppercase">
-                  <span>0</span>
-                  <span>1,000 leads</span>
-                </div>
-              </div>
-
-              {/* Booking Rate */}
-              <div className="space-y-4">
-                <div className="flex justify-between items-baseline">
-                  <label className="text-sm font-medium text-secondary-foreground">
-                    Current Lead-to-Booking Rate
-                  </label>
-                  <span className="text-2xl font-mono text-foreground tabular-nums">
-                    {bookingRate}%
-                  </span>
-                </div>
-                <Slider
-                  value={[bookingRate]}
-                  onValueChange={(v) => setBookingRate(v[0])}
+                  value={[employees]}
+                  onValueChange={(v) => setEmployees(v[0])}
                   min={1}
-                  max={50}
+                  max={100}
                   step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] font-mono text-muted-foreground uppercase">
-                  <span>1%</span>
-                  <span>50%</span>
+                  <span>1</span>
+                  <span>100 employees</span>
                 </div>
               </div>
 
-              {/* Deal Value */}
+              {/* Weekly Manual Hours */}
               <div className="space-y-4">
                 <div className="flex justify-between items-baseline">
-                  <label className="text-sm font-medium text-secondary-foreground">
-                    Average Deal Value
+                  <label className="text-sm font-medium text-secondary-foreground flex items-center gap-2">
+                    <Clock size={16} className="text-muted-foreground" />
+                    Weekly Manual Hours (per employee)
                   </label>
                   <span className="text-2xl font-mono text-foreground tabular-nums">
-                    ${dealValue.toLocaleString()}
+                    {weeklyHours}h
                   </span>
                 </div>
                 <Slider
-                  value={[dealValue]}
-                  onValueChange={(v) => setDealValue(v[0])}
-                  min={500}
-                  max={25000}
-                  step={500}
+                  value={[weeklyHours]}
+                  onValueChange={(v) => setWeeklyHours(v[0])}
+                  min={1}
+                  max={40}
+                  step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] font-mono text-muted-foreground uppercase">
-                  <span>$500</span>
-                  <span>$25,000</span>
+                  <span>1h</span>
+                  <span>40h/week</span>
+                </div>
+              </div>
+
+              {/* Hourly Cost */}
+              <div className="space-y-4">
+                <div className="flex justify-between items-baseline">
+                  <label className="text-sm font-medium text-secondary-foreground flex items-center gap-2">
+                    <DollarSign size={16} className="text-muted-foreground" />
+                    Hourly Cost per Employee
+                  </label>
+                  <span className="text-2xl font-mono text-foreground tabular-nums">
+                    ${hourlyCost}
+                  </span>
+                </div>
+                <Slider
+                  value={[hourlyCost]}
+                  onValueChange={(v) => setHourlyCost(v[0])}
+                  min={15}
+                  max={150}
+                  step={5}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-[10px] font-mono text-muted-foreground uppercase">
+                  <span>$15</span>
+                  <span>$150/hr</span>
                 </div>
               </div>
             </div>
 
             {/* Formula display */}
             <div className="mt-10 p-4 bg-foreground/5 rounded-xl border border-border">
-              <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                Recovery Formula
-              </p>
+              <div className="flex items-center gap-2 mb-2">
+                <Calculator size={14} className="text-primary" />
+                <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
+                  Efficiency Formula
+                </p>
+              </div>
               <p className="text-xs font-mono text-secondary-foreground">
-                (Leads × Missed%) × 35% × Deal Value = <span className="text-primary">Recovered Revenue</span>
+                (Employees × Hours × Cost × 52) × <span className="text-primary">75%</span> = <span className="text-primary">Annual Savings</span>
               </p>
             </div>
           </motion.div>
@@ -184,60 +190,60 @@ const ROISimulator = () => {
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-2 h-2 rounded-full bg-primary" />
                   <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                    Diagnostic Readout
+                    Efficiency Diagnostic
                   </span>
                 </div>
 
-                {/* Primary Metric */}
-                <div className="text-center mb-8">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">
-                    Recovered Monthly Revenue
-                  </p>
-                  <p 
-                    className="text-5xl md:text-6xl font-serif font-light text-foreground"
-                    style={{ 
-                      textShadow: '0 0 40px hsl(217 100% 55% / 0.5), 0 0 80px hsl(217 100% 55% / 0.2)'
-                    }}
-                  >
-                    {formatCurrency(calculations.recoveredMonthly)}
-                  </p>
-                  <p className="text-sm text-primary font-mono mt-2">
-                    +{calculations.recoveredLeads} leads recovered/mo
-                  </p>
-                </div>
-
-                {/* Secondary Metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <div className="p-4 bg-foreground/5 rounded-xl border border-border">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Clock size={14} className="text-primary" />
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                        Response Time
-                      </span>
-                    </div>
-                    <p className="text-xl font-mono text-foreground">&lt;30s</p>
-                    <p className="text-[10px] text-muted-foreground">Speed to lead</p>
-                  </div>
-                  <div className="p-4 bg-foreground/5 rounded-xl border border-border">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Zap size={14} className="text-primary" />
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                        Annual Impact
-                      </span>
-                    </div>
-                    <p className="text-xl font-mono text-foreground">
-                      {formatCurrency(calculations.recoveredAnnual)}
+                {/* Cost Comparison */}
+                <div className="space-y-6 mb-8">
+                  {/* Annual Manual Cost - Dimmed */}
+                  <div className="text-center p-4 bg-foreground/5 rounded-xl border border-border">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">
+                      Annual Cost of Manual Processes
                     </p>
-                    <p className="text-[10px] text-muted-foreground">Projected recovery</p>
+                    <p className="text-3xl font-serif font-light text-foreground/50">
+                      {formatCurrency(calculations.annualManualCost)}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {calculations.hoursRecoveredAnnual.toLocaleString()} hours/year spent on manual tasks
+                    </p>
+                  </div>
+
+                  {/* Potential Savings - Glowing Blue */}
+                  <div className="text-center">
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">
+                      Potential Savings with Madeea.io
+                    </p>
+                    <p 
+                      className="text-5xl md:text-6xl font-serif font-light text-primary"
+                      style={{ 
+                        textShadow: '0 0 40px hsl(217 100% 55% / 0.6), 0 0 80px hsl(217 100% 55% / 0.3), 0 0 120px hsl(217 100% 55% / 0.1)'
+                      }}
+                    >
+                      {formatCurrency(calculations.annualSavings)}
+                    </p>
+                    <p className="text-sm text-primary/80 font-mono mt-2">
+                      {calculations.hoursRecoveredWeekly.toLocaleString()} hours recovered weekly
+                    </p>
                   </div>
                 </div>
 
-                {/* Projection Chart */}
+                {/* Efficiency Badge */}
+                <div className="flex justify-center mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30">
+                    <TrendingUp size={14} className="text-primary" />
+                    <span className="font-mono text-xs text-primary uppercase tracking-wider">
+                      75% Time Savings
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cumulative Savings Chart */}
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-4">
                     <TrendingUp size={14} className="text-primary" />
                     <span className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                      12-Month Growth Projection
+                      Cumulative Savings Projection
                     </span>
                   </div>
                   <div className="h-32 w-full">
@@ -251,7 +257,7 @@ const ROISimulator = () => {
                         />
                         <YAxis 
                           hide 
-                          domain={['dataMin - 1000', 'dataMax + 1000']}
+                          domain={[0, 'dataMax + 1000']}
                         />
                         <Tooltip
                           contentStyle={{
@@ -261,11 +267,11 @@ const ROISimulator = () => {
                             fontSize: '12px',
                           }}
                           labelStyle={{ color: 'hsl(240, 5%, 55%)' }}
-                          formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
+                          formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cumulative Savings']}
                         />
                         <Line 
                           type="monotone" 
-                          dataKey="revenue" 
+                          dataKey="savings" 
                           stroke="hsl(217, 100%, 55%)"
                           strokeWidth={2}
                           dot={false}
@@ -283,7 +289,7 @@ const ROISimulator = () => {
         {/* CTA */}
         <div className="flex justify-center mt-16">
           <ControlRoomButton 
-            label="Diagnose My System" 
+            label="Get Your Free AI Audit" 
             icon={ArrowRight}
           />
         </div>
