@@ -115,7 +115,7 @@ const MadeeaMethod = () => {
             {/* Button wrapper - centered, tactile console feel */}
             <div className="flex justify-center items-center w-full">
               <ControlRoomButton
-                label="Book Your Audit Now"
+                label="Start"
                 icon={ArrowRight}
               />
             </div>
