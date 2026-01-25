@@ -1,4 +1,4 @@
-import { ArrowRight, Terminal } from 'lucide-react';
+import { ArrowRight, Terminal, Play } from 'lucide-react';
 import AuraBackground from './AuraBackground';
 
 const Hero = () => {
@@ -6,12 +6,9 @@ const Hero = () => {
     <div className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Unicorn Studio Animated Aura Background */}
       <AuraBackground />
-      
-      {/* Dark overlay for text readability - uses brand Ignito Black */}
-      <div className="fixed inset-0 bg-[#0C0F14]/40 pointer-events-none" style={{ zIndex: -5 }} />
 
-      {/* Navigation */}
-      <nav className="relative z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-8 backdrop-blur-md bg-background/20 rounded-2xl mt-4 mx-4 border border-white/5">
+      {/* Navigation - Sticky with backdrop blur */}
+      <nav className="sticky top-0 z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-4 backdrop-blur-md bg-black/10 rounded-2xl mt-4 mx-4 border border-white/10">
         <div className="flex items-center gap-2 group cursor-pointer">
           <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
             <div className="w-4 h-4 bg-background rounded-sm transform rotate-45" />
@@ -33,44 +30,54 @@ const Hero = () => {
       </nav>
 
       {/* Hero Content */}
-      <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-20 pb-32 max-w-5xl mx-auto">
-        {/* Engineering Tag */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-foreground/5 border border-border mb-8">
+      <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-24 pb-32 max-w-5xl mx-auto">
+        {/* Systems Intelligence Pill */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-10">
           <Terminal size={14} className="text-primary" />
-          <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
             Systems Intelligence v2.0
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-light tracking-tight leading-[1.1] mb-8 text-gradient">
+        {/* Main Headline - Geist Sans */}
+        <h1 className="text-5xl md:text-7xl font-light tracking-tight leading-[1.1] mb-8 text-foreground" style={{ fontFamily: "'Geist', system-ui, sans-serif" }}>
           Your sales system is <br />
-          <span className="font-semibold italic text-foreground underline decoration-primary/40">
-            already leaking money.
+          <span className="font-semibold italic">
+            <span className="underline decoration-[#1A6BFF] decoration-4 underline-offset-8">already leaking money.</span>
           </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl font-light leading-relaxed mb-12">
+        {/* Subheadline - Centered with max-width */}
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed mb-14">
           Madeea.io designs and installs custom AI sales infrastructure that answers leads 
           instantly and books appointments—quietly fixing the gaps in your revenue operations.
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <button className="group relative flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:scale-[1.02] shadow-[0_0_30px_rgba(26,107,255,0.4)] hover:shadow-[0_0_50px_rgba(26,107,255,0.6)]">
+          {/* Primary CTA - Ion Blue with strong glow */}
+          <button 
+            className="group relative flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white transition-all hover:scale-[1.02]"
+            style={{ 
+              backgroundColor: '#1A6BFF',
+              boxShadow: '0 0 40px rgba(26, 107, 255, 0.5), 0 0 80px rgba(26, 107, 255, 0.3)'
+            }}
+          >
             Begin System Audit
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
           
-          <button className="px-8 py-4 text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium">
-            Watch the Engine Room
-            <div className="w-6 h-6 rounded-full bg-foreground/5 flex items-center justify-center">
-              <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[6px] border-l-current border-b-[4px] border-b-transparent ml-0.5" />
+          {/* Secondary Ghost CTA */}
+          <button className="flex items-center gap-3 px-6 py-4 text-muted-foreground hover:text-foreground transition-colors text-sm font-medium group">
+            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+              <Play size={14} className="ml-0.5" fill="currentColor" />
             </div>
+            Watch the Engine Room
           </button>
         </div>
 
         {/* Trust Signals */}
-        <div className="mt-24 pt-12 border-t border-border w-full">
+        <div className="mt-28 pt-12 border-t border-white/10 w-full">
           <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-8">
             Integrated with Industry Standards
           </p>
