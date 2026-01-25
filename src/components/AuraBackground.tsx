@@ -10,6 +10,17 @@ export default function AuraBackground() {
       <div className="absolute top-0 -right-4 w-72 h-72 bg-[#ffffff] rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-blob animation-delay-2000" />
       
       <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#3b82f6] rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-blob animation-delay-4000" />
+
+      {/* Dot-matrix pattern overlay */}
+      <div className="absolute inset-0 dot-matrix opacity-60" />
+
+      {/* 4-column vertical grid */}
+      <div className="absolute inset-0 flex">
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1" />
+      </div>
     </div>
   );
 }
