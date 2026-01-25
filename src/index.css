@@ -426,3 +426,103 @@
 .infrastructure-card-wrapper:hover .infrastructure-card-content::before {
   opacity: 1;
 }
+
+/* ===== PROBLEM CARD - ROTATING BORDER ===== */
+/* "Invisible Problem" Bento Grid Cards */
+
+@property --problem-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes problem-rotate {
+  0% {
+    --problem-angle: 0deg;
+  }
+  100% {
+    --problem-angle: 360deg;
+  }
+}
+
+.problem-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.problem-card-border {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  padding: 1px;
+  overflow: hidden;
+  background: hsl(var(--card));
+}
+
+.problem-card-gradient {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from var(--problem-angle),
+    transparent 0%,
+    transparent 30%,
+    hsl(217 100% 55%) 40%,
+    hsl(217 100% 65%) 50%,
+    hsl(217 100% 55%) 60%,
+    transparent 70%,
+    transparent 100%
+  );
+  animation: problem-rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease, animation-duration 0.5s ease;
+}
+
+.problem-card-wrapper:hover .problem-card-gradient {
+  opacity: 1;
+}
+
+.problem-card-content {
+  position: relative;
+  z-index: 10;
+  background: #0a0a0f;
+  border-radius: calc(1rem - 1px);
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid hsl(var(--border));
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: 280px;
+}
+
+.problem-card-wrapper:hover .problem-card-content {
+  border-color: hsl(217 100% 55% / 0.3);
+  box-shadow: 
+    0 0 40px hsl(217 100% 55% / 0.1),
+    inset 0 0 30px hsl(217 100% 55% / 0.03);
+}
+
+/* Subtle top glow line */
+.problem-card-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(217 100% 55% / 0.5),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.problem-card-wrapper:hover .problem-card-content::before {
+  opacity: 1;
+}
