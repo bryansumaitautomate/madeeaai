@@ -3,10 +3,12 @@ import RealityCheck from "@/components/RealityCheck";
 import RevenueEngine from "@/components/RevenueEngine";
 import MadeeaMethod from "@/components/MadeeaMethod";
 import FAQ from "@/components/FAQ";
+import AuraBackground from "@/components/AuraBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen bg-transparent">
+      <AuraBackground />
       <Hero />
       <RealityCheck />
       <RevenueEngine />
