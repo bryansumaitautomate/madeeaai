@@ -1,41 +1,15 @@
-import { useEffect } from 'react';
-
-declare global {
-  interface Window {
-    UnicornStudio?: {
-      init: () => void;
-      isInitialized?: boolean;
-    };
-  }
-}
-
 export default function AuraBackground() {
-  useEffect(() => {
-    if (window.UnicornStudio) {
-      if (!window.UnicornStudio.isInitialized) {
-        window.UnicornStudio.init();
-        window.UnicornStudio.isInitialized = true;
-      }
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js';
-    script.onload = () => {
-      if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
-        window.UnicornStudio.init();
-        window.UnicornStudio.isInitialized = true;
-      }
-    };
-    (document.head || document.body).appendChild(script);
-  }, []);
-
   return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10">
-      <div 
-        data-us-project="BqS5vTHVEpn6NiF0g8iJ" 
-        style={{ width: '100%', height: '100%' }}
-      />
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#0a0a0f]">
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-[#0a0a0f]/80" />
+
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 -left-4 w-72 h-72 bg-[#3b82f6] rounded-full mix-blend-screen filter blur-[128px] opacity-30 animate-blob" />
+      
+      <div className="absolute top-0 -right-4 w-72 h-72 bg-[#ffffff] rounded-full mix-blend-screen filter blur-[128px] opacity-10 animate-blob animation-delay-2000" />
+      
+      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-[#3b82f6] rounded-full mix-blend-screen filter blur-[128px] opacity-20 animate-blob animation-delay-4000" />
     </div>
   );
 }
