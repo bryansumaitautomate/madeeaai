@@ -327,3 +327,102 @@
 .control-room-btn.loading .btn-icon {
   animation: loading-pulse 1s ease-in-out infinite;
 }
+
+/* ===== INFRASTRUCTURE CARD - ROTATING BORDER ===== */
+/* Premium "Magic Border" Card System */
+
+@property --infrastructure-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes infrastructure-rotate {
+  0% {
+    --infrastructure-angle: 0deg;
+  }
+  100% {
+    --infrastructure-angle: 360deg;
+  }
+}
+
+.infrastructure-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.infrastructure-card-border {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  padding: 1px;
+  overflow: hidden;
+  background: hsl(var(--card));
+}
+
+.infrastructure-card-gradient {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from var(--infrastructure-angle),
+    transparent 0%,
+    transparent 25%,
+    hsl(217 100% 55%) 35%,
+    hsl(226 71% 40%) 50%,
+    hsl(217 100% 55%) 65%,
+    transparent 75%,
+    transparent 100%
+  );
+  animation: infrastructure-rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.infrastructure-card-wrapper:hover .infrastructure-card-gradient {
+  opacity: 1;
+}
+
+.infrastructure-card-content {
+  position: relative;
+  z-index: 10;
+  background: #0a0a0f;
+  border-radius: calc(1.5rem - 1px);
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid hsl(var(--border));
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.infrastructure-card-wrapper:hover .infrastructure-card-content {
+  border-color: hsl(217 100% 55% / 0.3);
+  box-shadow: 
+    0 0 40px hsl(217 100% 55% / 0.1),
+    inset 0 0 30px hsl(217 100% 55% / 0.03);
+}
+
+/* Subtle glow on the card background */
+.infrastructure-card-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(217 100% 55% / 0.5),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.infrastructure-card-wrapper:hover .infrastructure-card-content::before {
+  opacity: 1;
+}
