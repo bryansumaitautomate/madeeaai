@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import RealityCheck from "@/components/RealityCheck";
 import Process from "@/components/Process";
 import RevenueEngine from "@/components/RevenueEngine";
+import InfrastructureCards from "@/components/InfrastructureCard";
 import MadeeaMethod from "@/components/MadeeaMethod";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -16,6 +17,7 @@ const Index = () => {
       <RealityCheck />
       <Process />
       <RevenueEngine />
+      <InfrastructureCards />
       <MadeeaMethod />
       <Testimonials />
       <FAQ />
