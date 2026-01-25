@@ -1,14 +1,14 @@
 import { ArrowRight, Terminal } from 'lucide-react';
+import AuraBackground from './AuraBackground';
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      {/* Ion Blue Aura Background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-[700px] pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_-20%,hsl(217_100%_55%/0.2)_0%,transparent_70%)]" />
-        <div className="absolute top-[-150px] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/15 blur-[150px] rounded-full" />
-        <div className="absolute top-[100px] left-1/4 w-[300px] h-[300px] bg-accent/10 blur-[100px] rounded-full" />
-      </div>
+    <div className="relative min-h-screen overflow-hidden bg-transparent">
+      {/* Unicorn Studio Animated Aura Background */}
+      <AuraBackground />
+      
+      {/* Dark overlay for text readability - uses brand Ignito Black */}
+      <div className="fixed inset-0 bg-[#0C0F14]/40 pointer-events-none" style={{ zIndex: -5 }} />
 
       {/* Navigation */}
       <nav className="relative z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-8 backdrop-blur-md bg-background/20 rounded-2xl mt-4 mx-4 border border-white/5">
