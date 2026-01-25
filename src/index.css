@@ -134,6 +134,25 @@
     background-image: radial-gradient(circle, hsl(217 100% 55% / 0.08) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+
+  /* Navigation link hover underline effect */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(217 100% 55%), transparent);
+    box-shadow: 0 0 8px hsl(217 100% 55% / 0.5);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+    background-size: 24px 24px;
+  }
 }
 
 /* ===== CONTROL ROOM BUTTON ANIMATIONS ===== */

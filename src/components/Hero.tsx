@@ -2,34 +2,10 @@ import { ArrowRight, Play } from 'lucide-react';
 import AuraBackground from './AuraBackground';
 import SalesControlRoom from './SalesControlRoom';
 import ControlRoomButton from './ControlRoomButton';
-import madeeaLogo from '@/assets/madeea-logo.png';
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent">
-      {/* Animated Aura Background */}
-      <AuraBackground />
-
-      {/* Navigation - Sticky with backdrop blur */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-4 backdrop-blur-md bg-black/10 rounded-2xl mt-4 mx-4 border border-white/10">
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <img src={madeeaLogo} alt="Madeea.io" className="w-8 h-8 object-contain" />
-          <span className="text-xl font-semibold tracking-tighter text-foreground">
-            MADEEA<span className="text-primary">.IO</span>
-          </span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground font-mono uppercase tracking-widest">
-          <a href="#infrastructure" className="hover:text-foreground transition-colors">Infrastructure</a>
-          <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
-          <a href="#audit" className="text-primary hover:brightness-125 transition-all">Free Audit</a>
-        </div>
-
-        <ControlRoomButton
-          label="CLIENT LOGIN"
-          className="px-5 py-2 text-xs"
-        />
-      </nav>
+    <div className="relative min-h-screen overflow-hidden bg-transparent pt-20">
 
       {/* Hero Content */}
       <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-20 pb-16 max-w-5xl mx-auto">

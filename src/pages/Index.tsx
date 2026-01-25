@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import Navigation from "@/components/Navigation";
 import RealityCheck from "@/components/RealityCheck";
 import Process from "@/components/Process";
 import RevenueEngine from "@/components/RevenueEngine";
@@ -14,6 +15,7 @@ import AuraBackground from "@/components/AuraBackground";
 const Index = () => {
   return (
     <div className="relative min-h-screen bg-transparent">
+      <Navigation />
       <AuraBackground />
       <Hero />
       <RealityCheck />
