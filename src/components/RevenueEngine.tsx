@@ -1,13 +1,11 @@
 import { Zap, Mic, MessageSquare, Share2, Settings2, Shield } from 'lucide-react';
-
 const RevenueEngine = () => {
-  return (
-    <section className="py-24 bg-background relative overflow-hidden">
+  return <section className="py-24 bg-background relative overflow-hidden">
       {/* Background Grid Pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-        style={{ backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)', backgroundSize: '32px 32px' }} 
-      />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
+      backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',
+      backgroundSize: '32px 32px'
+    }} />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
@@ -23,18 +21,21 @@ const RevenueEngine = () => {
           {/* LAYER A: ACQUISITION (Inputs) */}
           <div className="lg:col-span-3 space-y-4 flex flex-col justify-center">
             <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2 pl-2">Acquisition Layer</div>
-            {[
-              { label: 'Inbound Calls', icon: Mic },
-              { label: 'Web Forms', icon: Share2 },
-              { label: 'SMS / DMs', icon: MessageSquare }
-            ].map((item, i) => (
-              <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center gap-4 group hover:border-primary/30 transition-all">
+            {[{
+            label: 'Inbound Calls',
+            icon: Mic
+          }, {
+            label: 'Web Forms',
+            icon: Share2
+          }, {
+            label: 'SMS / DMs',
+            icon: MessageSquare
+          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center gap-4 group hover:border-primary/30 transition-all">
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center group-hover:text-primary transition-colors">
                   <item.icon size={16} />
                 </div>
                 <span className="text-sm font-medium text-secondary-foreground">{item.label}</span>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* THE CONNECTOR (Hidden on Mobile) */}
@@ -55,7 +56,7 @@ const RevenueEngine = () => {
                   <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.4)] mb-6">
                     <Settings2 size={32} className="text-primary-foreground animate-spin-slow" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 italic text-foreground">1Prompt Control</h3>
+                  <h3 className="text-xl font-semibold mb-2 italic text-foreground">Madeea.io Control</h3>
                   <p className="text-xs text-muted-foreground font-mono mb-6 uppercase tracking-tight">System Management Interface</p>
                   
                   <div className="w-full space-y-2 text-left">
@@ -87,18 +88,21 @@ const RevenueEngine = () => {
           {/* LAYER C: CONVERSATION (Outputs) */}
           <div className="lg:col-span-3 space-y-4 flex flex-col justify-center">
             <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2 pl-2 text-right">Conversation Layer</div>
-            {[
-              { label: 'Retell AI Voice', icon: Mic },
-              { label: 'Qualifying Text', icon: MessageSquare },
-              { label: 'Auto-Booking', icon: Zap }
-            ].map((item, i) => (
-              <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center justify-end gap-4 group hover:border-accent/30 transition-all">
+            {[{
+            label: 'Retell AI Voice',
+            icon: Mic
+          }, {
+            label: 'Qualifying Text',
+            icon: MessageSquare
+          }, {
+            label: 'Auto-Booking',
+            icon: Zap
+          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center justify-end gap-4 group hover:border-accent/30 transition-all">
                 <span className="text-sm font-medium text-secondary-foreground">{item.label}</span>
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center group-hover:text-accent transition-colors">
                   <item.icon size={16} />
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
         </div>
@@ -111,8 +115,6 @@ const RevenueEngine = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default RevenueEngine;
