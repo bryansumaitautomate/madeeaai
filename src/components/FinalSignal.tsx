@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import ControlRoomButton from './ControlRoomButton';
 
 const FinalSignal = () => {
   const textRef = useRef(null);
@@ -72,10 +73,20 @@ const FinalSignal = () => {
         </div>
 
         {/* Final CTA */}
-        <button className="group px-12 py-6 bg-primary text-primary-foreground rounded-full text-lg font-bold shadow-[0_0_60px_rgba(26,107,255,0.5)] hover:shadow-[0_0_80px_rgba(26,107,255,0.7)] hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto">
-          Diagnose Your Sales System
-          <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-        </button>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{
+            duration: 0.6,
+            delay: 1.4,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }}
+        >
+          <ControlRoomButton
+            label="Diagnose Your Sales System"
+            icon={ArrowRight}
+          />
+        </motion.div>
 
         <p className="mt-6 text-xs font-mono text-muted-foreground uppercase tracking-widest">
           Free audit • No commitment • Results in 48hrs

@@ -135,3 +135,191 @@
     background-size: 24px 24px;
   }
 }
+
+/* ===== CONTROL ROOM BUTTON ANIMATIONS ===== */
+/* Premium "Signal Lock" Button System */
+
+:root {
+  --crb-button-color: #0a0a0f;
+  --crb-highlight-hue: 217deg;
+  --crb-highlight-sat: 91%;
+  --crb-highlight-light: 60%;
+}
+
+/* Letter stagger animation - "Signal Lock" effect */
+@keyframes letter-anim {
+  0% {
+    opacity: 0.7;
+    text-shadow: 0 0 0 transparent;
+  }
+  40% {
+    opacity: 1;
+    text-shadow: 
+      0 0 8px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.8),
+      0 0 20px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.4);
+  }
+  100% {
+    opacity: 0.7;
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+/* Focused letter animation - intensified pulse */
+@keyframes focused-letter-anim {
+  0% {
+    opacity: 0.9;
+    text-shadow: 0 0 2px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.5);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 
+      0 0 12px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 1),
+      0 0 25px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.6),
+      0 0 40px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.3);
+  }
+  100% {
+    opacity: 0.9;
+    text-shadow: 0 0 2px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.5);
+  }
+}
+
+/* Icon flicker animation */
+@keyframes flicker {
+  0%, 100% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 4px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.6));
+  }
+  25% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.9));
+  }
+  50% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 6px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.7));
+  }
+  75% {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 1));
+  }
+}
+
+/* Loading pulse animation */
+@keyframes loading-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Button glow pulse */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.3),
+      inset 0 0 30px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.5),
+      0 0 60px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.2),
+      inset 0 0 40px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.08);
+  }
+}
+
+/* Control Room Button Styles */
+.control-room-btn {
+  position: relative;
+  background: var(--crb-button-color);
+  border: 1px solid hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.3);
+  border-radius: 9999px;
+  padding: 1rem 2.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 0 20px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.3),
+    inset 0 0 30px hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.05);
+}
+
+.control-room-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.15) 0%,
+    transparent 50%,
+    hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.control-room-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.2),
+    transparent
+  );
+  transition: left 0.5s ease-in-out;
+}
+
+.control-room-btn:hover {
+  transform: scale(1.03);
+  border-color: hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light) / 0.6);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.control-room-btn:hover::before {
+  opacity: 1;
+}
+
+.control-room-btn:hover::after {
+  left: 100%;
+}
+
+.control-room-btn:active {
+  transform: scale(0.98);
+}
+
+/* Letter animations */
+.control-room-btn .letter {
+  display: inline-block;
+  color: white;
+  font-weight: 600;
+  animation: letter-anim 2.5s ease-in-out infinite;
+}
+
+.control-room-btn:hover .letter {
+  animation: focused-letter-anim 1.5s ease-in-out infinite;
+}
+
+/* Icon flicker */
+.control-room-btn .btn-icon {
+  animation: flicker 3s ease-in-out infinite;
+  color: hsl(var(--crb-highlight-hue) var(--crb-highlight-sat) var(--crb-highlight-light));
+}
+
+.control-room-btn:hover .btn-icon {
+  animation: flicker 1s ease-in-out infinite;
+}
+
+/* Loading state */
+.control-room-btn.loading {
+  pointer-events: none;
+}
+
+.control-room-btn.loading .letter,
+.control-room-btn.loading .btn-icon {
+  animation: loading-pulse 1s ease-in-out infinite;
+}

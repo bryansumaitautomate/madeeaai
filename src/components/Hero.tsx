@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import AuraBackground from './AuraBackground';
 import SalesControlRoom from './SalesControlRoom';
+import ControlRoomButton from './ControlRoomButton';
 
 const Hero = () => {
   return (
@@ -56,16 +57,11 @@ const Hero = () => {
 
         {/* CTA Section */}
         <div className="flex flex-col items-center gap-4">
-          {/* Primary CTA - Blue with shadow glow */}
-          <button 
-            className="group relative flex items-center gap-3 px-8 py-4 rounded-full font-medium text-white transition-all hover:scale-[1.02] bg-primary"
-            style={{ 
-              boxShadow: '0 0 40px hsl(217 100% 55% / 0.5), 0 0 80px hsl(217 100% 55% / 0.3)'
-            }}
-          >
-            Diagnose Your Sales System
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          {/* Primary CTA - Control Room Button */}
+          <ControlRoomButton
+            label="Diagnose Your Sales System"
+            icon={ArrowRight}
+          />
           
           {/* Supporting text */}
           <p className="text-sm text-muted-foreground font-mono">
