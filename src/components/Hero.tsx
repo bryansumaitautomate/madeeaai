@@ -3,12 +3,15 @@ import AuraBackground from './AuraBackground';
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-transparent">
       {/* Unicorn Studio Animated Aura Background */}
       <AuraBackground />
+      
+      {/* Dark overlay for text readability */}
+      <div className="fixed inset-0 bg-black/30 pointer-events-none -z-5" />
 
       {/* Navigation */}
-      <nav className="relative z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-8">
+      <nav className="relative z-50 flex items-center justify-between max-w-7xl mx-auto px-6 py-8 backdrop-blur-md bg-background/20 rounded-2xl mt-4 mx-4 border border-white/5">
         <div className="flex items-center gap-2 group cursor-pointer">
           <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
             <div className="w-4 h-4 bg-background rounded-sm transform rotate-45" />
@@ -53,7 +56,7 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <button className="group relative flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:scale-[1.02] aura-glow aura-glow-hover">
+          <button className="group relative flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:scale-[1.02] shadow-[0_0_30px_rgba(26,107,255,0.4)] hover:shadow-[0_0_50px_rgba(26,107,255,0.6)]">
             Begin System Audit
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
