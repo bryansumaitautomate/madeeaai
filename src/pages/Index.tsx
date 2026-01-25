@@ -3,6 +3,7 @@ import RealityCheck from "@/components/RealityCheck";
 import Process from "@/components/Process";
 import RevenueEngine from "@/components/RevenueEngine";
 import MadeeaMethod from "@/components/MadeeaMethod";
+import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import FinalSignalSection from "@/components/FinalSignal";
 import AuraBackground from "@/components/AuraBackground";
@@ -16,6 +17,7 @@ const Index = () => {
       <Process />
       <RevenueEngine />
       <MadeeaMethod />
+      <Testimonials />
       <FAQ />
       <FinalSignalSection />
     </div>
