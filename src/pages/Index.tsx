@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import RealityCheck from "@/components/RealityCheck";
+import Process from "@/components/Process";
 import RevenueEngine from "@/components/RevenueEngine";
 import MadeeaMethod from "@/components/MadeeaMethod";
 import FAQ from "@/components/FAQ";
@@ -11,6 +12,7 @@ const Index = () => {
       <AuraBackground />
       <Hero />
       <RealityCheck />
+      <Process />
       <RevenueEngine />
       <MadeeaMethod />
       <FAQ />
