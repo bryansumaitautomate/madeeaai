@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import AuraBackground from './AuraBackground';
 import SalesControlRoom from './SalesControlRoom';
 import ControlRoomButton from './ControlRoomButton';
@@ -37,32 +37,41 @@ const Hero = () => {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-10">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-            AI Sales Infrastructure Partner
+            AI Automation Partner
           </span>
         </div>
 
         {/* Main Headline - Instrument Serif */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight leading-[1.1] mb-8 text-foreground">
-          Your sales system is already <br className="hidden md:block" />
-          leaking money. <span className="italic text-primary">Invisible AI systems</span>
+          Your business is losing money in <br className="hidden md:block" />
+          places you cannot see. <span className="italic text-primary">AI finds them.</span>
           <br className="hidden md:block" />
-          <span className="italic">quietly fix it.</span>
+          <span className="italic">We fix them.</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed mb-10">
-          Madeea.io designs and installs custom AI sales infrastructure that answers 
-          leads instantly and keeps your pipeline moving.
+          Madeea.io starts with a free AI audit... stopping the leaks, starting with 
+          what matters most to you right now.
         </p>
 
         {/* CTA Section */}
-        <div className="flex flex-col items-center gap-4 w-full my-10">
-          {/* Button wrapper - centered, tactile console feel */}
-          <div className="flex justify-center items-center w-full">
+        <div className="flex flex-col items-center gap-6 w-full my-10">
+          {/* Buttons row */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
+            {/* Primary CTA */}
             <ControlRoomButton
-              label="Diagnose Your Sales System"
+              label="Get Your Free AI Audit"
               icon={ArrowRight}
             />
+            
+            {/* Secondary Ghost Button */}
+            <button className="group flex items-center gap-3 px-6 py-4 rounded-full border border-white/20 bg-transparent hover:border-primary/50 hover:bg-white/5 transition-all duration-300">
+              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Play size={14} className="text-foreground ml-0.5" />
+              </div>
+              <span className="text-sm font-medium text-foreground">See How It Works</span>
+            </button>
           </div>
           
           {/* Supporting text */}

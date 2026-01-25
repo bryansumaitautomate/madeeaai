@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import TerminalLog from './TerminalLog';
+import DepartmentRadar from './DepartmentRadar';
 import LeadVelocityChart from './LeadVelocityChart';
 import SystemStatusBadge from './SystemStatusBadge';
 
@@ -37,7 +37,7 @@ export default function SalesControlRoom() {
               <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
             </div>
             <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-              Sales Control Room
+              AI Automation Control Room
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -47,20 +47,23 @@ export default function SalesControlRoom() {
         </div>
 
         {/* Main content grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[280px]">
-          {/* Terminal Log - Left */}
-          <div className="glass-infrastructure rounded-xl p-4">
-            <TerminalLog />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[320px]">
+          {/* Department Radar - Left (Featured) */}
+          <div className="glass-infrastructure rounded-xl p-4 md:col-span-2 relative overflow-hidden">
+            <DepartmentRadar />
           </div>
 
-          {/* Lead Velocity Chart - Center */}
-          <div className="glass-infrastructure rounded-xl p-4">
-            <LeadVelocityChart />
-          </div>
+          {/* Right column - stacked panels */}
+          <div className="flex flex-col gap-4">
+            {/* Lead Velocity Chart */}
+            <div className="glass-infrastructure rounded-xl p-4 flex-1">
+              <LeadVelocityChart />
+            </div>
 
-          {/* System Status - Right */}
-          <div className="glass-infrastructure rounded-xl p-4">
-            <SystemStatusBadge />
+            {/* System Status */}
+            <div className="glass-infrastructure rounded-xl p-4">
+              <SystemStatusBadge />
+            </div>
           </div>
         </div>
 
@@ -68,16 +71,16 @@ export default function SalesControlRoom() {
         <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted-foreground uppercase">Leads Today</span>
-              <span className="font-mono text-sm text-primary">247</span>
+              <span className="font-mono text-[10px] text-muted-foreground uppercase">Depts Active</span>
+              <span className="font-mono text-sm text-primary">4/4</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted-foreground uppercase">Meetings Booked</span>
-              <span className="font-mono text-sm text-emerald-400">38</span>
+              <span className="font-mono text-[10px] text-muted-foreground uppercase">Issues Found</span>
+              <span className="font-mono text-sm text-amber-400">12</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] text-muted-foreground uppercase">Response Rate</span>
-              <span className="font-mono text-sm text-foreground">100%</span>
+              <span className="font-mono text-[10px] text-muted-foreground uppercase">Auto-Fixed</span>
+              <span className="font-mono text-sm text-emerald-400">9</span>
             </div>
           </div>
           <span className="font-mono text-[9px] text-muted-foreground/60">
