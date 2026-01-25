@@ -18,10 +18,11 @@ const AuraBackground = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full h-full -z-10">
+    <div className="fixed inset-0 w-full min-h-screen -z-10">
       <div 
         data-us-project="bKN5upvoulAmWvInmHza" 
         className="absolute inset-0 w-full h-full"
+        style={{ minHeight: '100vh' }}
       />
     </div>
   );
