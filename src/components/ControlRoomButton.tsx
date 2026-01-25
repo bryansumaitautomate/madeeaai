@@ -25,45 +25,58 @@ const ControlRoomButton = ({
     }));
   }, [label]);
 
+  // Calculate approximate min-width based on label length to prevent jumping
+  const minWidth = useMemo(() => {
+    // Approximate character width (in ch units) + padding for icon
+    return `${label.length + (Icon ? 4 : 0)}ch`;
+  }, [label, Icon]);
+
   return (
     <button
       onClick={onClick}
       disabled={isLoading}
       className={cn(
         "control-room-btn",
-        "flex items-center justify-center gap-3",
+        // Flexbox precision - centered layout
+        "flex justify-center items-center",
         "text-base md:text-lg",
         isLoading && "loading",
         className
       )}
     >
-      {/* Staggered letters */}
-      <span className="relative z-10 flex items-center">
-        {letters.map((letter, index) => (
-          <span
-            key={index}
-            className="letter"
-            style={{
-              animationDelay: `${letter.delay}s`,
-              // Preserve spaces
-              whiteSpace: letter.char === ' ' ? 'pre' : 'normal',
-            }}
-          >
-            {letter.char}
-          </span>
-        ))}
-      </span>
+      {/* Text wrapper with min-width to prevent layout shift */}
+      <span 
+        className="txt-wrapper relative z-10 flex justify-center items-center"
+        style={{ minWidth }}
+      >
+        {/* Staggered letters container */}
+        <span className="flex items-center justify-center">
+          {letters.map((letter, index) => (
+            <span
+              key={index}
+              className="letter inline-block"
+              style={{
+                animationDelay: `${letter.delay}s`,
+                // Preserve spaces with explicit width
+                width: letter.char === ' ' ? '0.3em' : 'auto',
+              }}
+            >
+              {letter.char === ' ' ? '\u00A0' : letter.char}
+            </span>
+          ))}
+        </span>
 
-      {/* Optional icon with flicker animation */}
-      {Icon && (
-        <Icon
-          size={20}
-          className="btn-icon relative z-10"
-          style={{
-            animationDelay: `${letters.length * 0.08}s`,
-          }}
-        />
-      )}
+        {/* Optional icon with consistent spacing and vertical alignment */}
+        {Icon && (
+          <Icon
+            size={20}
+            className="btn-icon relative z-10 ml-3 flex-shrink-0"
+            style={{
+              animationDelay: `${letters.length * 0.08}s`,
+            }}
+          />
+        )}
+      </span>
 
       {/* Loading indicator overlay */}
       {isLoading && (
