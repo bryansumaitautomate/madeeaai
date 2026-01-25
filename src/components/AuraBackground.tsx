@@ -11,26 +11,30 @@ declare global {
 
 const AuraBackground = () => {
   useEffect(() => {
-    // Initialize Unicorn Studio when component mounts
     const initUnicorn = () => {
-      if (window.UnicornStudio) {
+      if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
         window.UnicornStudio.init();
+        window.UnicornStudio.isInitialized = true;
       }
     };
 
     // Try immediately
     initUnicorn();
 
-    // Also retry after a short delay in case script hasn't loaded yet
-    const timeout = setTimeout(initUnicorn, 500);
+    // Retry after delays to ensure script is loaded
+    const timeout1 = setTimeout(initUnicorn, 300);
+    const timeout2 = setTimeout(initUnicorn, 800);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
   }, []);
 
   return (
-    <div className="fixed inset-0 w-full h-full" style={{ zIndex: -10 }}>
+    <div className="absolute top-0 w-full h-full -z-10">
       <div 
-        data-us-project="bKN5upvoulAmWvInmHza" 
+        data-us-project="BqS5vTHVEpn6NiF0g8iJ" 
         className="absolute inset-0 w-full h-full"
         style={{ minHeight: '100vh', width: '100vw' }}
       />
