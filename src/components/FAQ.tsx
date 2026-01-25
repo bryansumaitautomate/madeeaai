@@ -74,15 +74,19 @@ const FAQ = () => {
           </Accordion>
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
+        {/* Bottom CTA */}
+        <div className="flex flex-col items-center gap-4 w-full my-12">
+          <p className="text-muted-foreground text-center">
             Still have questions?
           </p>
-          <ControlRoomButton
-            label="Get in touch"
-            icon={ArrowRight}
-            className="px-6 py-3"
-          />
+          {/* Button wrapper - centered, tactile console feel */}
+          <div className="flex justify-center items-center w-full">
+            <ControlRoomButton
+              label="Get in touch"
+              icon={ArrowRight}
+              className="px-6 py-3"
+            />
+          </div>
         </div>
       </div>
     </section>

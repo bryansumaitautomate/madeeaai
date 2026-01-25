@@ -81,16 +81,20 @@ const FinalSignal = () => {
             delay: 1.4,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
+          className="flex flex-col items-center gap-6 w-full my-10"
         >
-          <ControlRoomButton
-            label="Diagnose Your Sales System"
-            icon={ArrowRight}
-          />
+          {/* Button wrapper - centered, tactile console feel */}
+          <div className="flex justify-center items-center w-full">
+            <ControlRoomButton
+              label="Diagnose Your Sales System"
+              icon={ArrowRight}
+            />
+          </div>
+          
+          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest text-center">
+            Free audit • No commitment • Results in 48hrs
+          </p>
         </motion.div>
-
-        <p className="mt-6 text-xs font-mono text-muted-foreground uppercase tracking-widest">
-          Free audit • No commitment • Results in 48hrs
-        </p>
       </div>
     </section>
   );

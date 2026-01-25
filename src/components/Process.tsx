@@ -102,14 +102,17 @@ const Process = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 text-center">
-          <p className="text-sm text-muted-foreground font-mono uppercase tracking-widest mb-6">
+        <div className="mt-20 flex flex-col items-center gap-6 w-full my-12">
+          <p className="text-sm text-muted-foreground font-mono uppercase tracking-widest text-center">
             Ready to start?
           </p>
-          <ControlRoomButton
-            label="Begin Diagnosis"
-            icon={ArrowRight}
-          />
+          {/* Button wrapper - centered, tactile console feel */}
+          <div className="flex justify-center items-center w-full">
+            <ControlRoomButton
+              label="Begin Diagnosis"
+              icon={ArrowRight}
+            />
+          </div>
         </div>
       </div>
     </section>
