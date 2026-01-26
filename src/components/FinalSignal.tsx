@@ -116,7 +116,7 @@ const Footer = () => {
             <img 
               src="/assets/madeea-logo-text.png" 
               alt="Madeea" 
-              className="h-8 w-auto"
+              className="h-5 w-auto"
             />
           </div>
 
