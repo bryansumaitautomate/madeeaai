@@ -13,7 +13,8 @@ const departments = [
 const getLabelStyle = (angle: number) => {
   const containerCenter = 160; // Half of 320px (w-80 = 320px)
   // Use smaller radius for bottom (HR) to keep it visible
-  const radius = angle === 180 ? 115 : 140;
+  // Adjust SALES (90°) to have same visual distance as SUPPORT
+  const radius = angle === 180 ? 115 : angle === 90 ? 130 : 140;
   
   // Calculate position based on angle
   // 0° = top, 90° = right, 180° = bottom, 270° = left
