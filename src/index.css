@@ -505,13 +505,18 @@
 .problem-card-content {
   position: relative;
   z-index: 10;
-  background: #0a0a0f;
+  background: linear-gradient(
+    180deg,
+    hsl(217 60% 8%) 0%,
+    hsl(217 50% 12%) 50%,
+    hsl(217 45% 15%) 100%
+  );
   border-radius: calc(1rem - 1px);
   padding: 1.5rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid hsl(var(--border));
+  border: 1px solid hsl(217 100% 55% / 0.15);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   min-height: 280px;
 }
