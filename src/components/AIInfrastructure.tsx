@@ -198,19 +198,17 @@ const AIInfrastructure = () => {
           {infrastructureLayers.map((layer, index) => (
             <motion.div
               key={layer.id}
-              className="group p-5 rounded-xl bg-card/30 border border-border transition-colors duration-300"
-              initial={{ opacity: 0, y: 20 }}
+              className="group p-5 rounded-xl bg-card/30 border border-border"
+              initial={{ opacity: 0, y: 20, boxShadow: 'inset 0 1px 0 hsl(217 100% 55% / 0.1)' }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ 
                 scale: 1.05,
                 borderColor: 'hsl(217 100% 55% / 0.5)',
                 boxShadow: '0 0 25px hsl(217 100% 55% / 0.35), inset 0 1px 0 hsl(217 100% 55% / 0.1)',
+                transition: { duration: 0.4, ease: 'easeOut' }
               }}
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
-              style={{
-                boxShadow: 'inset 0 1px 0 hsl(217 100% 55% / 0.1)',
-              }}
             >
               {/* Icon */}
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
