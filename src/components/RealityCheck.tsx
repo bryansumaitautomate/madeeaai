@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { AlertTriangle, Phone, Headphones, Settings, Megaphone, Users, CheckCircle2 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
-
 interface ProblemCardProps {
   title: string;
   icon: LucideIcon;
@@ -9,24 +8,20 @@ interface ProblemCardProps {
   problems: string[];
   featured?: boolean;
 }
-
-const ProblemCard = ({ title, icon: Icon, description, problems, featured = false }: ProblemCardProps) => {
+const ProblemCard = ({
+  title,
+  icon: Icon,
+  description,
+  problems,
+  featured = false
+}: ProblemCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div 
-      className={`problem-card-wrapper ${featured ? 'md:col-span-2' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+  return <div className={`problem-card-wrapper ${featured ? 'md:col-span-2' : ''}`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <div className="problem-card-border">
         {/* Rotating gradient border */}
-        <div 
-          className="problem-card-gradient"
-          style={{
-            animationDuration: isHovered ? '1.5s' : '4s',
-          }}
-        />
+        <div className="problem-card-gradient" style={{
+        animationDuration: isHovered ? '1.5s' : '4s'
+      }} />
         
         {/* Card content */}
         <div className="problem-card-content">
@@ -47,14 +42,12 @@ const ProblemCard = ({ title, icon: Icon, description, problems, featured = fals
 
           {/* Problem list */}
           <ul className="space-y-3">
-            {problems.map((problem, index) => (
-              <li key={index} className="flex items-start gap-3">
+            {problems.map((problem, index) => <li key={index} className="flex items-start gap-3">
                 <CheckCircle2 size={18} className="text-primary flex-shrink-0 mt-0.5" />
                 <span className="font-syne text-sm text-secondary-foreground">
                   {problem}
                 </span>
-              </li>
-            ))}
+              </li>)}
           </ul>
 
           {/* Subtle hover indicator */}
@@ -65,67 +58,37 @@ const ProblemCard = ({ title, icon: Icon, description, problems, featured = fals
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
-const problemData: ProblemCardProps[] = [
-  {
-    title: 'Sales Operations',
-    icon: Phone,
-    description: 'Missed leads and dead databases silently drain your pipeline every day.',
-    problems: [
-      'Unanswered calls going to voicemail',
-      'Leads sitting cold for hours or days',
-      'CRM full of duplicate and stale records',
-    ],
-    featured: true,
-  },
-  {
-    title: 'Customer Support',
-    icon: Headphones,
-    description: 'Repetitive questions eating staff time that could be spent on real problems.',
-    problems: [
-      'Same FAQs answered 50+ times daily',
-      'Ticket backlogs growing faster than resolution',
-      'High-value issues buried under routine noise',
-    ],
-  },
-  {
-    title: 'Operations & Admin',
-    icon: Settings,
-    description: 'Manual data entry and document processing creating invisible bottlenecks.',
-    problems: [
-      'Hours spent on copy-paste data tasks',
-      'Documents processed by hand, one by one',
-      'Errors compounding across systems',
-    ],
-  },
-  {
-    title: 'Marketing & Outreach',
-    icon: Megaphone,
-    description: 'Inconsistent follow-through turning warm prospects cold.',
-    problems: [
-      'Campaign leads not nurtured in time',
-      'Personalization too slow at scale',
-      'Engagement metrics with no follow-up action',
-    ],
-  },
-  {
-    title: 'HR & Onboarding',
-    icon: Users,
-    description: 'Paperwork delays and scheduling chaos frustrating new hires.',
-    problems: [
-      'Offer letters stuck in approval queues',
-      'Interview scheduling taking days',
-      'Onboarding checklists managed manually',
-    ],
-  },
-];
-
+const problemData: ProblemCardProps[] = [{
+  title: 'Sales Operations',
+  icon: Phone,
+  description: 'Missed leads and dead databases silently drain your pipeline every day.',
+  problems: ['Unanswered calls going to voicemail', 'Leads sitting cold for hours or days', 'CRM full of duplicate and stale records'],
+  featured: true
+}, {
+  title: 'Customer Support',
+  icon: Headphones,
+  description: 'Repetitive questions eating staff time that could be spent on real problems.',
+  problems: ['Same FAQs answered 50+ times daily', 'Ticket backlogs growing faster than resolution', 'High-value issues buried under routine noise']
+}, {
+  title: 'Operations & Admin',
+  icon: Settings,
+  description: 'Manual data entry and document processing creating invisible bottlenecks.',
+  problems: ['Hours spent on copy-paste data tasks', 'Documents processed by hand, one by one', 'Errors compounding across systems']
+}, {
+  title: 'Marketing & Outreach',
+  icon: Megaphone,
+  description: 'Inconsistent follow-through turning warm prospects cold.',
+  problems: ['Campaign leads not nurtured in time', 'Personalization too slow at scale', 'Engagement metrics with no follow-up action']
+}, {
+  title: 'HR & Onboarding',
+  icon: Users,
+  description: 'Paperwork delays and scheduling chaos frustrating new hires.',
+  problems: ['Offer letters stuck in approval queues', 'Interview scheduling taking days', 'Onboarding checklists managed manually']
+}];
 const RealityCheck = () => {
-  return (
-    <section id="problems" className="relative z-10 py-24 px-6">
+  return <section id="problems" className="relative z-10 py-24 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -135,7 +98,7 @@ const RealityCheck = () => {
               The Invisible Problem
             </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-serif font-normal tracking-tight text-foreground mb-4">
+          <h2 className="text-3xl font-syne font-normal tracking-tight text-foreground mb-4 md:text-4xl">
             Your teams are fighting fires <br className="hidden md:block" />
             <span className="italic text-primary">AI could prevent.</span>
           </h2>
@@ -146,13 +109,9 @@ const RealityCheck = () => {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {problemData.map((problem) => (
-            <ProblemCard key={problem.title} {...problem} />
-          ))}
+          {problemData.map(problem => <ProblemCard key={problem.title} {...problem} />)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default RealityCheck;

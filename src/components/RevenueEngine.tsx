@@ -10,8 +10,8 @@ const RevenueEngine = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-sm font-mono text-primary tracking-[0.3em] uppercase mb-4">The Infrastructure</h2>
-          <p className="text-3xl md:text-5xl font-light tracking-tight text-foreground">
-            Architecture, not <span className="italic text-muted-foreground">automations.</span>
+          <p className="text-3xl font-light tracking-tight text-foreground md:text-4xl">
+            Architecture, not <span className="italic text-primary">automations.</span>
           </p>
         </div>
 
