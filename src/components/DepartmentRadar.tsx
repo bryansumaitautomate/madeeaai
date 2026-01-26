@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const departments = [
-  { label: 'SALES', angle: 0, status: 'scanning' },
-  { label: 'OPS', angle: 90, status: 'optimal' },
+  { label: 'SALES', angle: 90, status: 'scanning' },
+  { label: 'OPS', angle: 0, status: 'optimal' },
   { label: 'HR', angle: 180, status: 'alert' },
   { label: 'SUPPORT', angle: 270, status: 'scanning' },
 ];
