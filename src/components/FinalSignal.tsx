@@ -122,7 +122,11 @@ const Footer = () => {
   return (
     <footer className="px-6 pb-8 relative">
       {/* Main footer card */}
-      <div className="max-w-7xl mx-auto rounded-3xl px-8 md:px-12 py-10 md:py-14" style={{ background: 'linear-gradient(135deg, hsl(220 16% 12%) 0%, hsl(220 20% 8%) 50%, hsl(220 25% 6%) 100%)' }}>
+      <div className="max-w-7xl mx-auto rounded-3xl overflow-hidden relative ring-1 ring-white/10 bg-card/60 backdrop-blur">
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 pointer-events-none" />
+        
+        <div className="relative px-8 md:px-12 py-10 md:py-14">
         {/* Top section */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
           {/* Left side - Logo, description, email subscription */}
@@ -144,7 +148,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 bg-background border border-border rounded-full px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50"
+                className="flex-1 bg-white/5 ring-1 ring-white/10 rounded-full px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
               <button className="bg-[#84cc16] hover:bg-[#65a30d] text-black font-medium px-6 py-3 rounded-full flex items-center gap-2 transition-colors text-sm">
                 Subscribe
@@ -211,7 +215,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-border mt-12 mb-8" />
+        <div className="h-px bg-white/10 mt-12 mb-8" />
 
         {/* Bottom section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -221,26 +225,27 @@ const Footer = () => {
           </p>
 
           {/* Social icons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <a
               href="#"
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
             >
               <Instagram className="w-4 h-4" />
             </a>
             <a
               href="#"
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
             >
               <Twitter className="w-4 h-4" />
             </a>
             <a
               href="#"
-              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
             >
               <Linkedin className="w-4 h-4" />
             </a>
           </div>
+        </div>
         </div>
       </div>
     </footer>
