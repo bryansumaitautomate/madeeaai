@@ -150,7 +150,7 @@ const Footer = () => {
                 placeholder="Your email"
                 className="flex-1 bg-white/5 ring-1 ring-white/10 rounded-full px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
-              <button className="bg-[#84cc16] hover:bg-[#65a30d] text-black font-medium px-6 py-3 rounded-full flex items-center gap-2 transition-colors text-sm">
+              <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-full flex items-center gap-2 transition-all text-sm shadow-[0_0_20px_hsl(217_100%_55%/0.3)] hover:shadow-[0_0_30px_hsl(217_100%_55%/0.5)]">
                 Subscribe
                 <Send className="w-4 h-4" />
               </button>
