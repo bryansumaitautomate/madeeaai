@@ -507,8 +507,8 @@
   z-index: 10;
   background: linear-gradient(
     180deg,
-    hsl(217 60% 8%) 0%,
-    hsl(217 50% 12%) 50%,
+    hsl(220 20% 6%) 0%,
+    hsl(217 50% 10%) 50%,
     hsl(217 45% 15%) 100%
   );
   border-radius: calc(1rem - 1px);
