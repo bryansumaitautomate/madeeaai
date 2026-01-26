@@ -12,7 +12,8 @@ const departments = [
 // Container is 320px (w-80), center at 160px
 const getLabelStyle = (angle: number) => {
   const containerCenter = 160; // Half of 320px (w-80 = 320px)
-  const radius = 140; // Distance from center
+  // Use smaller radius for bottom (HR) to keep it visible
+  const radius = angle === 180 ? 115 : 140;
   
   // Calculate position based on angle
   // 0° = top, 90° = right, 180° = bottom, 270° = left
