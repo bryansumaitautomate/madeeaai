@@ -3,6 +3,13 @@ import AuraBackground from './AuraBackground';
 import SalesControlRoom from './SalesControlRoom';
 import ControlRoomButton from './ControlRoomButton';
 
+// Import partner logos
+import ghlLogo from '@/assets/logos/ghl.png';
+import n8nLogo from '@/assets/logos/n8n.png';
+import twilioLogo from '@/assets/logos/twilio.png';
+import supabaseLogo from '@/assets/logos/supabase.png';
+import retellLogo from '@/assets/logos/retell.png';
+
 const Hero = () => {
   return (
     <div className="relative min-h-screen overflow-hidden bg-transparent pt-20">
@@ -68,12 +75,12 @@ const Hero = () => {
           <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-8 text-center">
             Integrated with Industry Standards
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-60 transition-all">
-            <span className="font-bold text-lg">GHL</span>
-            <span className="font-mono font-bold text-lg text-primary">n8n</span>
-            <span className="font-semibold text-lg">Twilio</span>
-            <span className="font-bold text-lg italic text-accent">Supabase</span>
-            <span className="font-bold text-lg">Retell AI</span>
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 opacity-60 grayscale hover:grayscale-0 hover:opacity-80 transition-all">
+            <img src={ghlLogo} alt="GoHighLevel" className="h-8 object-contain" />
+            <img src={n8nLogo} alt="n8n" className="h-7 object-contain" />
+            <img src={twilioLogo} alt="Twilio" className="h-7 object-contain" />
+            <img src={supabaseLogo} alt="Supabase" className="h-7 object-contain" />
+            <img src={retellLogo} alt="Retell AI" className="h-6 object-contain" />
           </div>
         </div>
       </section>
