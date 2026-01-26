@@ -8,12 +8,22 @@ const departments = [
   { label: 'SUPPORT', angle: 270, status: 'scanning' },
 ];
 
-// Position labels outside the radar circle at cardinal positions
-const getLabelPosition = (angle: number) => {
-  const radius = 130;
-  const x = Math.cos((angle - 90) * (Math.PI / 180)) * radius;
-  const y = Math.sin((angle - 90) * (Math.PI / 180)) * radius;
-  return { x, y };
+// Position labels at cardinal positions with explicit coordinates
+// Container is 320px (w-80), center at 160px
+const getLabelStyle = (angle: number) => {
+  const containerCenter = 160; // Half of 320px (w-80 = 320px)
+  const radius = 140; // Distance from center
+  
+  // Calculate position based on angle
+  // 0° = top, 90° = right, 180° = bottom, 270° = left
+  const angleRad = (angle - 90) * (Math.PI / 180);
+  const x = containerCenter + Math.cos(angleRad) * radius;
+  const y = containerCenter + Math.sin(angleRad) * radius;
+  
+  return {
+    left: `${x}px`,
+    top: `${y}px`,
+  };
 };
 
 const statusColors = {
@@ -80,12 +90,15 @@ export default function DepartmentRadar() {
         {/* Department labels */}
         {departments.map((dept, index) => {
           const isActive = index === activeIndex;
+          const labelStyle = getLabelStyle(dept.angle);
           return (
             <motion.div
               key={dept.label}
-              className="absolute top-1/2 left-1/2 flex flex-col items-center z-10"
+              className="absolute flex flex-col items-center z-10"
               style={{
-                transform: `translate(calc(-50% + ${getLabelPosition(dept.angle).x}px), calc(-50% + ${getLabelPosition(dept.angle).y}px))`,
+                left: labelStyle.left,
+                top: labelStyle.top,
+                transform: 'translate(-50%, -50%)', // Center the label on its position
               }}
               animate={{
                 scale: isActive ? 1.1 : 1,
