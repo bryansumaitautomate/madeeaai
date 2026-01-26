@@ -207,7 +207,7 @@ const AIInfrastructure = () => {
                 boxShadow: '0 0 25px hsl(217 100% 55% / 0.35), inset 0 1px 0 hsl(217 100% 55% / 0.1)',
               }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.3 }}
+              transition={{ duration: 0.3 }}
               style={{
                 boxShadow: 'inset 0 1px 0 hsl(217 100% 55% / 0.1)',
               }}
