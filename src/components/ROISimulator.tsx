@@ -181,7 +181,7 @@ const ROISimulator = () => {
                     <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">
                       Annual Cost of Manual Processes
                     </p>
-                    <p className="text-3xl font-serif font-light text-foreground/50">
+                    <p className="text-3xl font-syne font-light text-foreground/50">
                       {formatCurrency(calculations.annualManualCost)}
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
@@ -194,7 +194,7 @@ const ROISimulator = () => {
                     <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-2">
                       Potential Savings with Madeea.io
                     </p>
-                    <p className="text-5xl md:text-6xl font-serif font-light text-primary" style={{
+                    <p className="text-5xl md:text-6xl font-syne font-light text-primary" style={{
                     textShadow: '0 0 40px hsl(217 100% 55% / 0.6), 0 0 80px hsl(217 100% 55% / 0.3), 0 0 120px hsl(217 100% 55% / 0.1)'
                   }}>
                       {formatCurrency(calculations.annualSavings)}
