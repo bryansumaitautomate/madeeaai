@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertTriangle, Phone, Headphones, Settings, Megaphone, Users } from 'lucide-react';
+import { AlertTriangle, Phone, Headphones, Settings, Megaphone, Users, CheckCircle2 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 
 interface ProblemCardProps {
@@ -46,11 +46,11 @@ const ProblemCard = ({ title, icon: Icon, description, problems, featured = fals
           </p>
 
           {/* Problem list */}
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {problems.map((problem, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                <span className="text-xs text-muted-foreground font-light">
+              <li key={index} className="flex items-start gap-3">
+                <CheckCircle2 size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-secondary-foreground">
                   {problem}
                 </span>
               </li>
