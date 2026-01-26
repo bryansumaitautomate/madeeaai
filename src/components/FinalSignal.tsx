@@ -112,13 +112,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/60 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(26,107,255,0.3)]">
-              <span className="text-primary-foreground font-bold text-lg">M</span>
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-foreground">
-              Madeea<span className="text-primary">.io</span>
-            </span>
+          <div className="flex items-center">
+            <img 
+              src="/assets/madeea-logo-text.png" 
+              alt="Madeea" 
+              className="h-8 w-auto"
+            />
           </div>
 
           {/* Links */}
