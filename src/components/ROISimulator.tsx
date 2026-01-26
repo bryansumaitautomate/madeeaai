@@ -60,8 +60,7 @@ const ROISimulator = () => {
           <h2 className="text-sm font-mono text-primary tracking-[0.3em] uppercase mb-4">
             Efficiency Calculator
           </h2>
-          <p className="text-3xl font-syne font-light tracking-tight text-foreground md:text-4xl">
-            Calculate your <span className="italic">hidden</span> operational cost.
+          <p className="text-3xl font-syne font-light tracking-tight text-foreground md:text-4xl">Calculate your  hidden  operational cost.<span className="italic text-primary"> hidden</span> operational cost.
           </p>
         </div>
 
