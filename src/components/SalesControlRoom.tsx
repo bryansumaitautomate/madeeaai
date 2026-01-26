@@ -80,7 +80,7 @@ export default function SalesControlRoom() {
               <span className="font-mono text-sm text-emerald-400">9</span>
             </div>
           </div>
-          <span className="font-mono text-[9px] text-muted-foreground/60">Powered by Madeea.io</span>
+          <span className="font-mono text-muted-foreground/60 text-sm">Powered by Madeea.io</span>
         </div>
       </motion.div>
     </div>;
