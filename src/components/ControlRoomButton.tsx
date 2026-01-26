@@ -25,12 +25,6 @@ const ControlRoomButton = ({
     }));
   }, [label]);
 
-  // Calculate approximate min-width based on label length to prevent jumping
-  const minWidth = useMemo(() => {
-    // Approximate character width (in ch units) + padding for icon
-    return `${label.length + (Icon ? 4 : 0)}ch`;
-  }, [label, Icon]);
-
   return (
     <button
       onClick={onClick}
@@ -44,11 +38,8 @@ const ControlRoomButton = ({
         className
       )}
     >
-      {/* Text wrapper with min-width to prevent layout shift */}
-      <span 
-        className="txt-wrapper relative z-10 flex justify-center items-center"
-        style={{ minWidth }}
-      >
+     {/* Text wrapper */}
+     <span className="txt-wrapper relative z-10 flex items-center justify-center gap-2">
         {/* Staggered letters container */}
         <span className="flex items-center justify-center">
           {letters.map((letter, index) => (
@@ -70,7 +61,7 @@ const ControlRoomButton = ({
         {Icon && (
           <Icon
             size={20}
-            className="btn-icon relative z-10 ml-3 flex-shrink-0"
+           className="btn-icon relative z-10 flex-shrink-0"
             style={{
               animationDelay: `${letters.length * 0.08}s`,
             }}
