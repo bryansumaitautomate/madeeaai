@@ -30,7 +30,7 @@ const RevenueEngine = () => {
           }, {
             label: 'SMS / DMs',
             icon: MessageSquare
-          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center gap-4 group hover:border-primary/50 hover:shadow-[0_0_20px_hsl(217_100%_55%/0.3)] transition-all duration-300">
+          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center gap-4 group hover:border-primary/50 hover:shadow-[0_0_20px_hsl(217_100%_55%/0.3)] hover:scale-105 transition-all duration-300">
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center group-hover:text-primary transition-colors">
                   <item.icon size={16} />
                 </div>
@@ -97,7 +97,7 @@ const RevenueEngine = () => {
           }, {
             label: 'Auto-Booking',
             icon: Zap
-          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center justify-end gap-4 group hover:border-primary/50 hover:shadow-[0_0_20px_hsl(217_100%_55%/0.3)] transition-all duration-300">
+          }].map((item, i) => <div key={i} className="p-4 bg-card border border-border rounded-xl flex items-center justify-end gap-4 group hover:border-primary/50 hover:shadow-[0_0_20px_hsl(217_100%_55%/0.3)] hover:scale-105 transition-all duration-300">
                 <span className="text-sm font-medium text-secondary-foreground">{item.label}</span>
                 <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center group-hover:text-accent transition-colors">
                   <item.icon size={16} />
