@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Send, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import ControlRoomButton from './ControlRoomButton';
@@ -101,49 +101,146 @@ const FinalSignal = () => {
 };
 
 const Footer = () => {
-  const links = [
-    { label: "Services", href: "#" },
-    { label: "ROI", href: "#" },
-    { label: "Results", href: "#" },
+  const productLinks = [
+    { label: "Features", href: "#" },
+    { label: "How it works", href: "#" },
+    { label: "Pricing", href: "#" },
+  ];
+
+  const companyLinks = [
+    { label: "About", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Careers", href: "#" },
+  ];
+
+  const legalLinks = [
+    { label: "Privacy", href: "#" },
+    { label: "Terms", href: "#" },
+    { label: "Contact", href: "#" },
   ];
 
   return (
-    <footer className="border-t border-border py-16 px-6 relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Logo */}
-          <div className="flex items-center">
+    <footer className="px-6 pb-8 relative">
+      {/* Main footer card */}
+      <div className="max-w-7xl mx-auto bg-card rounded-3xl px-8 md:px-12 py-10 md:py-14">
+        {/* Top section */}
+        <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
+          {/* Left side - Logo, description, email subscription */}
+          <div className="flex flex-col gap-6 max-w-md">
+            {/* Logo */}
             <img 
               src="/assets/madeea-logo-text.png" 
               alt="Madeea" 
-              className="h-5 w-auto"
+              className="h-8 w-auto self-start"
             />
+            
+            {/* Description */}
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Transform your sales into a productivity powerhouse with AI-powered lead management that saves you hours every week.
+            </p>
+            
+            {/* Email subscription */}
+            <div className="flex gap-2">
+              <input
+                type="email"
+                placeholder="Your email"
+                className="flex-1 bg-background border border-border rounded-full px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50"
+              />
+              <button className="bg-[#84cc16] hover:bg-[#65a30d] text-black font-medium px-6 py-3 rounded-full flex items-center gap-2 transition-colors text-sm">
+                Subscribe
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+            
+            {/* Disclaimer */}
+            <p className="text-xs text-muted-foreground">
+              Monthly updates. No spam.
+            </p>
           </div>
 
-          {/* Links */}
-          <nav className="flex items-center gap-8">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors font-mono uppercase tracking-wider"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          {/* Right side - Link columns */}
+          <div className="flex gap-12 md:gap-20">
+            {/* Product */}
+            <div className="flex flex-col gap-4">
+              <h4 className="text-foreground font-medium text-sm">Product</h4>
+              <nav className="flex flex-col gap-3">
+                {productLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground text-sm hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
 
-          {/* Copyright */}
-          <p className="text-xs text-muted-foreground font-mono">
-            © 2025 Madeea.io — AI Sales Infrastructure
-          </p>
+            {/* Company */}
+            <div className="flex flex-col gap-4">
+              <h4 className="text-foreground font-medium text-sm">Company</h4>
+              <nav className="flex flex-col gap-3">
+                {companyLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground text-sm hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Legal */}
+            <div className="flex flex-col gap-4">
+              <h4 className="text-foreground font-medium text-sm">Legal</h4>
+              <nav className="flex flex-col gap-3">
+                {legalLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-muted-foreground text-sm hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom decorative line */}
-        <div className="mt-12 flex items-center justify-center gap-4">
-          <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary/30" />
-          <div className="w-2 h-2 rounded-full bg-primary/50" />
-          <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary/30" />
+        {/* Divider */}
+        <div className="h-px bg-border mt-12 mb-8" />
+
+        {/* Bottom section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Copyright */}
+          <p className="text-sm text-muted-foreground">
+            © 2025 Madeea. All rights reserved.
+          </p>
+
+          {/* Social icons */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+            >
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-colors"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
