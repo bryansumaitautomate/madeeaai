@@ -76,11 +76,11 @@ const Hero = () => {
             Integrated with Industry Standards
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 opacity-80 hover:opacity-100 transition-all">
-            <img src={ghlLogo} alt="GoHighLevel" className="h-8 object-contain" />
-            <img src={n8nLogo} alt="n8n" className="h-7 object-contain" />
+            <img src={ghlLogo} alt="GoHighLevel" className="h-10 object-contain" />
+            <img src={n8nLogo} alt="n8n" className="h-8 object-contain" />
             <img src={twilioLogo} alt="Twilio" className="h-7 object-contain" />
             <img src={supabaseLogo} alt="Supabase" className="h-7 object-contain" />
-            <img src={retellLogo} alt="Retell AI" className="h-6 object-contain" />
+            <img src={retellLogo} alt="Retell AI" className="h-8 object-contain" />
           </div>
         </div>
       </section>
