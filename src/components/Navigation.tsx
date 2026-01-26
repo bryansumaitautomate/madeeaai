@@ -72,18 +72,13 @@ const Navigation = () => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="flex items-center gap-2 group"
+            className="flex items-center group"
           >
-            {/* Stylized M Icon */}
-            <div className="relative w-9 h-9 flex items-center justify-center">
-              <div className="absolute inset-0 bg-primary/20 rounded-lg blur-md group-hover:bg-primary/30 transition-all duration-300" />
-              <span className="relative font-serif text-2xl font-bold text-primary drop-shadow-[0_0_8px_hsl(217_100%_55%/0.5)]">
-                M
-              </span>
-            </div>
-            <span className="text-xl font-serif tracking-tight text-foreground">
-              adeea<span className="text-primary">.io</span>
-            </span>
+            <img 
+              src="/assets/madeea-logo-text.png" 
+              alt="Madeea" 
+              className="h-8 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation - Centered */}
