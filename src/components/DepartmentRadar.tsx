@@ -79,36 +79,44 @@ export default function DepartmentRadar() {
           return (
             <motion.div
               key={dept.label}
-              className="absolute top-1/2 left-1/2 flex flex-col items-center"
+              className="absolute top-1/2 left-1/2 flex flex-col items-center z-10"
               style={{
                 transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
               }}
               animate={{
                 scale: isActive ? 1.1 : 1,
-                opacity: isActive ? 1 : 0.6,
+                opacity: isActive ? 1 : 0.7,
               }}
               transition={{ duration: 0.3 }}
             >
-              <span
-                className={`font-mono text-[11px] uppercase tracking-widest font-semibold ${
-                  isActive ? statusColors[dept.status as keyof typeof statusColors] : 'text-muted-foreground'
-                }`}
-              >
-                {dept.label}
-              </span>
-              <motion.span
-                className={`font-mono text-xs ${
-                  isActive ? 'text-foreground' : 'text-muted-foreground/60'
-                }`}
-                animate={{ opacity: isActive ? 1 : 0.5 }}
-              >
-                {pulseData[dept.label]}%
-              </motion.span>
+              <div className="relative px-2 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/50">
+                <span
+                  className={`font-mono text-[11px] uppercase tracking-widest font-bold drop-shadow-lg ${
+                    isActive ? statusColors[dept.status as keyof typeof statusColors] : 'text-muted-foreground'
+                  }`}
+                  style={{
+                    textShadow: isActive ? '0 0 8px currentColor' : 'none',
+                  }}
+                >
+                  {dept.label}
+                </span>
+                <motion.span
+                  className={`block font-mono text-sm font-bold text-center ${
+                    isActive ? 'text-foreground' : 'text-muted-foreground/70'
+                  }`}
+                  animate={{ opacity: isActive ? 1 : 0.6 }}
+                  style={{
+                    textShadow: isActive ? '0 0 6px rgba(255,255,255,0.5)' : 'none',
+                  }}
+                >
+                  {pulseData[dept.label]}%
+                </motion.span>
+              </div>
               {isActive && (
                 <motion.div
-                  className="absolute -inset-3 rounded-full border border-primary/50"
+                  className="absolute -inset-1 rounded-lg border border-primary/50"
                   initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1.2, opacity: 0 }}
+                  animate={{ scale: 1.3, opacity: 0 }}
                   transition={{ duration: 1, repeat: Infinity }}
                 />
               )}
