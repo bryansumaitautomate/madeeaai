@@ -143,17 +143,13 @@ const Footer = () => {
               Transform your sales into a productivity powerhouse with AI-powered lead management that saves you hours every week.
             </p>
             
-            {/* Email subscription */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 items-center">
               <input
                 type="email"
                 placeholder="Your email"
                 className="flex-1 bg-white/5 ring-1 ring-white/10 rounded-full px-5 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
-              <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-full flex items-center gap-2 transition-all text-sm shadow-[0_0_20px_hsl(217_100%_55%/0.3)] hover:shadow-[0_0_30px_hsl(217_100%_55%/0.5)]">
-                Subscribe
-                <Send className="w-4 h-4" />
-              </button>
+              <ControlRoomButton label="Subscribe" />
             </div>
             
             {/* Disclaimer */}
