@@ -9,10 +9,8 @@ import n8nLogo from '@/assets/logos/n8n.png';
 import twilioLogo from '@/assets/logos/twilio.png';
 import supabaseLogo from '@/assets/logos/supabase.png';
 import retellLogo from '@/assets/logos/retell.png';
-
 const Hero = () => {
-  return (
-    <div className="relative min-h-screen overflow-hidden bg-transparent pt-20">
+  return <div className="relative min-h-screen overflow-hidden bg-transparent pt-20">
 
       {/* Hero Content */}
       <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-20 pb-16 max-w-5xl mx-auto">
@@ -43,10 +41,7 @@ const Hero = () => {
           {/* Buttons row */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
             {/* Primary CTA */}
-            <ControlRoomButton
-              label="Get Your Free AI Audit"
-              icon={ArrowRight}
-            />
+            <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} />
             
             {/* Secondary Ghost Button */}
             <button className="group flex items-center gap-3 px-6 py-4 rounded-full border border-white/20 bg-transparent hover:border-primary/50 hover:bg-white/5 transition-all duration-300">
@@ -76,16 +71,14 @@ const Hero = () => {
             Integrated with Industry Standards
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 opacity-80 hover:opacity-100 transition-all">
-            <img src={ghlLogo} alt="GoHighLevel" className="h-10 object-contain scale-150" />
-            <img src={n8nLogo} alt="n8n" className="h-10 object-contain scale-[2]" />
+            <img src={ghlLogo} alt="GoHighLevel" className="h-10 object-contain scale-[2.2]" />
+            <img src={n8nLogo} alt="n8n" className="h-10 object-contain scale-[2.2]" />
             <img src={twilioLogo} alt="Twilio" className="h-7 object-contain" />
             <img src={supabaseLogo} alt="Supabase" className="h-7 object-contain" />
             <img src={retellLogo} alt="Retell AI" className="h-8 object-contain scale-150" />
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default Hero;
