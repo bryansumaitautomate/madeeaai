@@ -75,7 +75,7 @@ const Hero = () => {
           <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-8 text-center">
             Integrated with Industry Standards
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 opacity-60 grayscale hover:grayscale-0 hover:opacity-80 transition-all">
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 opacity-80 hover:opacity-100 transition-all">
             <img src={ghlLogo} alt="GoHighLevel" className="h-8 object-contain" />
             <img src={n8nLogo} alt="n8n" className="h-7 object-contain" />
             <img src={twilioLogo} alt="Twilio" className="h-7 object-contain" />
