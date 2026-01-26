@@ -17,6 +17,7 @@ export default {
         sans: ['Geist', 'system-ui', 'sans-serif'],
         serif: ['Instrument Serif', 'Georgia', 'serif'],
         mono: ['Geist Mono', 'monospace'],
+        syne: ['Syne', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
