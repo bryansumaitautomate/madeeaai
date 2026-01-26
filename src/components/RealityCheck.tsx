@@ -36,12 +36,12 @@ const ProblemCard = ({ title, icon: Icon, description, problems, featured = fals
           </div>
 
           {/* Title */}
-          <h3 className="font-serif text-xl text-foreground mb-2">
+          <h3 className="font-syne text-xl font-semibold text-foreground mb-2">
             {title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+          <p className="font-syne text-sm text-muted-foreground mb-4 leading-relaxed">
             {description}
           </p>
 
@@ -50,7 +50,7 @@ const ProblemCard = ({ title, icon: Icon, description, problems, featured = fals
             {problems.map((problem, index) => (
               <li key={index} className="flex items-start gap-3">
                 <CheckCircle2 size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-secondary-foreground">
+                <span className="font-syne text-sm text-secondary-foreground">
                   {problem}
                 </span>
               </li>
