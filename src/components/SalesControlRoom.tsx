@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import DepartmentRadar from './DepartmentRadar';
 import LeadVelocityChart from './LeadVelocityChart';
 import SystemStatusBadge from './SystemStatusBadge';
-
 export default function SalesControlRoom() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
+  const {
+    scrollYProgress
+  } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
@@ -16,18 +16,15 @@ export default function SalesControlRoom() {
   const rotateX = useTransform(scrollYProgress, [0, 0.5], [45, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1]);
-
-  return (
-    <div ref={containerRef} className="relative w-full max-w-5xl mx-auto" style={{ perspective: '1500px' }}>
-      <motion.div
-        style={{
-          rotateX,
-          scale,
-          opacity,
-          transformStyle: 'preserve-3d',
-        }}
-        className="relative glass-infrastructure rounded-2xl p-6 border border-border"
-      >
+  return <div ref={containerRef} className="relative w-full max-w-5xl mx-auto" style={{
+    perspective: '1500px'
+  }}>
+      <motion.div style={{
+      rotateX,
+      scale,
+      opacity,
+      transformStyle: 'preserve-3d'
+    }} className="relative glass-infrastructure rounded-2xl p-6 border border-border">
         {/* Header bar */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
           <div className="flex items-center gap-3">
@@ -83,11 +80,8 @@ export default function SalesControlRoom() {
               <span className="font-mono text-sm text-emerald-400">9</span>
             </div>
           </div>
-          <span className="font-mono text-[9px] text-muted-foreground/60">
-            Powered by 1Prompt Engine
-          </span>
+          <span className="font-mono text-[9px] text-muted-foreground/60">Powered by Madeea.io</span>
         </div>
       </motion.div>
-    </div>
-  );
+    </div>;
 }
