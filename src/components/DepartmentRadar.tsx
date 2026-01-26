@@ -10,7 +10,7 @@ const departments = [
 
 // Position labels outside the radar circle at cardinal positions
 const getLabelPosition = (angle: number) => {
-  const radius = 140;
+  const radius = 130;
   const x = Math.cos((angle - 90) * (Math.PI / 180)) * radius;
   const y = Math.sin((angle - 90) * (Math.PI / 180)) * radius;
   return { x, y };
@@ -48,7 +48,7 @@ export default function DepartmentRadar() {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Radar container */}
-      <div className="relative w-64 h-64">
+      <div className="relative w-80 h-80">
         {/* Concentric circles */}
         {[1, 2, 3].map((ring) => (
           <div
