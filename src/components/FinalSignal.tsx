@@ -122,7 +122,7 @@ const Footer = () => {
   return (
     <footer className="px-6 pb-8 relative">
       {/* Main footer card */}
-      <div className="max-w-7xl mx-auto bg-card rounded-3xl px-8 md:px-12 py-10 md:py-14">
+      <div className="max-w-7xl mx-auto rounded-3xl px-8 md:px-12 py-10 md:py-14" style={{ background: 'linear-gradient(135deg, hsl(220 16% 12%) 0%, hsl(220 20% 8%) 50%, hsl(220 25% 6%) 100%)' }}>
         {/* Top section */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8">
           {/* Left side - Logo, description, email subscription */}
