@@ -198,7 +198,7 @@ const AIInfrastructure = () => {
           {infrastructureLayers.map((layer, index) => (
             <motion.div
               key={layer.id}
-              className="group p-5 rounded-xl bg-card/30 border border-border hover:border-primary/40 transition-all duration-300"
+              className="group p-5 rounded-xl bg-card/30 border border-border hover:border-primary/50 hover:shadow-[0_0_20px_hsl(217_100%_55%/0.3)] hover:scale-105 transition-all duration-300"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
