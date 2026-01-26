@@ -107,7 +107,7 @@ const InfrastructureCards = () => {
             Core Modules
           </h2>
           <p className="text-3xl md:text-5xl font-serif font-light tracking-tight text-foreground">
-            The <span className="italic font-syne text-primary">infrastructure</span> that powers growth.
+            The <span className="italic font-syne text-primary"> infrastructure </span> that powers growth.
           </p>
         </div>
 
