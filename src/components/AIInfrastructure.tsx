@@ -205,6 +205,7 @@ const AIInfrastructure = () => {
                 scale: 1.05,
                 borderColor: 'hsl(217 100% 55% / 0.5)',
                 boxShadow: '0 0 20px hsl(217 100% 55% / 0.3)',
+                transition: { duration: 0.3, ease: 'easeOut' }
               }}
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
