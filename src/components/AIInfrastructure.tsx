@@ -170,7 +170,7 @@ const AIInfrastructure = () => {
           <span className="text-xs font-mono text-primary uppercase tracking-[0.3em] mb-4 block">
             The Complete System
           </span>
-          <h2 className="text-4xl md:text-6xl font-serif tracking-tight text-foreground mb-6">
+          <h2 className="text-4xl font-syne tracking-tight text-foreground mb-6 md:text-5xl">
             AI Sales <span className="italic text-primary">Infrastructure</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
