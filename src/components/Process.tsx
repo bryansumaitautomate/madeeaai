@@ -71,10 +71,6 @@ const Process = () => {
                 </div>
               </div>
 
-              {/* Step Number */}
-              <span className="text-6xl font-mono font-bold text-foreground/5 absolute top-6 right-6 leading-none">
-                {step.id}
-              </span>
 
               {/* Icon Container */}
               <div className="w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center mb-8 group-hover:border-primary/40 group-hover:shadow-[0_0_20px_rgba(26,107,255,0.15)] transition-all duration-500">
