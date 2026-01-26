@@ -72,9 +72,10 @@ export default function DepartmentRadar() {
         {/* Department labels */}
         {departments.map((dept, index) => {
           const isActive = index === activeIndex;
-          const radius = 120;
-          const x = Math.cos((dept.angle - 90) * (Math.PI / 180)) * radius;
-          const y = Math.sin((dept.angle - 90) * (Math.PI / 180)) * radius;
+          const radius = 145; // Pushed further out to avoid overlap
+          const angleRad = (dept.angle - 90) * (Math.PI / 180);
+          const x = Math.cos(angleRad) * radius;
+          const y = Math.sin(angleRad) * radius;
 
           return (
             <motion.div
