@@ -29,6 +29,6 @@ const steps = [{
   features: ["Autonomous Voice/Text", "GHL/n8n/Supabase Stack", "Fully Managed Service"]
 }];
 const MadeeaMethod = () => {
-  return;
+  return null;
 };
 export default MadeeaMethod;
