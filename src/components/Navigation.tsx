@@ -100,6 +100,7 @@ const Navigation = () => {
             <ControlRoomButton
               label="Get Your Free AI Audit"
               className="px-5 py-2.5 text-xs"
+              href="https://madeeaioaudit.lovable.app"
             />
           </div>
 
@@ -201,7 +202,7 @@ const Navigation = () => {
                   <ControlRoomButton
                     label="Get Your Free AI Audit"
                     className="w-full justify-center"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    href="https://madeeaioaudit.lovable.app"
                   />
                 </motion.div>
 
