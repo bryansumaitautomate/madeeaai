@@ -251,7 +251,7 @@ const ROISimulator = () => {
 
         {/* CTA */}
         <div className="flex justify-center mt-16">
-          <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} />
+          <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeeaioaudit.lovable.app" />
         </div>
       </div>
     </section>;
