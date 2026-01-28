@@ -8,6 +8,7 @@ interface ControlRoomButtonProps {
   isLoading?: boolean;
   icon?: LucideIcon;
   className?: string;
+  href?: string;
 }
 
 const ControlRoomButton = ({
@@ -16,6 +17,7 @@ const ControlRoomButton = ({
   isLoading = false,
   icon: Icon,
   className,
+  href,
 }: ControlRoomButtonProps) => {
   // Split label into individual letters with staggered animation delays
   const letters = useMemo(() => {
@@ -25,21 +27,10 @@ const ControlRoomButton = ({
     }));
   }, [label]);
 
-  return (
-    <button
-      onClick={onClick}
-      disabled={isLoading}
-      className={cn(
-        "control-room-btn",
-        // Flexbox precision - centered layout
-        "flex justify-center items-center",
-        "text-base md:text-lg",
-        isLoading && "loading",
-        className
-      )}
-    >
-     {/* Text wrapper */}
-     <span className="txt-wrapper relative z-10 flex items-center justify-center gap-2">
+  const content = (
+    <>
+      {/* Text wrapper */}
+      <span className="txt-wrapper relative z-10 flex items-center justify-center gap-2">
         {/* Staggered letters container */}
         <span className="flex items-center justify-center">
           {letters.map((letter, index) => (
@@ -61,7 +52,7 @@ const ControlRoomButton = ({
         {Icon && (
           <Icon
             size={20}
-           className="btn-icon relative z-10 flex-shrink-0"
+            className="btn-icon relative z-10 flex-shrink-0"
             style={{
               animationDelay: `${letters.length * 0.08}s`,
             }}
@@ -75,6 +66,38 @@ const ControlRoomButton = ({
           <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </span>
       )}
+    </>
+  );
+
+  const sharedClasses = cn(
+    "control-room-btn",
+    // Flexbox precision - centered layout
+    "flex justify-center items-center",
+    "text-base md:text-lg",
+    isLoading && "loading",
+    className
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={sharedClasses}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={isLoading}
+      className={sharedClasses}
+    >
+      {content}
     </button>
   );
 };

@@ -41,7 +41,7 @@ const Hero = () => {
           {/* Buttons row */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full">
             {/* Primary CTA */}
-            <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} />
+            <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeeaioaudit.lovable.app" />
             
             {/* Secondary Ghost Button */}
             <button className="group flex items-center gap-3 px-6 py-4 rounded-full border border-white/20 bg-transparent hover:border-primary/50 hover:bg-white/5 transition-all duration-300">
