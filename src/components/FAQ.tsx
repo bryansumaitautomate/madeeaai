@@ -18,7 +18,7 @@ const faqItems = [
   },
   {
     question: "Will this replace my sales team?",
-    answer: "No—it amplifies them. Our AI infrastructure handles the repetitive tasks like initial response, qualification questions, and scheduling. Your sales team focuses on what they do best: closing deals with qualified, warmed-up prospects."
+    answer: "No, it amplifies them. Our AI infrastructure handles the repetitive tasks like initial response, qualification questions, and scheduling. Your sales team focuses on what they do best: closing deals with qualified, warmed-up prospects."
   },
   {
     question: "What if a lead asks something the AI can't handle?",
