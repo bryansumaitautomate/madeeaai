@@ -10,7 +10,7 @@ import { ArrowRight } from 'lucide-react';
 const faqItems = [
   {
     question: "What exactly is AI sales infrastructure?",
-    answer: "AI sales infrastructure is a custom-built system of automated tools that handle your lead response, qualification, and appointment booking 24/7. It combines AI voice agents, automated messaging, and smart routing to ensure no lead falls through the cracks—even at 3 AM."
+    answer: "AI sales infrastructure is a custom-built system of automated tools that handle your lead response, qualification, and appointment booking 24/7. It combines AI voice agents, automated messaging, and smart routing to ensure no lead falls through the cracks, even at 3 AM."
   },
   {
     question: "How quickly can you implement a system for my business?",
