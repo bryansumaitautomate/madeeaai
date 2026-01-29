@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ControlRoomButton from './ControlRoomButton';
 import { cn } from '@/lib/utils';
+import madeeaLogo from '@/assets/madeea-logo-new.png';
 const navLinks = [{
   label: 'Problem',
   href: '#problem'
@@ -66,7 +67,7 @@ const Navigation = () => {
             behavior: 'smooth'
           });
         }} className="flex items-center group">
-            <img alt="Madeea" className="h-8 w-auto" src="/lovable-uploads/6edda713-18f1-494c-9e52-b621a4ae1da8.png" />
+            <img alt="Madeea" className="h-8 w-auto" src={madeeaLogo} />
           </a>
 
           {/* Desktop Navigation - Centered */}
