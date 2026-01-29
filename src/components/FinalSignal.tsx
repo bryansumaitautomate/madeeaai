@@ -136,7 +136,7 @@ const Footer = () => {
             <img 
               src={madeeaLogo} 
               alt="Madeea" 
-              className="h-12 w-auto self-start"
+              className="h-16 w-auto self-start"
             />
             
             {/* Description */}
