@@ -2,6 +2,7 @@ import { ArrowRight, Send, Instagram, Twitter, Linkedin } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import ControlRoomButton from './ControlRoomButton';
+import madeeaLogo from '@/assets/madeea-logo-new.png';
 
 const FinalSignal = () => {
   const textRef = useRef(null);
@@ -133,9 +134,9 @@ const Footer = () => {
           <div className="flex flex-col gap-6 max-w-md">
             {/* Logo */}
             <img 
-              src="/assets/madeea-logo-text.png" 
+              src={madeeaLogo} 
               alt="Madeea" 
-              className="h-8 w-auto self-start"
+              className="h-10 w-auto self-start"
             />
             
             {/* Description */}
