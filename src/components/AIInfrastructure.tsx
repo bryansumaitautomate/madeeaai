@@ -5,7 +5,7 @@ const infrastructureLayers = [{
   id: 'acquisition',
   title: 'Acquisition',
   icon: Radio,
-  description: 'Capture every lead from every channel—calls, forms, DMs, ads—into one unified intake.',
+  description: 'Capture every lead from every channel calls, forms, DMs, ads into one unified intake.',
   status: 'ACTIVE'
 }, {
   id: 'orchestration',
