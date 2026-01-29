@@ -51,11 +51,7 @@ const ProblemCard = ({
           </ul>
 
           {/* Subtle hover indicator */}
-          <div className={`mt-4 pt-4 border-t border-border transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-primary">
-              AI can fix this →
-            </span>
-          </div>
+          
         </div>
       </div>
     </div>;
