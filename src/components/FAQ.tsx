@@ -30,7 +30,7 @@ const faqItems = [
   },
   {
     question: "What's included in the free system audit?",
-    answer: "We analyze your current lead response times, identify revenue leaks in your sales funnel, and map out exactly where AI automation would have the highest impact. You'll receive a detailed report with specific recommendations—no obligation, no pressure."
+    answer: "We analyze your current lead response times, identify revenue leaks in your sales funnel, and map out exactly where AI automation would have the highest impact. You'll receive a detailed report with specific recommendations, no obligation, no pressure."
   }
 ];
 
