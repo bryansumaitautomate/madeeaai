@@ -31,10 +31,7 @@ const Hero = () => {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed mb-10">
-          Madeea.io starts with a free AI audit... stopping the leaks, starting with 
-          what matters most to you right now.
-        </p>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed mb-10">Madeea.ai starts with a free AI audit.. stopping the leaks, starting with what matters most to you right now.</p>
 
         {/* CTA Section */}
         <div className="flex flex-col items-center gap-6 w-full my-10">
@@ -44,12 +41,7 @@ const Hero = () => {
             <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeeaioaudit.lovable.app" />
             
             {/* Secondary Ghost Button */}
-            <button className="group flex items-center gap-3 px-6 py-4 rounded-full border border-white/20 bg-transparent hover:border-primary/50 hover:bg-white/5 transition-all duration-300">
-              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <Play size={14} className="text-foreground ml-0.5" />
-              </div>
-              <span className="text-sm font-medium text-foreground">See How It Works</span>
-            </button>
+            
           </div>
           
           {/* Supporting text */}
