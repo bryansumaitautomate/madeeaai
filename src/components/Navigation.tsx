@@ -67,7 +67,7 @@ const Navigation = () => {
             behavior: 'smooth'
           });
         }} className="flex items-center group">
-            <img alt="Madeea" className="h-8 w-auto" src={madeeaLogo} />
+            <img alt="Madeea" className="h-10 w-auto" src={madeeaLogo} />
           </a>
 
           {/* Desktop Navigation - Centered */}
