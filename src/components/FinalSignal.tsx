@@ -1,4 +1,4 @@
-import { ArrowRight, Send, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { ArrowRight, Send } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import ControlRoomButton from './ControlRoomButton';
@@ -221,27 +221,6 @@ const Footer = () => {
             © 2025 Madeea. All rights reserved.
           </p>
 
-          {/* Social icons */}
-          <div className="flex items-center gap-2">
-            <a
-              href="#"
-              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
-            >
-              <Twitter className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
-              className="w-8 h-8 rounded-full bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-white/10 transition-colors"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-          </div>
         </div>
         </div>
       </div>
