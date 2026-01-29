@@ -87,7 +87,7 @@ const FinalSignal = () => {
           {/* Button wrapper - centered, tactile console feel */}
           <div className="flex justify-center items-center w-full">
             <ControlRoomButton
-              label="Diagnose Your Sales System"
+              label="Claim your Free Audit"
               icon={ArrowRight}
             />
           </div>
