@@ -73,7 +73,7 @@ const ControlRoomButton = ({
     "control-room-btn",
     // Flexbox precision - centered layout
     "flex justify-center items-center",
-    "text-base md:text-lg",
+    "text-sm sm:text-base md:text-lg",
     isLoading && "loading",
     className
   );

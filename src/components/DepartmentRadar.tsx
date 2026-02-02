@@ -58,9 +58,9 @@ export default function DepartmentRadar() {
   }, []);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Radar container */}
-      <div className="relative w-80 h-80">
+    <div className="relative w-full h-full flex items-center justify-center min-h-[200px]">
+      {/* Radar container - responsive sizing */}
+      <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80">
         {/* Concentric circles */}
         {[1, 2, 3].map((ring) => (
           <div
@@ -87,20 +87,28 @@ export default function DepartmentRadar() {
         />
 
         {/* Center dot */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-[0_0_20px_hsl(var(--primary))]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary shadow-[0_0_20px_hsl(var(--primary))]" />
 
-        {/* Department labels */}
+        {/* Department labels - simplified positioning for mobile */}
         {departments.map((dept, index) => {
           const isActive = index === activeIndex;
-          const labelStyle = getLabelStyle(dept.angle);
+          // Use percentage-based positioning for responsiveness
+          const positions = [
+            { left: '50%', top: '5%' },    // OPS (top)
+            { left: '95%', top: '50%' },   // SALES (right)
+            { left: '50%', top: '95%' },   // HR (bottom)
+            { left: '5%', top: '50%' },    // SUPPORT (left)
+          ];
+          const pos = positions[index];
+          
           return (
             <motion.div
               key={dept.label}
               className="absolute flex flex-col items-center z-10"
               style={{
-                left: labelStyle.left,
-                top: labelStyle.top,
-                transform: 'translate(-50%, -50%)', // Center the label on its position
+                left: pos.left,
+                top: pos.top,
+                transform: 'translate(-50%, -50%)',
               }}
               animate={{
                 scale: isActive ? 1.1 : 1,
@@ -109,7 +117,7 @@ export default function DepartmentRadar() {
               transition={{ duration: 0.3 }}
             >
               <span
-                className={`font-mono text-[11px] uppercase tracking-widest font-bold drop-shadow-lg ${
+                className={`font-mono text-[9px] sm:text-[10px] md:text-[11px] uppercase tracking-widest font-bold drop-shadow-lg ${
                   isActive ? statusColors[dept.status as keyof typeof statusColors] : 'text-muted-foreground'
                 }`}
                 style={{
@@ -119,7 +127,7 @@ export default function DepartmentRadar() {
                 {dept.label}
               </span>
               <motion.span
-                className={`font-mono text-sm font-bold text-center ${
+                className={`font-mono text-[10px] sm:text-xs md:text-sm font-bold text-center ${
                   isActive ? 'text-foreground' : 'text-muted-foreground/70'
                 }`}
                 animate={{ opacity: isActive ? 1 : 0.6 }}
@@ -131,7 +139,7 @@ export default function DepartmentRadar() {
               </motion.span>
               {isActive && (
                 <motion.div
-                  className="absolute -inset-2 rounded-lg border border-primary/50"
+                  className="absolute -inset-1.5 sm:-inset-2 rounded-lg border border-primary/50"
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1.2, opacity: 0 }}
                   transition={{ duration: 1, repeat: Infinity }}
@@ -143,7 +151,7 @@ export default function DepartmentRadar() {
 
         {/* Blip dots on radar */}
         {departments.map((dept, index) => {
-          const blipRadius = 40 + (pulseData[dept.label] / 100) * 50;
+          const blipRadius = 30 + (pulseData[dept.label] / 100) * 35;
           const x = Math.cos((dept.angle - 90) * (Math.PI / 180)) * blipRadius;
           const y = Math.sin((dept.angle - 90) * (Math.PI / 180)) * blipRadius;
           const isActive = index === activeIndex;
@@ -151,7 +159,7 @@ export default function DepartmentRadar() {
           return (
             <motion.div
               key={`blip-${dept.label}`}
-              className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary"
+              className="absolute top-1/2 left-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary"
               style={{
                 transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
                 boxShadow: isActive ? '0 0 12px hsl(var(--primary))' : 'none',
@@ -167,15 +175,15 @@ export default function DepartmentRadar() {
       </div>
 
       {/* Status readout */}
-      <div className="absolute bottom-4 left-4 right-4">
+      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary animate-pulse" />
+            <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-wider text-muted-foreground">
               Scanning: <span className="text-primary">{departments[activeIndex].label}</span>
             </span>
           </div>
-          <span className="font-mono text-[10px] text-muted-foreground/60">
+          <span className="font-mono text-[8px] sm:text-[10px] text-muted-foreground/60 hidden sm:inline">
             Multi-Department Pulse Active
           </span>
         </div>

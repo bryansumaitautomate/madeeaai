@@ -84,27 +84,27 @@ const problemData: ProblemCardProps[] = [{
   problems: ['Offer letters stuck in approval queues', 'Interview scheduling taking days', 'Onboarding checklists managed manually']
 }];
 const RealityCheck = () => {
-  return <section id="problems" className="relative z-10 py-24 px-6">
+  return <section id="problems" className="relative z-10 py-16 sm:py-20 md:py-24 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-4 sm:mb-6">
             <AlertTriangle size={12} className="text-primary" />
-            <span className="text-[11px] font-mono uppercase tracking-widest text-primary">
+            <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-primary">
               The Invisible Problem
             </span>
           </div>
-          <h2 className="text-3xl font-syne font-normal tracking-tight text-foreground mb-4 md:text-4xl">
-            Your teams are fighting fires <br className="hidden md:block" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-syne font-normal tracking-tight text-foreground mb-3 sm:mb-4 px-2">
+            Your teams are fighting fires <br className="hidden sm:block" />
             <span className="italic text-primary">AI could prevent.</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
             Every department has hidden inefficiencies. Here's where the money leaks.
           </p>
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
           {problemData.map(problem => <ProblemCard key={problem.title} {...problem} />)}
         </div>
       </div>
