@@ -36,37 +36,37 @@ const faqItems = [
 
 const FAQ = () => {
   return (
-    <section id="faq" className="relative py-24 px-6">
+    <section id="faq" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6">
       {/* Subtle glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[300px] sm:h-[350px] md:h-[400px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
       
       <div className="relative z-10 max-w-3xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-primary mb-4 block">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-primary mb-3 sm:mb-4 block">
             Common Questions
           </span>
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-gradient mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-light tracking-tight text-gradient mb-3 sm:mb-4 px-2">
             Everything you need to know
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
             Get answers about our AI sales infrastructure and how it can transform your revenue operations.
           </p>
         </div>
 
         {/* FAQ Accordion */}
-        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 md:p-8">
-          <Accordion type="single" collapsible className="space-y-4">
+        <div className="bg-card/50 backdrop-blur-sm border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8">
+          <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
             {faqItems.map((item, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
                 className="border-b border-border/50 last:border-0"
               >
-                <AccordionTrigger className="text-left text-foreground hover:text-primary transition-colors py-4 text-base md:text-lg font-medium [&[data-state=open]]:text-primary">
+                <AccordionTrigger className="text-left text-foreground hover:text-primary transition-colors py-3 sm:py-4 text-sm sm:text-base md:text-lg font-medium [&[data-state=open]]:text-primary">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4 leading-relaxed">
+                <AccordionContent className="text-muted-foreground pb-3 sm:pb-4 leading-relaxed text-sm sm:text-base">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -75,8 +75,8 @@ const FAQ = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="flex flex-col items-center gap-4 w-full my-12">
-          <p className="text-muted-foreground text-center">
+        <div className="flex flex-col items-center gap-3 sm:gap-4 w-full my-8 sm:my-10 md:my-12">
+          <p className="text-muted-foreground text-center text-sm sm:text-base">
             Still have questions?
           </p>
           {/* Button wrapper - centered, tactile console feel */}
@@ -84,7 +84,7 @@ const FAQ = () => {
             <ControlRoomButton
               label="Get in touch"
               icon={ArrowRight}
-              className="px-6 py-3"
+              className="px-5 sm:px-6 py-2.5 sm:py-3"
             />
           </div>
         </div>
