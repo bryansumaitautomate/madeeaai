@@ -79,7 +79,7 @@ const FinalSignal = () => {
       }} className="flex flex-col items-center gap-4 sm:gap-6 w-full my-8 sm:my-10">
           {/* Button wrapper - centered, tactile console feel */}
           <div className="flex justify-center items-center w-full px-4 sm:px-0">
-            <ControlRoomButton label="Claim your Free Audit" icon={ArrowRight} href="https://madeeaioaudit.lovable.app" />
+            <ControlRoomButton label="Claim your Free Audit" icon={ArrowRight} href="https://madeea-aiaudit.lovable.app" />
           </div>
           
           <p className="text-[10px] sm:text-xs font-mono text-muted-foreground uppercase tracking-widest text-center">

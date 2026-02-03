@@ -38,7 +38,7 @@ const Hero = () => {
           {/* Buttons row */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full px-4 sm:px-0">
             {/* Primary CTA */}
-            <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeeaioaudit.lovable.app" />
+            <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeea-aiaudit.lovable.app" />
             
             {/* Secondary Ghost Button */}
             
