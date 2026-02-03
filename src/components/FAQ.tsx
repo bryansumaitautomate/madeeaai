@@ -4,8 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ControlRoomButton from './ControlRoomButton';
-import { ArrowRight } from 'lucide-react';
 
 const faqItems = [
   {
@@ -74,20 +72,6 @@ const FAQ = () => {
           </Accordion>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="flex flex-col items-center gap-3 sm:gap-4 w-full my-8 sm:my-10 md:my-12">
-          <p className="text-muted-foreground text-center text-sm sm:text-base">
-            Still have questions?
-          </p>
-          {/* Button wrapper - centered, tactile console feel */}
-          <div className="flex justify-center items-center w-full">
-            <ControlRoomButton
-              label="Get in touch"
-              icon={ArrowRight}
-              className="px-5 sm:px-6 py-2.5 sm:py-3"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );
