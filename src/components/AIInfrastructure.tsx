@@ -253,7 +253,7 @@ const AIInfrastructure = () => {
 
         {/* CTA */}
         <div className="flex justify-center px-4 sm:px-0">
-          <ControlRoomButton label="See Your Infrastructure Blueprint" icon={ArrowRight} />
+          <ControlRoomButton label="See Your Infrastructure Blueprint" icon={ArrowRight} href="https://madeea-aiaudit.lovable.app" />
         </div>
       </div>
     </section>;
