@@ -1,30 +1,37 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import DepartmentRadar from './DepartmentRadar';
 import LeadVelocityChart from './LeadVelocityChart';
 import SystemStatusBadge from './SystemStatusBadge';
+
 export default function SalesControlRoom() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {
-    scrollYProgress
-  } = useScroll({
+  const isMobile = useIsMobile();
+  const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  // Transform values based on scroll
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [45, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1]);
+  // Disable heavy 3D transforms on mobile for smooth scrolling
+  const rotateX = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0, 0] : [45, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], isMobile ? [0.95, 1] : [0.85, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1]);
-  return <div ref={containerRef} className="relative w-full max-w-5xl mx-auto" style={{
-    perspective: '1500px'
-  }}>
-      <motion.div style={{
-      rotateX,
-      scale,
-      opacity,
-      transformStyle: 'preserve-3d'
-    }} className="relative glass-infrastructure rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-border">
+
+  return (
+    <div ref={containerRef} className="relative w-full max-w-5xl mx-auto" style={{
+      perspective: isMobile ? 'none' : '1500px'
+    }}>
+      <motion.div
+        style={{
+          rotateX,
+          scale,
+          opacity,
+          transformStyle: isMobile ? 'flat' : 'preserve-3d',
+          willChange: 'transform, opacity',
+        }}
+        className="relative glass-infrastructure rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-border"
+      >
         {/* Header bar */}
         <div className="flex items-center justify-between mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-border">
           <div className="flex items-center gap-2 sm:gap-3">
@@ -83,5 +90,6 @@ export default function SalesControlRoom() {
           <span className="font-mono text-muted-foreground/60 text-xs sm:text-sm">Powered by Madeea.ai</span>
         </div>
       </motion.div>
-    </div>;
+    </div>
+  );
 }
