@@ -31,6 +31,13 @@ const InfrastructureCard = ({
   }} transition={{
     duration: 0.5
   }} className="infrastructure-card-wrapper group">
+      {/* Featured badge - outside the clipped border */}
+      {featured && <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30">
+          <span className="px-4 py-1.5 text-[10px] font-mono uppercase tracking-widest bg-primary text-primary-foreground rounded-full shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
+            Recommended
+          </span>
+        </div>}
+
       {/* The rotating border container */}
       <div className="infrastructure-card-border">
         {/* Rotating gradient element */}
@@ -38,13 +45,6 @@ const InfrastructureCard = ({
         
         {/* Card content */}
         <div className="infrastructure-card-content">
-          {/* Featured badge */}
-          {featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-              <span className="px-4 py-1 text-[10px] font-mono uppercase tracking-widest bg-primary text-primary-foreground rounded-full shadow-[0_0_20px_hsl(var(--primary)/0.4)]">
-                Recommended
-              </span>
-            </div>}
-
           {/* Icon */}
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-6 group-hover:shadow-[0_0_30px_hsl(var(--primary)/0.3)] transition-shadow duration-500">
             <IconComponent size={28} className="text-primary" />
