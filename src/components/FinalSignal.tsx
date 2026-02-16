@@ -29,8 +29,8 @@ const FinalSignal = () => {
   return <section className="relative py-24 sm:py-32 md:py-40 overflow-hidden">
       {/* Massive Blue Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-primary/20 rounded-full blur-[100px] sm:blur-[150px]" />
-        <div className="absolute w-[200px] sm:w-[300px] md:w-[400px] h-[200px] sm:h-[300px] md:h-[400px] bg-primary/30 rounded-full blur-[60px] sm:blur-[100px]" />
+        <div className="w-[300px] sm:w-[600px] md:w-[800px] h-[300px] sm:h-[600px] md:h-[800px] bg-primary/20 rounded-full blur-[60px] sm:blur-[150px]" />
+        <div className="absolute w-[150px] sm:w-[300px] md:w-[400px] h-[150px] sm:h-[300px] md:h-[400px] bg-primary/30 rounded-full blur-[40px] sm:blur-[100px]" />
       </div>
 
       {/* Grid overlay */}

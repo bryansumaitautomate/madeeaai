@@ -36,7 +36,7 @@ const FAQ = () => {
   return (
     <section id="faq" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6">
       {/* Subtle glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] md:w-[800px] h-[300px] sm:h-[350px] md:h-[400px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] md:w-[800px] h-[200px] sm:h-[350px] md:h-[400px] bg-primary/5 blur-[80px] sm:blur-[150px] rounded-full pointer-events-none" />
       
       <div className="relative z-10 max-w-3xl mx-auto">
         {/* Section Header */}

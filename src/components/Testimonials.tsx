@@ -90,7 +90,7 @@ const Testimonials = () => {
     <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[300px] sm:w-[450px] md:w-[600px] h-[300px] sm:h-[450px] md:h-[600px] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="w-[200px] sm:w-[450px] md:w-[600px] h-[200px] sm:h-[450px] md:h-[600px] bg-primary/10 rounded-full blur-[60px] sm:blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
