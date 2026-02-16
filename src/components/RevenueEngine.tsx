@@ -1,6 +1,6 @@
 import { Zap, Mic, MessageSquare, Share2, Settings2, Shield } from 'lucide-react';
 const RevenueEngine = () => {
-  return <section className="py-16 sm:py-20 md:py-24 bg-background relative overflow-hidden">
+  return <section id="solutions" className="py-16 sm:py-20 md:py-24 bg-background relative overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
       backgroundImage: 'radial-gradient(circle, hsl(var(--primary)) 1px, transparent 1px)',

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import madeeaLogo from '@/assets/madeea-logo-new.png';
 const navLinks = [{
   label: 'Problem',
-  href: '#problem'
+  href: '#problems'
 }, {
   label: 'Solutions',
   href: '#solutions'
