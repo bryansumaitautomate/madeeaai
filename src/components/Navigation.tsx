@@ -22,7 +22,8 @@ const navLinks = [{
   external: true
 }, {
   label: 'Free Audit',
-  href: '/audit'
+  href: 'https://madeea.ai/audit',
+  external: true
 }];
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -94,7 +95,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <ControlRoomButton label="Get Your Free AI Audit" className="px-5 py-2.5 text-xs" href="/audit" />
+            <ControlRoomButton label="Get Your Free AI Audit" className="px-5 py-2.5 text-xs" href="https://madeea.ai/audit" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -197,7 +198,7 @@ const Navigation = () => {
             }} transition={{
               delay: 0.5
             }} className="pt-8">
-                  <ControlRoomButton label="Get Your Free AI Audit" className="w-full justify-center" href="/audit" />
+                  <ControlRoomButton label="Get Your Free AI Audit" className="w-full justify-center" href="https://madeea.ai/audit" />
                 </motion.div>
 
                 {/* Footer Info */}
