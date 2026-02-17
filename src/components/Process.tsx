@@ -111,7 +111,7 @@ const Process = () => {
             <ControlRoomButton
               label="Get Your Free AI Audit"
               icon={ArrowRight}
-              href="https://madeea-aiaudit.lovable.app"
+              href="/audit"
             />
           </div>
         </div>
