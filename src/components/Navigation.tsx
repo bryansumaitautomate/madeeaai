@@ -22,7 +22,7 @@ const navLinks = [{
   external: true
 }, {
   label: 'Free Audit',
-  href: '#audit'
+  href: '/audit'
 }];
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,10 +48,15 @@ const Navigation = () => {
   }, [isMobileMenuOpen]);
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    if (href.startsWith('/')) {
+      window.location.href = href;
+      setIsMobileMenuOpen(false);
+      return;
+    }
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
-      const offsetTop = element.offsetTop - 100; // Account for fixed header
+      const offsetTop = element.offsetTop - 100;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
@@ -89,7 +94,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <ControlRoomButton label="Get Your Free AI Audit" className="px-5 py-2.5 text-xs" href="https://madeea-aiaudit.lovable.app" />
+            <ControlRoomButton label="Get Your Free AI Audit" className="px-5 py-2.5 text-xs" href="/audit" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -192,7 +197,7 @@ const Navigation = () => {
             }} transition={{
               delay: 0.5
             }} className="pt-8">
-                  <ControlRoomButton label="Get Your Free AI Audit" className="w-full justify-center" href="https://madeea-aiaudit.lovable.app" />
+                  <ControlRoomButton label="Get Your Free AI Audit" className="w-full justify-center" href="/audit" />
                 </motion.div>
 
                 {/* Footer Info */}

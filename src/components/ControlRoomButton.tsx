@@ -78,12 +78,14 @@ const ControlRoomButton = ({
     className
   );
 
+  const isExternal = href?.startsWith('http');
+
   if (href) {
     return (
       <a
         href={href}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         className={sharedClasses}
       >
         {content}
