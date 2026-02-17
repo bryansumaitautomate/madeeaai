@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { AuditHero } from "@/components/audit/AuditHero";
-import { AuditNavbar } from "@/components/audit/AuditNavbar";
+import Navigation from "@/components/Navigation";
 import { AuditWizard } from "@/components/audit/AuditWizard";
 import { AuditAuraBackground } from "@/components/audit/AuditAuraBackground";
 
@@ -16,7 +16,7 @@ const AuditPage = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden relative">
       <AuditAuraBackground />
-      <AuditNavbar />
+      <Navigation />
       {!showWizard ? (
         <AuditHero onStartAudit={handleStartAudit} />
       ) : (
