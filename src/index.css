@@ -564,3 +564,235 @@
 .problem-card-wrapper:hover .problem-card-content::before {
   opacity: 1;
 }
+
+/* ===== AUDIT PAGE - ANIMATIONS & DESIGN ===== */
+/* Font imports for audit page */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Audit Glass Card */
+.audit-glass-card {
+  @apply relative overflow-hidden rounded-2xl border backdrop-blur-md;
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.audit-glass-card::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%);
+}
+
+/* Audit btn-shine */
+.audit-btn-shine {
+  @apply relative overflow-hidden rounded-full font-medium transition-all duration-300;
+  background: #EBEBEB;
+  color: #0B0C0E;
+}
+
+.audit-btn-shine::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.audit-btn-shine:hover::before {
+  transform: translateX(100%);
+}
+
+/* Hero fade up animation */
+@keyframes audit-hero-fade-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-hero-fade-up {
+  animation: audit-hero-fade-up 600ms ease-out forwards;
+}
+
+/* Animation delays */
+.audit-animation-delay-200 { animation-delay: 200ms; }
+.audit-animation-delay-300 { animation-delay: 300ms; }
+.audit-animation-delay-500 { animation-delay: 500ms; }
+.audit-animation-delay-700 { animation-delay: 700ms; }
+.audit-animation-delay-1200 { animation-delay: 1200ms; }
+.audit-animation-delay-1400 { animation-delay: 1400ms; }
+.audit-animation-delay-1600 { animation-delay: 1600ms; }
+
+/* Hero Card Spring Entrance */
+@keyframes audit-hero-spring {
+  0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+  50% { transform: translateY(-5px) scale(1.02); }
+  75% { transform: translateY(2px) scale(0.99); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.audit-animate-hero-spring {
+  animation: audit-hero-spring 800ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Subtle Float */
+@keyframes audit-float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.audit-animate-float-subtle {
+  animation: audit-float-subtle 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Chart Line Self-Drawing */
+@keyframes audit-chart-draw {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.audit-animate-chart-draw {
+  animation: audit-chart-draw 2s ease-out forwards;
+  animation-delay: 600ms;
+}
+
+/* Chart Area Fill */
+@keyframes audit-chart-fill {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.audit-animate-chart-fill {
+  opacity: 0;
+  animation: audit-chart-fill 1s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+/* Dot Appear */
+@keyframes audit-dot-appear {
+  0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.audit-animate-dot-appear {
+  transform-origin: center;
+  animation: audit-dot-appear 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: 2.4s;
+}
+
+/* Dot Glow Pulse */
+@keyframes audit-dot-glow {
+  0% { fill-opacity: 0; }
+  50% { fill-opacity: 0.4; }
+  100% { fill-opacity: 0.3; }
+}
+
+.audit-animate-dot-glow {
+  animation: audit-dot-glow 600ms ease-out forwards;
+  animation-delay: 2.5s;
+}
+
+/* Slide in from Right */
+@keyframes audit-slide-in-right {
+  0% { opacity: 0; transform: translateX(20px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.audit-animate-slide-in-right {
+  animation: audit-slide-in-right 500ms ease-out forwards;
+}
+
+/* Glow Pulse */
+@keyframes audit-glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.audit-animate-glow-pulse {
+  animation: audit-glow-pulse 4s ease-in-out infinite;
+}
+
+/* Fade In */
+@keyframes audit-fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: audit-fade-in 0.5s ease-out forwards;
+}
+
+/* Processing Screen - Singularity Pulse */
+@keyframes audit-singularity-pulse {
+  0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+.audit-animate-singularity-pulse {
+  animation: audit-singularity-pulse 3s ease-in-out infinite;
+}
+
+/* Singularity Ring */
+@keyframes audit-singularity-ring {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+  50% { opacity: 0.9; transform: translateX(-50%) scaleY(1.2); }
+}
+
+.audit-animate-singularity-ring {
+  animation: audit-singularity-ring 2.5s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* Text Shimmer */
+@keyframes audit-text-shimmer {
+  0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  20% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  80% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  85% { opacity: 0.8; transform: translateX(-2px); filter: blur(1px); }
+  90% { opacity: 1; transform: translateX(2px); filter: blur(0); }
+  95% { opacity: 0.9; transform: translateX(-1px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.audit-animate-text-shimmer {
+  animation: audit-text-shimmer 1.5s ease-out forwards;
+}
+
+/* Shimmer bar */
+@keyframes audit-shimmer-bar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.audit-animate-shimmer-bar {
+  animation: audit-shimmer-bar 1.5s ease-in-out infinite;
+}
+
+/* Particle absorption */
+@keyframes audit-particle-absorb {
+  0% { opacity: 0.6; transform: translateY(0) scale(1); }
+  50% { opacity: 0.8; transform: translateY(20vh) scale(0.8); }
+  100% { opacity: 0; transform: translateY(60vh) scale(0.2); }
+}
+
+.audit-animate-particle-absorb {
+  animation: audit-particle-absorb 4s ease-in infinite;
+}
+
+/* White Flash Effect */
+@keyframes audit-flash-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.audit-animate-flash-fade {
+  animation: audit-flash-fade 600ms ease-out forwards;
+}
+
+@keyframes audit-flash-white {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(3); }
+  100% { filter: brightness(1); }
+}
+
+.audit-animate-flash-white {
+  animation: audit-flash-white 600ms ease-out forwards;
+}
