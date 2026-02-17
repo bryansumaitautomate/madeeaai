@@ -253,7 +253,7 @@ const ROISimulator = () => {
 
         {/* CTA */}
         <div className="flex justify-center mt-10 sm:mt-12 md:mt-16 px-4 sm:px-0">
-          <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="/audit" />
+          <ControlRoomButton label="Get Your Free AI Audit" icon={ArrowRight} href="https://madeea.ai/audit" />
         </div>
       </div>
     </section>;
