@@ -18,8 +18,7 @@ const navLinks = [{
   href: '#results'
 }, {
   label: 'AI Hub',
-  href: 'https://madeea.ai/ai-hub',
-  external: true
+  href: '/ai-hub'
 }, {
   label: 'Free Audit',
   href: '/audit'
@@ -81,11 +80,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation - Centered */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map(link => link.external ? (
-              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="nav-link relative text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all duration-300 py-2">
-                {link.label}
-              </a>
-            ) : (
+            {navLinks.map(link => (
               <a key={link.label} href={link.href} onClick={e => handleNavClick(e, link.href)} className="nav-link relative text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all duration-300 py-2">
                 {link.label}
               </a>
@@ -168,7 +163,7 @@ const Navigation = () => {
               <div className="relative flex flex-col h-full pt-24 px-8 pb-8">
                 {/* Nav Links */}
                 <nav className="flex-1 flex flex-col gap-2">
-                  {navLinks.map((link, index) => <motion.a key={link.label} href={link.href} onClick={e => !link.external && handleNavClick(e, link.href)} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} initial={{
+                  {navLinks.map((link, index) => <motion.a key={link.label} href={link.href} onClick={e => handleNavClick(e, link.href)} initial={{
                 opacity: 0,
                 x: 20
               }} animate={{
