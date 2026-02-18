@@ -18,7 +18,7 @@ const navLinks = [{
   href: '#results'
 }, {
   label: 'AI Hub',
-  href: 'https://madeeaaihub.lovable.app',
+  href: 'https://madeea.ai/ai-hub',
   external: true
 }, {
   label: 'Free Audit',
