@@ -1,48 +1,77 @@
 
 
-# Fix the Audit Analyzer Edge Function
+# Fix Audit Analyzer JSON Parsing Failures
 
 ## Problem
-The audit analysis fails with a 404 error because:
-- The function calls a non-existent internal endpoint (`/functions/v1/ai`)
-- The function is not registered in the backend config
+The edge function intermittently fails with a 500 error because OpenAI sometimes returns slightly malformed JSON (e.g., single quotes instead of double quotes, trailing commas, or control characters). The logs confirm:
+- `Expected double-quoted property name in JSON at position 1402 (line 41 column 29)`
+
+The current fallback parsing tries to extract JSON from code blocks but does NOT fix malformed JSON content.
+
+## Solution
+Add a robust `extractJsonFromResponse` helper that cleans up common JSON issues before parsing.
 
 ## Changes
 
-### 1. Register the function in `supabase/config.toml`
-Add the function entry so it deploys correctly and allows public access (needed since the audit wizard doesn't require login):
+### 1. Update `supabase/functions/analyze-audit/index.ts`
+
+**Add a new helper function** (before the `serve` block) that:
+- Strips markdown code block wrappers
+- Finds JSON boundaries
+- Attempts direct parse first
+- On failure, fixes common issues: trailing commas, control characters, single quotes
+- Retries parse with cleaned content
+
+**Replace the JSON parsing block** (lines 149-168) to use this new helper instead of the current fragile try/catch chain.
+
+### Technical Detail
 
 ```text
-[functions.analyze-audit]
-verify_jwt = false
+function extractJsonFromResponse(response: string): unknown {
+  // Remove markdown code blocks
+  let cleaned = response
+    .replace(/```json\s*/gi, "")
+    .replace(/```\s*/g, "")
+    .trim();
+
+  // Find JSON boundaries
+  const jsonStart = cleaned.search(/[\{\[]/);
+  const jsonEnd = cleaned.lastIndexOf(
+    jsonStart !== -1 && cleaned[jsonStart] === '[' ? ']' : '}'
+  );
+
+  if (jsonStart === -1 || jsonEnd === -1) {
+    throw new Error("No JSON object found in response");
+  }
+
+  cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
+
+  // Attempt direct parse
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    // Fix common malformed JSON issues
+    cleaned = cleaned
+      .replace(/,\s*}/g, "}")       // trailing commas before }
+      .replace(/,\s*]/g, "]")       // trailing commas before ]
+      .replace(/[\x00-\x1F\x7F]/g, "")  // control characters
+      .replace(/'/g, '"');           // single quotes to double quotes
+
+    return JSON.parse(cleaned);
+  }
+}
 ```
 
-### 2. Fix the AI call in `supabase/functions/analyze-audit/index.ts`
-Replace lines 112-133 to call OpenAI directly using the existing `OPENAI_API_KEY` secret:
-
-- **Endpoint**: `https://api.openai.com/v1/chat/completions`
-- **Auth**: `Bearer ${OPENAI_API_KEY}`
-- **Model**: `gpt-4o` (OpenAI's best model for structured JSON output)
-- **Validate** the API key exists before proceeding
-
-### 3. Add n8n webhook call (send results)
-After a successful analysis, POST the results to your n8n webhook at `https://madeeas.app.n8n.cloud/webhook/madeea-com`. This runs in the background -- if the webhook fails, the user still sees their results.
-
-### 4. Deploy and test
-Deploy the updated function and verify the audit flow works end-to-end.
+Then in the main handler, replace lines 149-168 with:
+```text
+const analysisResult = extractJsonFromResponse(content);
+```
 
 ## What stays the same
 - All frontend code (no UI changes)
-- The system prompt and persona
-- Input sanitization logic
-- JSON parsing and error handling
+- The system prompt, sanitization, CORS headers
+- The n8n webhook integration
+- The OpenAI API call configuration
 
-## Technical Summary
-
-| Item | Before (broken) | After (fixed) |
-|---|---|---|
-| Config | Not registered | `verify_jwt = false` |
-| AI endpoint | `${supabaseUrl}/functions/v1/ai` (404) | `https://api.openai.com/v1/chat/completions` |
-| API key | Service role key (wrong usage) | `OPENAI_API_KEY` secret |
-| Model | `openai/gpt-5` (via broken proxy) | `gpt-4o` |
-| Webhook | None | POST results to n8n |
+## Expected outcome
+The function will handle malformed JSON responses gracefully instead of crashing with a 500 error.
