@@ -1,35 +1,48 @@
 
 
-## MADEEA.IO Landing Page
+# Fix the Audit Analyzer Edge Function
 
-A modern, dark-themed single-page landing site for your AI sales infrastructure business, featuring the Ion Blue aura aesthetic and sophisticated typography.
+## Problem
+The audit analysis fails with a 404 error because:
+- The function calls a non-existent internal endpoint (`/functions/v1/ai`)
+- The function is not registered in the backend config
 
----
+## Changes
 
-### Page Sections
+### 1. Register the function in `supabase/config.toml`
+Add the function entry so it deploys correctly and allows public access (needed since the audit wizard doesn't require login):
 
-**1. Hero Section**
-- Your Ion Blue aura background glow effect
-- Navigation bar with logo, section links, and Client Login button (styling only)
-- Bold headline: "Your sales system is already leaking money."
-- Subtext explaining the AI sales infrastructure value proposition
-- Primary CTA button with glow effect ("Begin System Audit")
-- Secondary "Watch the Engine Room" video button
-- Trust bar showing integrations (GHL, n8n, Twilio, Supabase, Retell AI)
+```text
+[functions.analyze-audit]
+verify_jwt = false
+```
 
-**2. FAQ Section**
-- Accordion-style expandable questions and answers
-- Matches the dark Carbon Steel card styling
-- Ion Blue accent on active/open states
-- Common questions about your AI sales infrastructure service
+### 2. Fix the AI call in `supabase/functions/analyze-audit/index.ts`
+Replace lines 112-133 to call OpenAI directly using the existing `OPENAI_API_KEY` secret:
 
----
+- **Endpoint**: `https://api.openai.com/v1/chat/completions`
+- **Auth**: `Bearer ${OPENAI_API_KEY}`
+- **Model**: `gpt-4o` (OpenAI's best model for structured JSON output)
+- **Validate** the API key exists before proceeding
 
-### Design System
-- **Background**: Ignito Black (#0C0F14)
-- **Cards/Sections**: Carbon Steel (#161A22)
-- **Primary Accent**: Ion Blue (#1A6BFF) with glow effects
-- **Secondary Accent**: Plasma Purple (#7B3FF2)
-- **Typography**: Clean, modern with mono accents for technical feel
-- **Responsive**: Fully mobile-friendly layout
+### 3. Add n8n webhook call (send results)
+After a successful analysis, POST the results to your n8n webhook at `https://madeeas.app.n8n.cloud/webhook/madeea-com`. This runs in the background -- if the webhook fails, the user still sees their results.
 
+### 4. Deploy and test
+Deploy the updated function and verify the audit flow works end-to-end.
+
+## What stays the same
+- All frontend code (no UI changes)
+- The system prompt and persona
+- Input sanitization logic
+- JSON parsing and error handling
+
+## Technical Summary
+
+| Item | Before (broken) | After (fixed) |
+|---|---|---|
+| Config | Not registered | `verify_jwt = false` |
+| AI endpoint | `${supabaseUrl}/functions/v1/ai` (404) | `https://api.openai.com/v1/chat/completions` |
+| API key | Service role key (wrong usage) | `OPENAI_API_KEY` secret |
+| Model | `openai/gpt-5` (via broken proxy) | `gpt-4o` |
+| Webhook | None | POST results to n8n |
