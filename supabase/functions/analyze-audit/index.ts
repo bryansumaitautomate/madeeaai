@@ -129,7 +129,8 @@ Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}
           { role: 'user', content: userPrompt }
         ],
         temperature: 0.7,
-        max_tokens: 3000,
+        max_tokens: 4000,
+        response_format: { type: 'json_object' },
       }),
     });
 
