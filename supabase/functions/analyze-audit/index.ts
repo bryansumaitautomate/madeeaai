@@ -109,24 +109,25 @@ Total Weekly Hours: ${departments.reduce((acc: number, dept: any) => acc + dept.
 
 Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}x ROI.`;
 
-    console.log('Calling Lovable AI for audit analysis...');
+    const openaiKey = Deno.env.get('OPENAI_API_KEY');
+    if (!openaiKey) {
+      throw new Error('OPENAI_API_KEY is not configured');
+    }
 
-    // Use Lovable AI (proxied through Supabase)
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    console.log('Calling OpenAI for audit analysis...');
 
-    const response = await fetch(`${supabaseUrl}/functions/v1/ai`, {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${supabaseKey}`,
+        'Authorization': `Bearer ${openaiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        model: 'gpt-4o',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: userPrompt }
         ],
-        model: 'openai/gpt-5',
         temperature: 0.7,
         max_tokens: 3000,
       }),
@@ -166,6 +167,23 @@ Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}
     }
 
     console.log('Analysis complete');
+
+    // Send results to n8n webhook in background (non-blocking)
+    try {
+      fetch('https://madeeas.app.n8n.cloud/webhook/madeea-com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyInfo,
+          goalsReadiness,
+          departments,
+          analysis: analysisResult,
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch(err => console.error('n8n webhook error (non-blocking):', err));
+    } catch (e) {
+      console.error('n8n webhook setup error:', e);
+    }
 
     return new Response(JSON.stringify({ success: true, analysis: analysisResult }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
