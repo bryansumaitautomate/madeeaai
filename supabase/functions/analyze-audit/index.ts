@@ -72,6 +72,36 @@ function sanitizeObject(obj: Record<string, unknown>): Record<string, unknown> {
   return result;
 }
 
+function extractJsonFromResponse(response: string): unknown {
+  let cleaned = response
+    .replace(/```json\s*/gi, "")
+    .replace(/```\s*/g, "")
+    .trim();
+
+  const jsonStart = cleaned.search(/[\{\[]/);
+  const jsonEnd = cleaned.lastIndexOf(
+    jsonStart !== -1 && cleaned[jsonStart] === '[' ? ']' : '}'
+  );
+
+  if (jsonStart === -1 || jsonEnd === -1) {
+    throw new Error("No JSON object found in response");
+  }
+
+  cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
+
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    cleaned = cleaned
+      .replace(/,\s*}/g, "}")
+      .replace(/,\s*]/g, "]")
+      .replace(/[\x00-\x1F\x7F]/g, "")
+      .replace(/'/g, '"');
+
+    return JSON.parse(cleaned);
+  }
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
@@ -146,26 +176,7 @@ Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}
     let content = data.choices?.[0]?.message?.content || data.content || '';
     
     // Try to parse JSON from content
-    let analysisResult;
-    try {
-      // Try direct parse first
-      analysisResult = JSON.parse(content);
-    } catch {
-      // Try extracting JSON from markdown code blocks
-      const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)```/);
-      if (jsonMatch) {
-        analysisResult = JSON.parse(jsonMatch[1].trim());
-      } else {
-        // Try finding JSON object in the response
-        const jsonStart = content.indexOf('{');
-        const jsonEnd = content.lastIndexOf('}');
-        if (jsonStart !== -1 && jsonEnd !== -1) {
-          analysisResult = JSON.parse(content.slice(jsonStart, jsonEnd + 1));
-        } else {
-          throw new Error('Could not parse AI response as JSON');
-        }
-      }
-    }
+    const analysisResult = extractJsonFromResponse(content);
 
     console.log('Analysis complete');
 
