@@ -94,7 +94,7 @@ export const AuditWizard = () => {
   };
 
   return (
-    <section className="min-h-screen py-16 sm:py-20 px-3 sm:px-6">
+    <section className="min-h-screen pt-28 sm:pt-32 pb-16 sm:pb-20 px-3 sm:px-6">
       <div className="container mx-auto max-w-4xl">
         {disqualification.status && <DisqualifiedScreen reason={disqualification.reason} onBack={() => { setDisqualification({ status: false, reason: "" }); setCurrentStep(3); }} />}
         {wizardState === 'form' && !disqualification.status && (
