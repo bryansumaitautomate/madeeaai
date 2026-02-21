@@ -118,12 +118,12 @@ const LeadMagnetGate = ({ data, analysis, onSuccess }: { data: AuditData; analys
             <Checkbox id="consent" checked={consent} onCheckedChange={(c) => setConsent(c === true)} className="mt-0.5 border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
             <label htmlFor="consent" className="text-white/50 text-xs leading-relaxed cursor-pointer">I agree to share my business data with Madeea for analysis.</label>
           </div>
-          <Button type="submit" disabled={isSubmitting} className="relative p-[1px] rounded-lg overflow-hidden bg-transparent hover:bg-transparent">
-            <div className="absolute inset-0 rounded-lg animate-[spin_3s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)' }} />
-            <div className="relative bg-black px-6 py-2 rounded-lg flex items-center gap-2 font-semibold text-white">
+          <div className="relative p-[1px] rounded-lg overflow-hidden inline-flex">
+            <div className="absolute inset-0 animate-[spin_3s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)' }} />
+            <Button type="submit" disabled={isSubmitting} className="relative bg-black hover:bg-black/90 rounded-[7px] px-6 py-2 flex items-center gap-2 font-semibold text-white">
               {isSubmitting ? <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending...</> : <><Send className="w-4 h-4" />Get Report</>}
-            </div>
-          </Button>
+            </Button>
+          </div>
         </form>
       </div>
     </div>
