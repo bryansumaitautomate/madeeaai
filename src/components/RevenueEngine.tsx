@@ -125,7 +125,7 @@ const RevenueEngine = () => {
         <div className="mt-10 sm:mt-12 md:mt-16 flex flex-col items-center">
           <div className="inline-flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-card border border-border">
             <Shield size={14} className="text-primary sm:w-4 sm:h-4" />
-            <span className="text-[10px] sm:text-xs font-mono text-muted-foreground text-center">Fully Managed Infrastructure Layer • Proprietary 1Prompt Tech</span>
+            <span className="text-[10px] sm:text-xs font-mono text-muted-foreground text-center">Fully Managed Infrastructure Layer • Proprietary Madeea.ai Tech</span>
           </div>
         </div>
       </div>
