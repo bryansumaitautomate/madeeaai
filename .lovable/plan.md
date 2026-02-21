@@ -1,10 +1,16 @@
 
-# Remove "(Optional)" Labels from Audit Forms
+# Fix Formula Breakdown Overlapping ROI/Hours Badges
 
-## What Changes
-Remove the two `(Optional)` label annotations in `src/components/audit/CompanyInfoStep.tsx`:
+## Problem
+On desktop, the "Reclaimable Revenue" and the ROI/Hours Saved badges sit side-by-side in a flex row. The `FormulaBreakdown` component is nested inside the left column, so when expanded it pushes content and overlaps with the right-side badges.
 
-1. **Line 114** — "Current Tech Stack" label: remove `<span className="text-muted-foreground font-normal">(Optional)</span>`
-2. **Line 128** — "Where did you hear about us?" label: remove `<span className="text-muted-foreground font-normal">(Optional)</span>`
+## Fix
+Move the `FormulaBreakdown` component **below** the flex row so it spans the full width of the card, preventing any overlap with the badges.
 
-These are the only two instances across all audit form components. No other files need changes.
+### File: `src/components/audit/ResultsDashboard.tsx`
+
+**Desktop layout (line 194):** Remove `FormulaBreakdown` from inside the left `<div>` of the flex row, and place it after the closing `</div>` of the flex row (after line 200), so it sits below both the revenue figure and the badges.
+
+**Mobile layout (line 206):** Keep as-is since it already works in a stacked layout.
+
+This is a 2-line move -- no new components or logic changes needed.
