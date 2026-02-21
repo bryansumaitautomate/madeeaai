@@ -1,58 +1,98 @@
 
 
-# Restore Full Audit Analyzer Logic from Previous Website
+# Fix Inconsistent Computation in Audit Analyzer
 
 ## Problem
-The current edge function has a stripped-down system prompt and user prompt compared to the proven version from your previous website. This causes:
-- Less detailed/accurate reclaimable revenue calculations
-- Weaker quick wins (missing cost driver prioritization, role multipliers, time commitment context)
-- Missing revenue and income goal readable mappings in the AI prompt
+
+All financial calculations are currently performed by GPT-4o, which produces inconsistent numbers across different sections of the same response:
+
+- **Reclaimable Revenue (dashboard)**: $8,000
+- **Projected Cost Savings (computation breakdown)**: $7,280
+- **Full Table Savings**: $2,800
+- **Quick Wins Total**: $4,900
+
+These should all be derived from the same math, but the AI invents different values for each section.
 
 ## Solution
-Replace the system prompt and user prompt construction with the full versions from your previous website, while keeping all the improvements already added (input sanitization, `extractJsonFromResponse` JSON cleanup, n8n webhook, expanded CORS headers).
+
+Compute the core financial metrics **deterministically in the edge function** (server-side), then:
+1. Inject those pre-computed values into the AI prompt so it uses them consistently
+2. Override the AI's dashboard numbers with the server-computed values in the response
 
 ## Changes
 
-### 1. Update `supabase/functions/analyze-audit/index.ts`
+### 1. Server-Side Computation (Edge Function)
 
-**Replace the SYSTEM_PROMPT** (lines 28-52) with the full version from your previous site, which includes:
-- Department Role Multipliers (Executive 1.5x, Professional 1.2x, Admin 0.8x, Entry-level 0.6x)
-- Detailed automation efficiency factors
-- Cost driver priority weighting (40% of quick wins)
-- Time commitment reality checks
-- Full JSON output format with examples and field descriptions
-- Instruction to include `computation_breakdown`
-
-**Replace the user prompt construction** (lines 128-140) with the full version, which includes:
-- Revenue and income goal readable mappings (e.g., "under-10k" becomes "Under $10K/month")
-- Custom "other" value handling for revenue/income goals
-- Per-process annual cost estimates in the prompt
-- Full company profile with tech stack and referral source
-- Detailed goals and readiness section
-
-### 2. What stays the same
-- Input sanitization (`sanitizeInput`, `sanitizeObject`)
-- JSON cleanup helper (`extractJsonFromResponse`)
-- CORS headers (expanded version)
-- n8n webhook integration
-- OpenAI call configuration (gpt-4o, 4000 max_tokens, json_object format)
-- Industry rates and ROI ceiling logic (already matching)
-
-## Technical Detail
-
-The key additions to the user prompt:
+Add a computation block in `supabase/functions/analyze-audit/index.ts` **before the OpenAI call** that calculates:
 
 ```text
-Revenue mapping:  "under-10k" -> "Under $10K/month"
-Income goal:      "other" -> "Custom: {user value}"
-Per-process cost:  hoursPerWeek * peopleInvolved * effectiveHourlyRate * 52
-Full profile:      tech stack, referral source, previous AI investment
+totalWeeklyHours = sum of (hoursPerWeek * peopleInvolved) across all processes
+totalAnnualHours = totalWeeklyHours * 52
+totalAnnualLaborCost = totalAnnualHours * effectiveHourlyRate
+automationEfficiency = 0.35 (conservative default for mixed tasks)
+projectedHoursSaved = Math.round(totalAnnualHours * automationEfficiency)
+projectedCostSavings = projectedHoursSaved * effectiveHourlyRate
+estimatedImplementationCost = projectedCostSavings / roiCeiling
+actualROI = Math.min(projectedCostSavings / estimatedImplementationCost, roiCeiling)
 ```
 
-The key additions to the system prompt:
-- 6 detailed calculation sections (rates, multipliers, efficiency, ROI, cost driver, time commitment)
-- Full JSON schema with field-level descriptions and example values
-- Explicit instruction to prioritize the user's biggest cost driver
+### 2. Inject Into AI Prompt
+
+Add a new section to the user prompt:
+
+```text
+**PRE-COMPUTED VALUES (USE THESE EXACTLY - DO NOT RECALCULATE):**
+- Total Weekly Hours: XX
+- Total Annual Hours: XX
+- Total Annual Labor Cost: $XX,XXX
+- Automation Efficiency: 35%
+- Projected Hours Saved: XXX
+- Reclaimable Revenue (Projected Cost Savings): $X,XXX
+- ROI: X.Xx
+- These numbers are FINAL. Use them in the dashboard and ensure quick_wins
+  estimated_savings sum to approximately the Reclaimable Revenue figure.
+```
+
+### 3. Override AI Dashboard in Response
+
+After receiving the AI response, override the dashboard values with the server-computed ones:
+
+```text
+analysisResult.dashboard.revenue = formatCurrency(projectedCostSavings)
+analysisResult.dashboard.roi = actualROI.toFixed(1) + "x"
+analysisResult.dashboard.hours_saved = projectedHoursSaved.toString()
+analysisResult.dashboard.potential_pct = (automationEfficiency * 100) + "%"
+analysisResult.dashboard.industry_rate = "$" + effectiveHourlyRate + "/hr"
+```
+
+Also override the computation_breakdown to match:
+
+```text
+analysisResult.computation_breakdown = {
+  hourly_rate_used, hourly_rate_source, total_weekly_hours,
+  total_annual_hours, total_annual_labor_cost, automation_efficiency,
+  projected_hours_saved, projected_cost_savings,
+  roi_calculation (with actual formula), roi_ceiling_applied
+}
+```
+
+### 4. What the AI Still Controls
+
+The AI will still generate the **qualitative** content:
+- Quick win titles, descriptions, and implementation timelines
+- Long-term strategy titles, descriptions, and focus areas
+- Cost driver analysis recommendations
+- Full table ROI scores and per-process breakdown descriptions
+
+But the **hard numbers** (dashboard, computation breakdown) will always be mathematically consistent.
+
+## What Stays the Same
+- All frontend code (ResultsDashboard, types, etc.)
+- Input sanitization and JSON cleanup
+- CORS headers, n8n webhook
+- The system prompt persona and qualitative guidelines
 
 ## Expected Outcome
-The AI will produce richer, more accurate analysis with proper reclaimable revenue figures, better quick wins tied to the user's cost driver, and a complete computation breakdown.
+- Reclaimable Revenue, ROI, hours saved, and computation breakdown will always be mathematically consistent
+- Quick wins estimated savings will approximately sum to the reclaimable revenue figure
+- No more contradictory numbers across sections
