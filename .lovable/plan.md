@@ -1,23 +1,28 @@
 
 
-# Fix "Get Report" Button Gradient Overflow
+# Fix "Get Report" Button: Spinning Border + Content-Wrapped + Centered
 
 ## Problem
-The spinning conic-gradient background on the "Get Report" button overflows beyond the button border, appearing as a visible background bleed.
-
-## Root Cause
-The spinning gradient `div` with `absolute inset-0` can overflow rounded corners during GPU-accelerated rotation. The `overflow-hidden` on the wrapper doesn't reliably clip spinning elements in all browsers.
+1. The spinning border animation is not visually spinning
+2. The button stretches to fill the parent (full width) instead of wrapping its content
+3. The button is not centered
 
 ## Fix
 
-### File: `src/components/audit/ResultsDashboard.tsx` (lines 121-126)
+### File: `src/components/audit/ResultsDashboard.tsx` (line 121)
 
-Replace the current wrapper+gradient+Button structure with the same proven pattern used in `MadeeaCTA.tsx`:
+Update the `Button` classes:
+- Remove `inline-flex` (which still stretches inside the form's flex column)
+- Add `w-auto self-center` so it wraps content and centers within the flex-column form
+- Ensure `animate-[spin_3s_linear_infinite]` is present on the gradient span (it already is, but confirm it's not being overridden by the Button component's default styles)
 
-- Remove the outer wrapper `div`
-- Move the spinning gradient **inside** the `Button` itself
-- Use `inset-[-1000%]` on the gradient (instead of `inset-0`) so the gradient is oversized and covers evenly during spin
-- Add `overflow-hidden` and `relative` directly on the `Button`
-- Keep an inner `span` with `bg-black` and `rounded-[7px]` to mask the center, leaving only a 1px animated border visible
+Specifically change line 121 from:
+```
+className="group relative p-[1px] inline-flex items-center justify-center overflow-hidden rounded-lg border-0 bg-transparent hover:bg-transparent h-auto"
+```
+to:
+```
+className="group relative p-[1px] w-auto self-center overflow-hidden rounded-lg border-0 bg-transparent hover:bg-transparent h-auto"
+```
 
-This mirrors how `MadeeaCTA` handles the same effect without any overflow issues.
+This makes the button wrap its content and center itself in the form's flex column layout, while the spinning gradient border remains animated.
