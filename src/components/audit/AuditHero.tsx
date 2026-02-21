@@ -25,7 +25,7 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
         <div className="text-left">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight mb-4 sm:mb-6 leading-[1.05] text-foreground opacity-0 animate-hero-fade-up">
             Stop Guessing. <br />
-            <span className="text-transparent bg-clip-text" style={{
+            <span className="italic text-transparent bg-clip-text" style={{
               backgroundImage: 'linear-gradient(to bottom, #3B82F6, #60A5FA)'
             }}>Start Automating Smarter.</span>
           </h1>
