@@ -25,10 +25,6 @@ function getROICeiling(monthlyRevenue: string): number {
   return map[monthlyRevenue] || 1.5;
 }
 
-function formatCurrency(amount: number): string {
-  return '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-}
-
 const SYSTEM_PROMPT = `You are the Chief of Staff and Executive Assistant to a high-level CEO. You are conducting an operational audit to find "Found Money" and "Recaptured Capacity." Your tone is loyal, highly professional, and protective of the CEO's time.
 
 PERSONA GUIDELINES:
@@ -71,19 +67,14 @@ REALISTIC CALCULATION LOGIC:
    - 10-20 hrs/week: More comprehensive transformation possible
    - 20+ hrs/week: Full implementation roadmap viable
 
-IMPORTANT INSTRUCTIONS FOR PRE-COMPUTED VALUES:
-- The prompt will include PRE-COMPUTED VALUES. Use these EXACTLY in the dashboard section.
-- Ensure quick_wins estimated_savings sum to approximately the Reclaimable Revenue figure provided.
-- Do NOT recalculate dashboard numbers - they are computed server-side for consistency.
-
 REQUIRED JSON OUTPUT FORMAT:
 {
   "dashboard": {
-    "revenue": "[Use the pre-computed Reclaimable Revenue value exactly]",
-    "roi": "[Use the pre-computed ROI value exactly]",
-    "hours_saved": "[Use the pre-computed Projected Hours Saved exactly]",
-    "potential_pct": "[Use the pre-computed Automation Efficiency exactly]",
-    "industry_rate": "[Use the pre-computed Effective Hourly Rate exactly]"
+    "revenue": "[Formatted String, e.g., $120,000 - be conservative]",
+    "roi": "[e.g., 1.8x - realistic first-year ROI, do not exceed ceiling]",
+    "hours_saved": "[Total annual hours - be specific]",
+    "potential_pct": "[Actual efficiency percentage based on process types, typically 35-55%]",
+    "industry_rate": "[e.g., $65/hr - the base rate used]"
   },
   "quick_wins": [
     { 
@@ -154,12 +145,12 @@ REQUIRED JSON OUTPUT FORMAT:
     "automation_efficiency": "XX%",
     "projected_hours_saved": 0,
     "projected_cost_savings": "$X,XXX",
-    "roi_calculation": "formula",
+    "roi_calculation": "Clear explanation of how ROI was calculated: (Projected Annual Savings / Estimated Implementation Cost) = ROI",
     "roi_ceiling_applied": "X.Xx"
   }
 }
 
-IMPORTANT: Your response must be ONLY the JSON object above, filled with calculated values based on the user inputs. Be CONSERVATIVE and REALISTIC with projections - credibility matters more than impressive numbers. Prioritize recommendations that address the user's stated biggest cost driver.`;
+IMPORTANT: Your response must be ONLY the JSON object above, filled with calculated values based on the user inputs. Be CONSERVATIVE and REALISTIC with projections - credibility matters more than impressive numbers. Prioritize recommendations that address the user's stated biggest cost driver. Include a detailed computation_breakdown showing exactly how you arrived at the numbers.`;
 
 function sanitizeInput(input: string, maxLength = 500): string {
   if (!input || typeof input !== 'string') return '';
@@ -251,25 +242,6 @@ serve(async (req) => {
       ? `Custom: ${goalsReadiness?.incomeGoal90DaysCustom || 'Not specified'}`
       : goalsReadiness?.incomeGoal90Days || 'Not specified';
 
-    // === DETERMINISTIC SERVER-SIDE COMPUTATION ===
-    const totalWeeklyHours = departments.reduce((acc: number, dept: any) =>
-      acc + ((dept.processes || []) as any[]).reduce((pAcc: number, proc: any) =>
-        pAcc + ((Number(proc.hoursPerWeek) || 0) * (Number(proc.peopleInvolved) || 1)), 0), 0);
-    const totalAnnualHours = totalWeeklyHours * 52;
-    const totalAnnualLaborCost = totalAnnualHours * effectiveHourlyRate;
-    const automationEfficiency = 0.35;
-    const projectedHoursSaved = Math.round(totalAnnualHours * automationEfficiency);
-    const projectedCostSavings = projectedHoursSaved * effectiveHourlyRate;
-    const estimatedImplementationCost = projectedCostSavings > 0 ? projectedCostSavings / roiCeiling : 0;
-    const actualROI = Math.min(
-      estimatedImplementationCost > 0 ? projectedCostSavings / estimatedImplementationCost : 0,
-      roiCeiling
-    );
-    const hourlyRateSource = userProvidedRate && userProvidedRate > 0 ? 'user-provided' : 'industry-default';
-
-    console.log('Pre-computed:', { totalWeeklyHours, totalAnnualHours, totalAnnualLaborCost, projectedCostSavings, actualROI });
-
-    // === BUILD PROMPT WITH PRE-COMPUTED VALUES ===
     const userPrompt = `Analyze this business operation audit:
 
 **Company Profile:**
@@ -279,17 +251,11 @@ serve(async (req) => {
 - Current Tech Stack: ${companyInfo.techStack || 'Not specified'}
 - Referral Source: ${companyInfo.referralSource || 'Not specified'}
 
-**PRE-COMPUTED VALUES (USE THESE EXACTLY - DO NOT RECALCULATE):**
-- Effective Hourly Rate: $${effectiveHourlyRate}/hr (${hourlyRateSource})
-- Total Weekly Hours: ${totalWeeklyHours}
-- Total Annual Hours: ${totalAnnualHours}
-- Total Annual Labor Cost: ${formatCurrency(totalAnnualLaborCost)}
-- Automation Efficiency: 35%
-- Projected Hours Saved: ${projectedHoursSaved}
-- Reclaimable Revenue (Projected Cost Savings): ${formatCurrency(projectedCostSavings)}
-- ROI: ${actualROI.toFixed(1)}x
-- Maximum ROI Ceiling: ${roiCeiling}x
-- These numbers are FINAL. Use them in the dashboard and ensure quick_wins estimated_savings sum to approximately ${formatCurrency(projectedCostSavings)}.
+**IMPORTANT CALCULATION PARAMETERS:**
+- User-Provided Hourly Rate: $${userProvidedRate ? userProvidedRate : 'Not provided'}/hr
+- Industry Fallback Rate: $${industryRate}/hr
+- Effective Hourly Rate for Calculations: $${effectiveHourlyRate}/hr (USE THIS for all cost calculations)
+- Maximum ROI Ceiling: ${roiCeiling}x (do NOT exceed this in projections)
 
 **Goals & Readiness Assessment:**
 - Current Monthly Revenue: ${currentRevenue}${goalsReadiness?.currentMonthlyRevenue === "other" ? ` (${goalsReadiness?.currentMonthlyRevenueCustom})` : ''}
@@ -311,12 +277,14 @@ ${((dept.processes || []) as any[]).map((proc: any) => `
 `).join('')}
 `).join('')}
 
-**Total Weekly Hours Logged:** ${totalWeeklyHours} hours
+**Total Weekly Hours Logged:** ${departments.reduce((acc: number, dept: any) =>
+  acc + ((dept.processes || []) as any[]).reduce((pAcc: number, proc: any) =>
+    pAcc + ((Number(proc.hoursPerWeek) || 0) * (Number(proc.peopleInvolved) || 1)), 0), 0)} hours
 
 Provide a comprehensive analysis with specific, actionable recommendations.
 - PRIORITIZE addressing the "${biggestCostDriver}" cost driver in your quick wins.
-- Use the PRE-COMPUTED VALUES above exactly as given for all dashboard and computation_breakdown fields.
-- Ensure quick_wins estimated_savings sum to approximately ${formatCurrency(projectedCostSavings)}.
+- Ensure ROI projections do NOT exceed ${roiCeiling}x.
+- Use $${effectiveHourlyRate}/hr as the hourly rate for all cost calculations.
 - Structure long-term strategy as a Q1-Q3 quarterly roadmap.`;
 
     const openaiKey = Deno.env.get('OPENAI_API_KEY');
@@ -352,33 +320,10 @@ Provide a comprehensive analysis with specific, actionable recommendations.
     }
 
     const data = await response.json();
-
     let content = data.choices?.[0]?.message?.content || data.content || '';
-    const analysisResult = extractJsonFromResponse(content) as any;
+    const analysisResult = extractJsonFromResponse(content);
 
-    // === OVERRIDE AI DASHBOARD WITH SERVER-COMPUTED VALUES ===
-    if (!analysisResult.dashboard) analysisResult.dashboard = {};
-    analysisResult.dashboard.revenue = formatCurrency(projectedCostSavings);
-    analysisResult.dashboard.roi = actualROI.toFixed(1) + 'x';
-    analysisResult.dashboard.hours_saved = projectedHoursSaved.toString();
-    analysisResult.dashboard.potential_pct = (automationEfficiency * 100) + '%';
-    analysisResult.dashboard.industry_rate = '$' + effectiveHourlyRate + '/hr';
-
-    // === OVERRIDE COMPUTATION BREAKDOWN ===
-    analysisResult.computation_breakdown = {
-      hourly_rate_used: '$' + effectiveHourlyRate + '/hr',
-      hourly_rate_source: hourlyRateSource,
-      total_weekly_hours: totalWeeklyHours,
-      total_annual_hours: totalAnnualHours,
-      total_annual_labor_cost: formatCurrency(totalAnnualLaborCost),
-      automation_efficiency: (automationEfficiency * 100) + '%',
-      projected_hours_saved: projectedHoursSaved,
-      projected_cost_savings: formatCurrency(projectedCostSavings),
-      roi_calculation: `${formatCurrency(projectedCostSavings)} / ${formatCurrency(Math.round(estimatedImplementationCost))} = ${actualROI.toFixed(1)}x`,
-      roi_ceiling_applied: roiCeiling.toFixed(1) + 'x',
-    };
-
-    console.log('Analysis complete with server-side overrides');
+    console.log('Analysis complete - AI-driven calculations');
 
     // Send results to n8n webhook in background (non-blocking)
     try {
