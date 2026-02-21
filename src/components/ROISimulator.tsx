@@ -194,7 +194,7 @@ const ROISimulator = () => {
                   {/* Potential Savings - Glowing Blue */}
                   <div className="text-center">
                     <p className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1.5 sm:mb-2">
-                      Potential Savings with Madeea.io
+                      Potential Savings with Madeea.ai
                     </p>
                     <p className="text-4xl sm:text-5xl md:text-6xl font-syne font-light text-primary" style={{
                     textShadow: '0 0 40px hsl(217 100% 55% / 0.6), 0 0 80px hsl(217 100% 55% / 0.3), 0 0 120px hsl(217 100% 55% / 0.1)'
