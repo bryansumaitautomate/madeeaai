@@ -1,29 +1,27 @@
 
 
-# Fix "Get Report" Button Spinning Border
+# Smooth Spinning Border on "Get Report" Button
 
 ## Problem
-The spinning border animation on the "Get Report" button doesn't visually spin like the ROI/Hours Saved badges do. The `Button` component's default styles (from shadcn) conflict with the custom animation approach.
+The spinning border animation feels "snappy" because the conic gradient has a visible seam. The gradient goes `#3b82f6 -> #60a5fa -> #3b82f6`, creating a hard transition point where the start and end colors meet. Each time the rotation completes a full 360-degree cycle, this seam snaps past, making it look jarring instead of smooth.
 
 ## Solution
-Replace the `Button` component with a plain `button` element using the exact same pattern as `AnimatedBadge` (lines 40-47), which already works correctly in the same page:
+Spread the gradient across more stops so the color transition is gradual across the full circle, eliminating the visible seam. Also slow down the spin slightly for a more elegant feel.
 
-### File: `src/components/audit/ResultsDashboard.tsx` (lines 121-126)
+### File: `src/components/audit/ResultsDashboard.tsx` (line 122)
 
-Replace the `Button` with a structure matching `AnimatedBadge`:
-
-```tsx
-<div className="relative p-[1px] rounded-full overflow-hidden w-auto self-center">
-  <div className="absolute inset-0 rounded-full animate-[spin_3s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)' }} />
-  <button type="submit" disabled={isSubmitting} className="relative bg-black px-6 py-2.5 rounded-full flex items-center justify-center gap-2 text-sm font-semibold text-white hover:bg-black/90 transition-all disabled:opacity-50">
-    {isSubmitting ? <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending...</> : <><Send className="w-4 h-4" />Get Report</>}
-  </button>
-</div>
+Update the gradient on the spinning div from:
+```
+conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)
+```
+to a multi-stop gradient with smoother transitions:
+```
+conic-gradient(from 0deg, #3b82f6 0%, #60a5fa 25%, #93c5fd 50%, #60a5fa 75%, #3b82f6 100%)
 ```
 
-Key changes:
-- Use a plain `div` wrapper + native `button` instead of the shadcn `Button` component (avoids style conflicts)
-- Use `absolute inset-0` with the gradient on a separate `div` (same as AnimatedBadge), not `inset-[-1000%]` on a `span`
-- Use `rounded-full` to match the badge pill shape
-- Button wraps content and centers via `w-auto self-center` on the wrapper
-- Remove the `Button` import dependency for this specific usage
+And change the animation speed from `3s` to `4s` for a calmer, more premium feel:
+```
+animate-[spin_4s_linear_infinite]
+```
+
+This ensures there's no hard color jump at any point during the rotation, making the spin feel continuous and seamless.
