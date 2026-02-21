@@ -1,13 +1,12 @@
 
+# Add Top Padding to Audit Wizard
 
-# Italicize Blue Headline Text in Audit Hero
+## Problem
+The progress bar at the top of the audit wizard is partially hidden behind the fixed navigation bar, as visible in the screenshot.
 
-## What's Changing
-On the main website, blue/primary text in headlines is always italicized (e.g., *"AI finds them."*). The audit hero page has a blue gradient headline -- "Start Automating Smarter." -- that is missing this italic treatment.
+## Fix
 
-## The Change
+### File: `src/components/audit/AuditWizard.tsx`
+- **Line 97**: Change `py-16 sm:py-20` to `pt-28 sm:pt-32 pb-16 sm:pb-20` on the `<section>` element. This increases the top padding to clear the navbar while keeping the bottom padding unchanged.
 
-### File: `src/components/audit/AuditHero.tsx`
-- **Line 28**: Add `italic` to the blue gradient `<span>` so "Start Automating Smarter." renders in italic Instrument Serif, matching the main site's style.
-
-This is a single class addition -- no other files or blue headline text need updating.
+Single-line change, no other files affected.
