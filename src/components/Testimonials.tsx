@@ -14,7 +14,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    quote: "Madeea.io identified and fixed the invisible revenue leaks we didn't even know existed.",
+    quote: "Madeea.ai identified and fixed the invisible revenue leaks we didn't even know existed.",
     author: "Marcus Thorne",
     role: "CEO",
     company: "Apex Labs",

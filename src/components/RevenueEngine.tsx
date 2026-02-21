@@ -63,7 +63,7 @@ const RevenueEngine = () => {
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-primary flex items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.4)] mb-4 sm:mb-6">
                     <Settings2 size={28} className="text-primary-foreground animate-spin-slow sm:w-8 sm:h-8" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2 italic text-foreground">Madeea.io Control</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 italic text-foreground">Madeea.ai Control</h3>
                   <p className="text-[10px] sm:text-xs text-muted-foreground font-mono mb-4 sm:mb-6 uppercase tracking-tight">System Management Interface</p>
                   
                   <div className="w-full space-y-2 text-left">
