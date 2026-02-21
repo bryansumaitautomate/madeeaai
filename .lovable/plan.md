@@ -1,77 +1,58 @@
 
 
-# Fix Audit Analyzer JSON Parsing Failures
+# Restore Full Audit Analyzer Logic from Previous Website
 
 ## Problem
-The edge function intermittently fails with a 500 error because OpenAI sometimes returns slightly malformed JSON (e.g., single quotes instead of double quotes, trailing commas, or control characters). The logs confirm:
-- `Expected double-quoted property name in JSON at position 1402 (line 41 column 29)`
-
-The current fallback parsing tries to extract JSON from code blocks but does NOT fix malformed JSON content.
+The current edge function has a stripped-down system prompt and user prompt compared to the proven version from your previous website. This causes:
+- Less detailed/accurate reclaimable revenue calculations
+- Weaker quick wins (missing cost driver prioritization, role multipliers, time commitment context)
+- Missing revenue and income goal readable mappings in the AI prompt
 
 ## Solution
-Add a robust `extractJsonFromResponse` helper that cleans up common JSON issues before parsing.
+Replace the system prompt and user prompt construction with the full versions from your previous website, while keeping all the improvements already added (input sanitization, `extractJsonFromResponse` JSON cleanup, n8n webhook, expanded CORS headers).
 
 ## Changes
 
 ### 1. Update `supabase/functions/analyze-audit/index.ts`
 
-**Add a new helper function** (before the `serve` block) that:
-- Strips markdown code block wrappers
-- Finds JSON boundaries
-- Attempts direct parse first
-- On failure, fixes common issues: trailing commas, control characters, single quotes
-- Retries parse with cleaned content
+**Replace the SYSTEM_PROMPT** (lines 28-52) with the full version from your previous site, which includes:
+- Department Role Multipliers (Executive 1.5x, Professional 1.2x, Admin 0.8x, Entry-level 0.6x)
+- Detailed automation efficiency factors
+- Cost driver priority weighting (40% of quick wins)
+- Time commitment reality checks
+- Full JSON output format with examples and field descriptions
+- Instruction to include `computation_breakdown`
 
-**Replace the JSON parsing block** (lines 149-168) to use this new helper instead of the current fragile try/catch chain.
+**Replace the user prompt construction** (lines 128-140) with the full version, which includes:
+- Revenue and income goal readable mappings (e.g., "under-10k" becomes "Under $10K/month")
+- Custom "other" value handling for revenue/income goals
+- Per-process annual cost estimates in the prompt
+- Full company profile with tech stack and referral source
+- Detailed goals and readiness section
 
-### Technical Detail
+### 2. What stays the same
+- Input sanitization (`sanitizeInput`, `sanitizeObject`)
+- JSON cleanup helper (`extractJsonFromResponse`)
+- CORS headers (expanded version)
+- n8n webhook integration
+- OpenAI call configuration (gpt-4o, 4000 max_tokens, json_object format)
+- Industry rates and ROI ceiling logic (already matching)
+
+## Technical Detail
+
+The key additions to the user prompt:
 
 ```text
-function extractJsonFromResponse(response: string): unknown {
-  // Remove markdown code blocks
-  let cleaned = response
-    .replace(/```json\s*/gi, "")
-    .replace(/```\s*/g, "")
-    .trim();
-
-  // Find JSON boundaries
-  const jsonStart = cleaned.search(/[\{\[]/);
-  const jsonEnd = cleaned.lastIndexOf(
-    jsonStart !== -1 && cleaned[jsonStart] === '[' ? ']' : '}'
-  );
-
-  if (jsonStart === -1 || jsonEnd === -1) {
-    throw new Error("No JSON object found in response");
-  }
-
-  cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
-
-  // Attempt direct parse
-  try {
-    return JSON.parse(cleaned);
-  } catch {
-    // Fix common malformed JSON issues
-    cleaned = cleaned
-      .replace(/,\s*}/g, "}")       // trailing commas before }
-      .replace(/,\s*]/g, "]")       // trailing commas before ]
-      .replace(/[\x00-\x1F\x7F]/g, "")  // control characters
-      .replace(/'/g, '"');           // single quotes to double quotes
-
-    return JSON.parse(cleaned);
-  }
-}
+Revenue mapping:  "under-10k" -> "Under $10K/month"
+Income goal:      "other" -> "Custom: {user value}"
+Per-process cost:  hoursPerWeek * peopleInvolved * effectiveHourlyRate * 52
+Full profile:      tech stack, referral source, previous AI investment
 ```
 
-Then in the main handler, replace lines 149-168 with:
-```text
-const analysisResult = extractJsonFromResponse(content);
-```
+The key additions to the system prompt:
+- 6 detailed calculation sections (rates, multipliers, efficiency, ROI, cost driver, time commitment)
+- Full JSON schema with field-level descriptions and example values
+- Explicit instruction to prioritize the user's biggest cost driver
 
-## What stays the same
-- All frontend code (no UI changes)
-- The system prompt, sanitization, CORS headers
-- The n8n webhook integration
-- The OpenAI API call configuration
-
-## Expected outcome
-The function will handle malformed JSON responses gracefully instead of crashing with a 500 error.
+## Expected Outcome
+The AI will produce richer, more accurate analysis with proper reclaimable revenue figures, better quick wins tied to the user's cost driver, and a complete computation breakdown.
