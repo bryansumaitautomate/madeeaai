@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AuditData, AIAnalysisResponse, LongTermStrategy, FullTableRow, ComputationBreakdown } from "@/types/audit";
 import { cn } from "@/lib/utils";
 import { Sparkles, Zap, Rocket, Lock, Send, CheckCircle, Calculator, ChevronDown } from "lucide-react";
+import FormulaBreakdown from "./FormulaBreakdown";
 import MadeeaCTA from "./MadeeaCTA";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -190,6 +191,7 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
               <div>
                 <p className="text-5xl md:text-7xl font-extrabold tracking-tighter text-blue-500"><AnimatedValue value={totalSavings} prefix="$" delay={300} /></p>
                 <p className="text-white/50 font-medium mt-3 text-sm md:text-base">Reclaimable Revenue</p>
+                <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <AnimatedBadge delay={500}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></span><span className="text-white/50 text-[10px] md:text-xs uppercase tracking-widest">ROI</span></AnimatedBadge>
@@ -201,6 +203,7 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
                 <p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">Reclaimable Revenue</p>
                 <p className="text-3xl font-extrabold tracking-tighter text-blue-500"><AnimatedValue value={totalSavings} prefix="$" delay={300} /></p>
+                <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"><p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">ROI</p><p className="text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></p></div>
@@ -216,7 +219,7 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
             ))}
           </div>
 
-          {analysis.computation_breakdown && <div className="mb-10"><ComputationBreakdownSection breakdown={analysis.computation_breakdown} /></div>}
+          
 
           <div className="mb-16"><LeadMagnetGate data={data} analysis={analysis} onSuccess={() => setReportSent(true)} /></div>
 
