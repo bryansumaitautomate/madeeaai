@@ -32,24 +32,125 @@ PERSONA GUIDELINES:
 - Use terms like "Operational Drag," "Protocol Optimization," and "Leakage."
 - Frame Quick Wins as "Immediate Action Items" you've identified to clear their desk.
 - Frame Strategies as "Quarterly Roadmap Initiatives."
+- Consider the user's income goals, time commitment, and biggest cost driver when making recommendations.
 
 REALISTIC CALCULATION LOGIC:
-1. Use the hourly rate provided in the prompt for all cost calculations.
-2. AUTOMATION EFFICIENCY: Simple tasks 50-65%, moderate 35-50%, high complexity 15-30%.
-3. First Year ROI must NOT exceed the ROI ceiling provided.
-4. Weight 40% of quick wins toward addressing the user's stated biggest cost driver.
+
+1. INDUSTRY HOURLY RATES (use the rate provided in the prompt):
+   - Technology/Finance/Consulting: $75-100/hr
+   - Marketing/Media/Healthcare: $60-80/hr
+   - Retail/Manufacturing/E-commerce: $40-55/hr
+
+2. DEPARTMENT ROLE MULTIPLIERS (apply to the industry base rate):
+   - Executive/Strategy roles: 1.5x base rate
+   - Professional/Specialized: 1.2x base rate
+   - Administrative/Support: 0.8x base rate
+   - Entry-level/Repetitive: 0.6x base rate
+
+3. AUTOMATION EFFICIENCY FACTORS:
+   - Simple/repetitive tasks: 50-65% time savings
+   - Moderate complexity: 35-50% time savings
+   - High complexity/judgment tasks: 15-30% time savings
+
+4. ROI CALCULATION (use the ROI ceiling provided - be conservative):
+   - First Year ROI must NOT exceed the ROI ceiling provided
+   - Account for implementation costs and learning curve
+   - Use weighted averages across all processes
+
+5. COST DRIVER PRIORITY:
+   - Weight 40% of quick wins toward addressing the user's stated biggest cost driver
+   - Provide specific savings estimates for addressing their pain point
+
+6. TIME COMMITMENT REALITY CHECK:
+   - 1-5 hrs/week: Focus on fully automated solutions only
+   - 5-10 hrs/week: Mix of automated + light oversight
+   - 10-20 hrs/week: More comprehensive transformation possible
+   - 20+ hrs/week: Full implementation roadmap viable
 
 REQUIRED JSON OUTPUT FORMAT:
 {
-  "dashboard": { "revenue": "$X", "roi": "X.Xx", "hours_saved": "X,XXX", "potential_pct": "XX%", "industry_rate": "$XX/hr" },
-  "quick_wins": [{ "title": "...", "desc": "...", "estimated_savings": "$X", "implementation_time": "X weeks" }],
-  "long_term_strategy": [{ "quarter": "Q1", "title": "...", "desc": "...", "focus_areas": [], "expected_outcome": "$X saved" }],
-  "full_table": [{ "process": "...", "department": "...", "hrs_week": 0, "hourly_rate": "$XX", "annual_cost": "$X", "savings": "$X", "roi_score": "X.X" }],
-  "cost_driver_analysis": { "identified_driver": "...", "current_impact": "$X", "optimization_potential": "XX%", "recommended_actions": [] },
-  "computation_breakdown": { "hourly_rate_used": "$XX/hr", "hourly_rate_source": "user-provided or industry-default", "total_weekly_hours": 0, "total_annual_hours": 0, "total_annual_labor_cost": "$X", "automation_efficiency": "XX%", "projected_hours_saved": 0, "projected_cost_savings": "$X", "roi_calculation": "...", "roi_ceiling_applied": "X.Xx" }
+  "dashboard": {
+    "revenue": "[Formatted String, e.g., $120,000 - be conservative]",
+    "roi": "[e.g., 1.8x - realistic first-year ROI, do not exceed ceiling]",
+    "hours_saved": "[Total annual hours - be specific]",
+    "potential_pct": "[Actual efficiency percentage based on process types, typically 35-55%]",
+    "industry_rate": "[e.g., $65/hr - the base rate used]"
+  },
+  "quick_wins": [
+    { 
+      "title": "Immediate Action Item 1", 
+      "desc": "Executive briefing-style description of operational drag identified...",
+      "estimated_savings": "$X,XXX",
+      "implementation_time": "1-2 weeks"
+    },
+    { 
+      "title": "Immediate Action Item 2", 
+      "desc": "Executive briefing-style description of leakage found...",
+      "estimated_savings": "$X,XXX",
+      "implementation_time": "2-3 weeks"
+    },
+    { 
+      "title": "Immediate Action Item 3", 
+      "desc": "Executive briefing-style description of capacity reclamation...",
+      "estimated_savings": "$X,XXX",
+      "implementation_time": "1 week"
+    }
+  ],
+  "long_term_strategy": [
+    { 
+      "quarter": "Q1",
+      "title": "Foundation & Quick Automation", 
+      "desc": "Establish core automation infrastructure and quick wins",
+      "focus_areas": ["area1", "area2"],
+      "expected_outcome": "$X saved"
+    },
+    { 
+      "quarter": "Q2",
+      "title": "Scale & Optimize", 
+      "desc": "Expand automation coverage and optimize existing workflows",
+      "focus_areas": ["area1", "area2"],
+      "expected_outcome": "$X saved"
+    },
+    { 
+      "quarter": "Q3",
+      "title": "Full Integration & ROI Realization", 
+      "desc": "Complete transformation and realize full ROI potential",
+      "focus_areas": ["area1", "area2"],
+      "expected_outcome": "$X saved"
+    }
+  ],
+  "full_table": [
+    { 
+      "process": "Process Name", 
+      "department": "Department Name",
+      "hrs_week": 0, 
+      "hourly_rate": "$XX",
+      "annual_cost": "$X", 
+      "savings": "$X", 
+      "roi_score": "X.X" 
+    }
+  ],
+  "cost_driver_analysis": {
+    "identified_driver": "The user's stated biggest cost driver",
+    "current_impact": "$XX,XXX annually",
+    "optimization_potential": "XX%",
+    "recommended_actions": ["action1", "action2", "action3"]
+  },
+  "computation_breakdown": {
+    "hourly_rate_used": "$XX/hr",
+    "hourly_rate_source": "user-provided or industry-default",
+    "total_weekly_hours": 0,
+    "total_annual_hours": 0,
+    "total_annual_labor_cost": "$X,XXX",
+    "automation_efficiency": "XX%",
+    "projected_hours_saved": 0,
+    "projected_cost_savings": "$X,XXX",
+    "roi_calculation": "Clear explanation of how ROI was calculated: (Projected Annual Savings / Estimated Implementation Cost) = ROI",
+    "roi_ceiling_applied": "X.Xx"
+  }
 }
 
-Provide ONLY the JSON object. Be CONSERVATIVE and REALISTIC.`;
+IMPORTANT: Your response must be ONLY the JSON object above, filled with calculated values based on the user inputs. Be CONSERVATIVE and REALISTIC with projections - credibility matters more than impressive numbers. Prioritize recommendations that address the user's stated biggest cost driver. Include a detailed computation_breakdown showing exactly how you arrived at the numbers.`;
 
 function sanitizeInput(input: string, maxLength = 500): string {
   if (!input || typeof input !== 'string') return '';
@@ -122,22 +223,75 @@ serve(async (req) => {
       "customer-acquisition": "Customer acquisition", "manual-tasks": "Manual repetitive tasks", "other": "Other"
     };
     const biggestCostDriver = goalsReadiness?.biggestCostDriver === "other"
-      ? goalsReadiness?.biggestCostDriverCustom || 'Custom'
-      : costDriverMap[goalsReadiness?.biggestCostDriver] || 'Not specified';
+      ? goalsReadiness?.biggestCostDriverCustom || 'Custom (not specified)'
+      : costDriverMap[goalsReadiness?.biggestCostDriver] || goalsReadiness?.biggestCostDriver || 'Not specified';
+
+    // Map revenue values to readable format
+    const revenueMap: Record<string, string> = {
+      "under-10k": "Under $10K/month",
+      "10k-25k": "$10K - $25K/month",
+      "25k-50k": "$25K - $50K/month",
+      "50k-100k": "$50K - $100K/month",
+      "100k-250k": "$100K - $250K/month",
+      "250k-500k": "$250K - $500K/month",
+      "500k-1m": "$500K - $1M/month",
+      "1m-5m": "$1M - $5M/month",
+      "5m+": "$5M+/month",
+      "other": "Custom amount"
+    };
+
+    const currentRevenue = goalsReadiness?.currentMonthlyRevenue === "other" 
+      ? `Custom: ${goalsReadiness?.currentMonthlyRevenueCustom || 'Not specified'}`
+      : revenueMap[goalsReadiness?.currentMonthlyRevenue] || goalsReadiness?.currentMonthlyRevenue || 'Not specified';
+    
+    const incomeGoal = goalsReadiness?.incomeGoal90Days === "other"
+      ? `Custom: ${goalsReadiness?.incomeGoal90DaysCustom || 'Not specified'}`
+      : goalsReadiness?.incomeGoal90Days || 'Not specified';
 
     const userPrompt = `Analyze this business operation audit:
 
-**Company:** ${companyInfo.companyName || 'N/A'} | Industry: ${companyInfo.industry} | Employees: ${companyInfo.employeeCount}
-**Effective Hourly Rate:** $${effectiveHourlyRate}/hr | **ROI Ceiling:** ${roiCeiling}x
-**Biggest Cost Driver:** ${biggestCostDriver}
-**Revenue:** ${goalsReadiness?.currentMonthlyRevenue || 'N/A'} | **90-Day Goal:** ${goalsReadiness?.incomeGoal90Days || 'N/A'}
+**Company Profile:**
+- Company: ${companyInfo.companyName || 'Not specified'}
+- Industry: ${companyInfo.industry}
+- Employee Count: ${companyInfo.employeeCount}
+- Current Tech Stack: ${companyInfo.techStack || 'Not specified'}
+- Referral Source: ${companyInfo.referralSource || 'Not specified'}
 
-**Departments:**
-${departments.map((dept: any) => `${dept.name}: ${dept.processes.map((p: any) => `${p.processName} (${p.hoursPerWeek}hrs/wk × ${p.peopleInvolved} people, Pain: ${p.painPoints || 'N/A'})`).join('; ')}`).join('\n')}
+**IMPORTANT CALCULATION PARAMETERS:**
+- User-Provided Hourly Rate: $${userProvidedRate ? userProvidedRate : 'Not provided'}/hr
+- Industry Fallback Rate: $${industryRate}/hr
+- Effective Hourly Rate for Calculations: $${effectiveHourlyRate}/hr (USE THIS for all cost calculations)
+- Maximum ROI Ceiling: ${roiCeiling}x (do NOT exceed this in projections)
 
-Total Weekly Hours: ${departments.reduce((acc: number, dept: any) => acc + dept.processes.reduce((pAcc: number, proc: any) => pAcc + (proc.hoursPerWeek * proc.peopleInvolved), 0), 0)}
+**Goals & Readiness Assessment:**
+- Current Monthly Revenue: ${currentRevenue}${goalsReadiness?.currentMonthlyRevenue === "other" ? ` (${goalsReadiness?.currentMonthlyRevenueCustom})` : ''}
+- Biggest Cost Driver: ${biggestCostDriver} (PRIORITIZE recommendations addressing this)
+- 90-Day Income Goal: ${incomeGoal}${goalsReadiness?.incomeGoal90Days === "other" ? ` (${goalsReadiness?.incomeGoal90DaysCustom})` : ''}
+- Previous AI/Business Investment: ${goalsReadiness?.previousAIInvestment || 'Not specified'}
+- Why Implementing AI: ${goalsReadiness?.whyImplementAI || 'Not specified'}
+- Expected Changes: ${goalsReadiness?.expectedChanges || 'Not specified'}
 
-Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}x ROI.`;
+**Departments & Workflows:**
+${departments.map((dept: any) => `
+**${dept.name}**
+${dept.processes.map((proc: any) => `
+  - Process: ${proc.processName}
+  - Hours/Week: ${proc.hoursPerWeek}
+  - People Involved: ${proc.peopleInvolved}
+  - Pain Points: ${proc.painPoints || 'Not specified'}
+  - Annual Cost Estimate: $${proc.hoursPerWeek * proc.peopleInvolved * effectiveHourlyRate * 52}
+`).join('')}
+`).join('')}
+
+**Total Weekly Hours Logged:** ${departments.reduce((acc: number, dept: any) => 
+  acc + dept.processes.reduce((pAcc: number, proc: any) => 
+    pAcc + (proc.hoursPerWeek * proc.peopleInvolved), 0), 0)} hours
+
+Provide a comprehensive analysis with specific, actionable recommendations. 
+- PRIORITIZE addressing the "${biggestCostDriver}" cost driver in your quick wins.
+- Ensure ROI projections do NOT exceed ${roiCeiling}x.
+- Use $${effectiveHourlyRate}/hr as the hourly rate for all cost calculations (user-provided rate, or industry fallback).
+- Structure long-term strategy as a Q1-Q3 quarterly roadmap.`;
 
     const openaiKey = Deno.env.get('OPENAI_API_KEY');
     if (!openaiKey) {
@@ -145,6 +299,7 @@ Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}
     }
 
     console.log('Calling OpenAI for audit analysis...');
+    console.log('Effective hourly rate:', effectiveHourlyRate, 'ROI ceiling:', roiCeiling);
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -172,10 +327,7 @@ Use $${effectiveHourlyRate}/hr for all calculations. Do NOT exceed ${roiCeiling}
 
     const data = await response.json();
     
-    // Extract JSON from response
     let content = data.choices?.[0]?.message?.content || data.content || '';
-    
-    // Try to parse JSON from content
     const analysisResult = extractJsonFromResponse(content);
 
     console.log('Analysis complete');
