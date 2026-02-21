@@ -1,28 +1,29 @@
 
 
-# Fix "Get Report" Button: Spinning Border + Content-Wrapped + Centered
+# Fix "Get Report" Button Spinning Border
 
 ## Problem
-1. The spinning border animation is not visually spinning
-2. The button stretches to fill the parent (full width) instead of wrapping its content
-3. The button is not centered
+The spinning border animation on the "Get Report" button doesn't visually spin like the ROI/Hours Saved badges do. The `Button` component's default styles (from shadcn) conflict with the custom animation approach.
 
-## Fix
+## Solution
+Replace the `Button` component with a plain `button` element using the exact same pattern as `AnimatedBadge` (lines 40-47), which already works correctly in the same page:
 
-### File: `src/components/audit/ResultsDashboard.tsx` (line 121)
+### File: `src/components/audit/ResultsDashboard.tsx` (lines 121-126)
 
-Update the `Button` classes:
-- Remove `inline-flex` (which still stretches inside the form's flex column)
-- Add `w-auto self-center` so it wraps content and centers within the flex-column form
-- Ensure `animate-[spin_3s_linear_infinite]` is present on the gradient span (it already is, but confirm it's not being overridden by the Button component's default styles)
+Replace the `Button` with a structure matching `AnimatedBadge`:
 
-Specifically change line 121 from:
-```
-className="group relative p-[1px] inline-flex items-center justify-center overflow-hidden rounded-lg border-0 bg-transparent hover:bg-transparent h-auto"
-```
-to:
-```
-className="group relative p-[1px] w-auto self-center overflow-hidden rounded-lg border-0 bg-transparent hover:bg-transparent h-auto"
+```tsx
+<div className="relative p-[1px] rounded-full overflow-hidden w-auto self-center">
+  <div className="absolute inset-0 rounded-full animate-[spin_3s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)' }} />
+  <button type="submit" disabled={isSubmitting} className="relative bg-black px-6 py-2.5 rounded-full flex items-center justify-center gap-2 text-sm font-semibold text-white hover:bg-black/90 transition-all disabled:opacity-50">
+    {isSubmitting ? <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending...</> : <><Send className="w-4 h-4" />Get Report</>}
+  </button>
+</div>
 ```
 
-This makes the button wrap its content and center itself in the form's flex column layout, while the spinning gradient border remains animated.
+Key changes:
+- Use a plain `div` wrapper + native `button` instead of the shadcn `Button` component (avoids style conflicts)
+- Use `absolute inset-0` with the gradient on a separate `div` (same as AnimatedBadge), not `inset-[-1000%]` on a `span`
+- Use `rounded-full` to match the badge pill shape
+- Button wraps content and centers via `w-auto self-center` on the wrapper
+- Remove the `Button` import dependency for this specific usage
