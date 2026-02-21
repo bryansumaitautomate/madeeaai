@@ -23,14 +23,14 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
       <div className="relative z-20 w-full max-w-[1280px] mx-auto px-4 sm:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left Column */}
         <div className="text-left">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter mb-4 sm:mb-6 leading-[1.05] text-foreground opacity-0 animate-hero-fade-up">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight mb-4 sm:mb-6 leading-[1.05] text-foreground opacity-0 animate-hero-fade-up">
             Stop Guessing. <br />
             <span className="text-transparent bg-clip-text" style={{
               backgroundImage: 'linear-gradient(to bottom, #3B82F6, #60A5FA)'
             }}>Start Automating Smarter.</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg max-w-lg mb-6 sm:mb-8 leading-relaxed font-light text-muted-foreground opacity-0 animate-hero-fade-up audit-animation-delay-200">
+          <p className="text-sm sm:text-base md:text-lg max-w-lg mb-6 sm:mb-8 leading-relaxed font-sans font-light text-muted-foreground opacity-0 animate-hero-fade-up audit-animation-delay-200">
             Most executives lose 30% of their productivity to Ghost Tasks: manual workflows 
             and admin chaos that kill your impact. Get a surgical breakdown of your operations 
             and a roadmap to reclaim your time.
@@ -43,11 +43,11 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
           <div className="flex items-center gap-6 text-sm text-muted-foreground opacity-0 animate-hero-fade-up audit-animation-delay-700">
             <div className="flex items-center gap-2">
               <Zap className="w-4 h-4 text-primary" strokeWidth={2} />
-              <span>Instant Results</span>
+              <span className="font-mono uppercase tracking-wider">Instant Results</span>
             </div>
             <div className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-primary" strokeWidth={2} />
-              <span>Data-Driven</span>
+              <span className="font-mono uppercase tracking-wider">Data-Driven</span>
             </div>
           </div>
         </div>
@@ -60,8 +60,8 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
             <div className="rounded-2xl p-6 backdrop-blur-md border border-primary/10 audit-animate-float-subtle bg-card/80">
               <div className="flex items-center justify-between mb-5">
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">AI Analysis</p>
-                  <h3 className="text-lg font-semibold text-foreground">Recoverable Capacity</h3>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1 font-mono">AI Analysis</p>
+                  <h3 className="text-lg font-serif font-normal tracking-tight text-foreground">Recoverable Capacity</h3>
                 </div>
                 <div className="flex items-center gap-1.5 bg-primary/15 text-primary px-3 py-1.5 rounded-full text-sm font-semibold">
                   <TrendingUp className="w-4 h-4" strokeWidth={2} />
@@ -91,7 +91,7 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
                 <div className="flex items-center justify-between p-3.5 rounded-xl opacity-0 audit-animate-slide-in-right audit-animation-delay-1200 hover:bg-white/[0.05] transition-colors duration-200 bg-white/[0.03]">
                   <div className="flex items-center gap-3">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                    <span className="text-muted-foreground text-sm">Cost Reduction</span>
+                    <span className="text-muted-foreground text-sm font-mono uppercase tracking-wider">Cost Reduction</span>
                   </div>
                   <span className="text-foreground font-bold text-lg">
                     <AnimatedCounter end={70} delay={1200} suffix="%" />
@@ -101,7 +101,7 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
                 <div className="flex items-center justify-between p-3.5 rounded-xl opacity-0 audit-animate-slide-in-right audit-animation-delay-1400 hover:bg-white/[0.05] transition-colors duration-200 bg-white/[0.03]">
                   <div className="flex items-center gap-3">
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
-                    <span className="text-muted-foreground text-sm">Hours Saved</span>
+                    <span className="text-muted-foreground text-sm font-mono uppercase tracking-wider">Hours Saved</span>
                   </div>
                   <span className="text-foreground font-bold text-lg">
                     <AnimatedCounter end={1240} delay={1400} suffix="/yr" />
@@ -111,7 +111,7 @@ export const AuditHero = ({ onStartAudit }: AuditHeroProps) => {
                 <div className="flex items-center justify-between p-3.5 rounded-xl opacity-0 audit-animate-slide-in-right audit-animation-delay-1600 hover:bg-white/[0.05] transition-colors duration-200 bg-white/[0.03]">
                   <div className="flex items-center gap-3">
                     <div className="w-2.5 h-2.5 rounded-full bg-accent" />
-                    <span className="text-muted-foreground text-sm">ROI</span>
+                    <span className="text-muted-foreground text-sm font-mono uppercase tracking-wider">ROI</span>
                   </div>
                   <span className="text-foreground font-bold text-lg">
                     <AnimatedCounter end={12.4} delay={1600} suffix="x" decimals={1} />

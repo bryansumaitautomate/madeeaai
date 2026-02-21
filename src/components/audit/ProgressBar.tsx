@@ -50,7 +50,7 @@ export const ProgressBar = ({ currentStep, totalSteps }: ProgressBarProps) => {
             <div 
               key={step.number} 
               className={cn(
-                "text-[10px] sm:text-sm font-medium transition-colors text-center max-w-[80px] sm:max-w-none",
+                "text-[10px] sm:text-sm font-mono font-medium transition-colors text-center max-w-[80px] sm:max-w-none",
                 isCurrent ? "text-foreground" : isCompleted ? "text-primary" : "text-muted-foreground"
               )}
             >

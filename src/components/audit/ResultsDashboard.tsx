@@ -107,7 +107,7 @@ const LeadMagnetGate = ({ data, analysis, onSuccess }: { data: AuditData; analys
     <div className="relative p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-blue-400/5" />
       <div className="relative mb-4">
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(to right, #3b82f6, #60a5fa)' }}>Unlock Your 12-Month Strategic Roadmap</h3>
+        <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-normal tracking-tight text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(to right, #3b82f6, #60a5fa)' }}>Unlock Your 12-Month Strategic Roadmap</h3>
       </div>
       <div className="relative">
         <p className="text-white/60 text-sm md:text-base mb-6 max-w-xl">We have identified your <span className="text-white font-medium">Top 3 Long-Term Value plays</span> and a full surgical breakdown.</p>
@@ -141,13 +141,13 @@ const ComputationBreakdownSection = ({ breakdown }: { breakdown: ComputationBrea
       {isExpanded && (
         <div className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4 animate-fade-in">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="p-3 sm:p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs uppercase tracking-wider mb-1">Hourly Rate</p><p className="text-white font-semibold">{breakdown.hourly_rate_used}</p></div>
-            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs uppercase tracking-wider mb-1">Total Hours/Year</p><p className="text-white font-semibold">{breakdown.total_annual_hours?.toLocaleString() || "—"}</p></div>
-            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs uppercase tracking-wider mb-1">Current Labor Cost</p><p className="text-white font-semibold">{breakdown.total_annual_labor_cost}</p></div>
-            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs uppercase tracking-wider mb-1">Automation Efficiency</p><p className="text-white font-semibold">{breakdown.automation_efficiency}</p></div>
+            <div className="p-3 sm:p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs font-mono uppercase tracking-wider mb-1">Hourly Rate</p><p className="text-white font-semibold">{breakdown.hourly_rate_used}</p></div>
+            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs font-mono uppercase tracking-wider mb-1">Total Hours/Year</p><p className="text-white font-semibold">{breakdown.total_annual_hours?.toLocaleString() || "—"}</p></div>
+            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs font-mono uppercase tracking-wider mb-1">Current Labor Cost</p><p className="text-white font-semibold">{breakdown.total_annual_labor_cost}</p></div>
+            <div className="p-4 rounded-xl bg-white/[0.02]"><p className="text-white/50 text-xs font-mono uppercase tracking-wider mb-1">Automation Efficiency</p><p className="text-white font-semibold">{breakdown.automation_efficiency}</p></div>
           </div>
           <div className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-transparent border border-blue-500/20">
-            <p className="text-white/50 text-xs uppercase tracking-wider mb-2">ROI Calculation</p>
+            <p className="text-white/50 text-xs font-mono uppercase tracking-wider mb-2">ROI Calculation</p>
             <p className="text-white/80 text-sm">{breakdown.roi_calculation}</p>
             <p className="text-white/40 text-xs mt-2">ROI capped at {breakdown.roi_ceiling_applied}</p>
           </div>
@@ -182,7 +182,7 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
       <div className="relative z-20 p-3 sm:p-6 md:p-8">
         <div className={cn("max-w-5xl mx-auto transition-all duration-700", showContent ? "opacity-100" : "opacity-0")}>
           <div className="rounded-2xl sm:rounded-3xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.10] p-5 sm:p-8 md:p-12 mb-6 sm:mb-10">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">Your Efficiency Report is Ready.</h2>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-normal tracking-tight text-white mb-3 sm:mb-4">Your Efficiency Report is Ready.</h2>
             <p className="text-white/60 text-sm sm:text-base md:text-lg mb-6 sm:mb-8">
               Based on your inputs, your current workflow has an Optimization Potential of <span className="text-[#3b82f6] font-bold">{automationPotential}%</span>.
             </p>
@@ -190,29 +190,29 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
             <div className="hidden sm:flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
               <div>
                 <p className="text-5xl md:text-7xl font-extrabold tracking-tighter text-blue-500"><AnimatedValue value={totalSavings} prefix="$" delay={300} /></p>
-                <p className="text-white/50 font-medium mt-3 text-sm md:text-base">Reclaimable Revenue</p>
+                <p className="text-white/50 font-mono uppercase tracking-wider mt-3 text-sm md:text-base">Reclaimable Revenue</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <AnimatedBadge delay={500}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></span><span className="text-white/50 text-[10px] md:text-xs uppercase tracking-widest">ROI</span></AnimatedBadge>
-                <AnimatedBadge delay={700}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={hoursSaved} delay={800} /></span><span className="text-white/50 text-[10px] md:text-xs uppercase tracking-widest">Hours Saved</span></AnimatedBadge>
+                <AnimatedBadge delay={500}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></span><span className="text-white/50 text-[10px] md:text-xs font-mono uppercase tracking-widest">ROI</span></AnimatedBadge>
+                <AnimatedBadge delay={700}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={hoursSaved} delay={800} /></span><span className="text-white/50 text-[10px] md:text-xs font-mono uppercase tracking-widest">Hours Saved</span></AnimatedBadge>
               </div>
             </div>
             <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
 
             <div className="sm:hidden space-y-3">
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">Reclaimable Revenue</p>
+                <p className="text-white/50 text-[10px] font-mono uppercase tracking-wider mb-1">Reclaimable Revenue</p>
                 <p className="text-3xl font-extrabold tracking-tighter text-blue-500"><AnimatedValue value={totalSavings} prefix="$" delay={300} /></p>
                 <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"><p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">ROI</p><p className="text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></p></div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"><p className="text-white/50 text-[10px] uppercase tracking-wider mb-1">Hours Saved</p><p className="text-2xl font-bold text-white"><AnimatedValue value={hoursSaved} delay={800} /></p></div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"><p className="text-white/50 text-[10px] font-mono uppercase tracking-wider mb-1">ROI</p><p className="text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></p></div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"><p className="text-white/50 text-[10px] font-mono uppercase tracking-wider mb-1">Hours Saved</p><p className="text-2xl font-bold text-white"><AnimatedValue value={hoursSaved} delay={800} /></p></div>
               </div>
             </div>
           </div>
 
-          <div className="mb-4 sm:mb-6"><h3 className="text-xs font-bold tracking-[0.15em] uppercase text-white/40">Top 3 Quick Wins</h3></div>
+          <div className="mb-4 sm:mb-6"><h3 className="text-xs font-mono font-bold tracking-[0.15em] uppercase text-white/40">Top 3 Quick Wins</h3></div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
             {analysis.quick_wins.map((win, index) => (
               <QuickWinCard key={win.title} title={win.title} description={win.desc} icon={getIconForTitle(win.title)} delay={800 + (index * 150)} />
@@ -224,7 +224,7 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
           <div className="mb-16"><LeadMagnetGate data={data} analysis={analysis} onSuccess={() => setReportSent(true)} /></div>
 
           <div className={cn("text-center transition-all duration-700", showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")}>
-            <h3 className="text-xl md:text-2xl font-semibold text-white mb-6">Ready to turn these projections into profit?</h3>
+            <h3 className="text-xl md:text-2xl font-serif font-normal tracking-tight text-white mb-6">Ready to turn these projections into profit?</h3>
             <MadeeaCTA label="Book Your Strategy Call" onClick={() => window.open('https://api.leadconnectorhq.com/widget/booking/0qkIXW7E44BcuiWW7g1k', '_blank')} />
           </div>
 

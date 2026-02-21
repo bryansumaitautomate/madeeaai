@@ -71,7 +71,7 @@ export const ProcessingAnimation = ({ onComplete, isAnalysisReady = false }: Pro
 
       <div className="relative z-10 flex flex-col items-center justify-center px-4 sm:px-8 max-w-4xl mx-auto">
         <div className="text-center mb-12 h-24 flex items-center justify-center">
-          <h2 key={currentPhase} className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white audit-animate-text-shimmer tracking-tight">
+          <h2 key={currentPhase} className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-serif font-normal text-white audit-animate-text-shimmer tracking-tight">
             {analysisPhases[currentPhase]}
           </h2>
         </div>
@@ -82,7 +82,7 @@ export const ProcessingAnimation = ({ onComplete, isAnalysisReady = false }: Pro
               <div className="absolute inset-0 audit-animate-shimmer-bar" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)' }} />
             </div>
           </div>
-          <p className="text-center text-sm text-primary/70 mt-4 font-mono">{Math.round(progress)}% complete</p>
+          <p className="text-center text-sm text-primary/70 mt-4 font-mono uppercase tracking-wider">{Math.round(progress)}% complete</p>
         </div>
 
         <div className="flex gap-3 mt-10">
