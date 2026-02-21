@@ -111,7 +111,7 @@ export const CompanyInfoStep = ({ data, onUpdate, onNext }: CompanyInfoStepProps
 
         <div className="space-y-3">
           <Label htmlFor="techStack" className="flex items-center gap-2 text-sm font-medium">
-            <Code className="w-4 h-4 text-primary" /> Current Tech Stack <span className="text-muted-foreground font-normal">(Optional)</span>
+            <Code className="w-4 h-4 text-primary" /> Current Tech Stack
           </Label>
           <Textarea id="techStack" value={data.techStack} onChange={(e) => onUpdate({ ...data, techStack: e.target.value })} placeholder="Select from suggestions below or type your own tools here..." className="min-h-[80px] bg-background/50 border-border focus:border-primary resize-none" />
           <div className="flex flex-wrap gap-2 pt-2">
@@ -125,7 +125,7 @@ export const CompanyInfoStep = ({ data, onUpdate, onNext }: CompanyInfoStepProps
 
         <div className="space-y-2">
           <Label className="flex items-center gap-2 text-sm font-medium">
-            <MessageSquare className="w-4 h-4 text-primary" /> Where did you hear about us? <span className="text-muted-foreground font-normal">(Optional)</span>
+            <MessageSquare className="w-4 h-4 text-primary" /> Where did you hear about us?
           </Label>
           <Select value={data.referralSource} onValueChange={(value) => onUpdate({ ...data, referralSource: value })}>
             <SelectTrigger className="h-12 bg-background/50 border-border"><SelectValue placeholder="Select how you found us" /></SelectTrigger>
