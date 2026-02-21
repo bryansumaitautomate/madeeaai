@@ -1,50 +1,87 @@
 
-# Revert to Original AI-Driven Audit Calculations
+# Hybrid Approach: Server-Side Math + AI Qualitative Analysis
 
 ## Problem
-The current edge function hardcodes automation efficiency at a flat 35% and overrides all AI-calculated dashboard values with server-side math. This produces artificially low reclaimable revenue ($6.9K) because it ignores:
-- Process-specific complexity (simple tasks should get 50-65% efficiency, not 35%)
-- Department role multipliers (Executive 1.5x, Admin 0.8x)
-- The AI's ability to analyze each process individually
+GPT is unreliable at arithmetic -- the test showed it reporting $190K savings but $600K-$1.2M reclaimable revenue. We need deterministic, verifiable math on the server, while keeping GPT's strength in generating qualitative insights.
 
-Your previous website let GPT do this analysis and produced realistic figures like $120K+.
+## How It Works
 
-## Solution
-Replace the current edge function with the exact logic from your previous website, keeping only the improvements we added (input sanitization, JSON cleanup helper, expanded CORS headers, n8n webhook).
+The edge function will:
+1. **Server computes all numbers** using variable efficiency per process (not flat 35%)
+2. **GPT generates qualitative content** (quick wins, strategies, cost driver analysis, descriptions)
+3. **Server overrides GPT's dashboard and computation_breakdown** with the correct math
+
+## Server-Side Calculation Logic
+
+### Process Complexity Detection
+Each process gets an efficiency factor based on keywords in its name and pain points:
+
+```text
+High efficiency (55-65%) - "data entry", "scheduling", "invoicing", "email", "reporting", "filing", "booking"
+Medium efficiency (40-50%) - "follow-up", "onboarding", "tracking", "social media", "content", "review"  
+Low efficiency (20-30%) - "strategy", "consulting", "negotiation", "design", "creative", "management"
+Default: 40%
+```
+
+### Department Role Multipliers
+Applied to hourly rate based on department name:
+
+```text
+Executive/Strategy/Leadership: 1.5x
+Sales/Marketing/Finance: 1.2x
+Operations/Admin/Support: 0.8x
+Default: 1.0x
+```
+
+### Per-Process Calculation
+For each process:
+- `weeklyHours = hoursPerWeek x peopleInvolved`
+- `adjustedRate = effectiveHourlyRate x departmentMultiplier`
+- `annualCost = weeklyHours x adjustedRate x 52`
+- `savableHours = weeklyHours x processEfficiency`
+- `savings = savableHours x adjustedRate x 52`
+
+### Dashboard Totals
+- **Reclaimable Revenue** = sum of all process savings
+- **Hours Saved** = sum of all savable hours x 52
+- **Automation Potential** = weighted average efficiency across all processes
+- **ROI** = min(totalSavings / estimatedImplementationCost, roiCeiling)
+- **Implementation cost estimate** = $500 per process as baseline
 
 ## Changes
 
-### 1. `supabase/functions/analyze-audit/index.ts` - Full replacement
+### 1. `supabase/functions/analyze-audit/index.ts`
 
-**Remove:**
-- The `formatCurrency` helper (line 28-30)
-- The "PRE-COMPUTED VALUES" instructions in the system prompt (lines 74-77)
-- The locked dashboard format in the system prompt (lines 82-86) that says "Use the pre-computed value exactly"
-- The deterministic computation block (lines 254-270)
-- The "PRE-COMPUTED VALUES" section in the user prompt (lines 282-292)
-- The server-side dashboard override block (lines 359-379)
+**Add** three helper functions:
+- `getProcessEfficiency(processName, painPoints)` -- returns 0.2-0.65 based on keyword matching
+- `getDepartmentMultiplier(departmentName)` -- returns 0.8-1.5 based on department type
+- `computeServerMetrics(departments, effectiveHourlyRate, roiCeiling)` -- loops through all processes, computes per-process and total metrics
 
-**Restore from your previous website:**
-- System prompt with flexible dashboard format: `"revenue": "[Formatted String, e.g., $120,000 - be conservative]"`
-- System prompt instruction to include detailed `computation_breakdown` showing the AI's math
-- User prompt that passes calculation parameters as guidelines (not fixed values) and per-process annual cost estimates
-- Direct return of the AI's analysis result (no overrides)
+**Add** server-side computation block after input parsing (before GPT call):
+- Compute all metrics using the helpers above
+- Build a `serverMetrics` object with: `totalSavings`, `totalHoursSaved`, `weightedEfficiency`, `roi`, `perProcessBreakdown`
 
-**Keep (improvements we added):**
-- `sanitizeInput` and `sanitizeObject` functions
-- `extractJsonFromResponse` JSON cleanup helper
-- Expanded CORS headers
-- n8n webhook integration
-- Cost driver mapping, revenue mapping, income goal mapping
+**Update** the system prompt:
+- Remove the dashboard number format instructions (GPT won't compute these)
+- Remove `computation_breakdown` from required output
+- Keep all qualitative sections: `quick_wins`, `long_term_strategy`, `cost_driver_analysis`, `full_table`
+- Add instruction: "The dashboard numbers will be computed separately. Focus on qualitative analysis."
 
-### 2. What stays the same
-- All frontend code (no UI changes)
-- The types in `src/types/audit.ts`
-- The wizard flow in `AuditWizard.tsx`
-- Industry hourly rates and ROI ceiling logic
+**Update** the user prompt:
+- Include the server-computed `totalSavings` and `perProcessBreakdown` so GPT can reference accurate numbers in its descriptions
+- Pass savings per process so GPT can cite them in quick wins
+
+**Add** post-GPT override block:
+- Set `analysisResult.dashboard` with server-computed values (formatted as strings)
+- Set `analysisResult.computation_breakdown` with server-computed breakdown
+- Merge server-computed per-process data into `analysisResult.full_table`
+
+### 2. No frontend changes needed
+The `ResultsDashboard` already parses `dashboard.revenue` etc. as strings -- the server will format them the same way.
 
 ## Expected Outcome
-- Reclaimable revenue will reflect realistic process-specific analysis (like your previous site)
-- The AI will apply variable efficiency factors (15-65%) per process type
-- Role multipliers will affect cost calculations appropriately
-- Computation breakdown will show the AI's detailed reasoning
+- Dashboard numbers are always mathematically correct and verifiable
+- Different process types produce different savings (not flat 35%)
+- Executive departments cost more to automate than admin departments
+- Quick wins, strategies, and descriptions remain rich and contextual from GPT
+- Numbers in quick win descriptions will roughly align with dashboard totals because GPT receives the server-computed figures as context
