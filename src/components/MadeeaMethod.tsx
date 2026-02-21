@@ -22,7 +22,7 @@ const steps = [{
   id: "03",
   title: "Full Infrastructure",
   label: "Phase: Scaling",
-  desc: "The complete installation of the Madeea Revenue Engine: AI Voice agents, RAG Knowledge Base, and 1Prompt Control Panel.",
+  desc: "The complete installation of the Madeea Revenue Engine: AI Voice agents, RAG Knowledge Base, and Madeea.ai Control Panel.",
   cta: "View Architecture",
   icon: Rocket,
   variant: "gradient",
