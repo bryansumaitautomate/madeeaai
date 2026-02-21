@@ -30,7 +30,7 @@ export const SummaryPreviewStep = ({ data, onSubmit, onBack, onEditStep }: Summa
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2">Review Your Audit Details</h2>
+        <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight mb-2">Review Your Audit Details</h2>
         <p className="text-muted-foreground max-w-lg mx-auto">Double-check your information before we analyze your operations</p>
       </div>
 

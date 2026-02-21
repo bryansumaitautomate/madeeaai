@@ -89,7 +89,7 @@ export const GoalsReadinessStep = ({ data, onUpdate, onNext, onBack }: GoalsRead
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-3">Your Goals & Readiness</h2>
+        <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight mb-3">Your Goals & Readiness</h2>
         <p className="text-muted-foreground">Help us understand your goals so we can tailor our recommendations</p>
       </div>
 

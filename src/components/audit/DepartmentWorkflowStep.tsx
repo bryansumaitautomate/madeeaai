@@ -68,7 +68,7 @@ export const DepartmentWorkflowStep = ({ departments, onUpdate, onSubmit, onBack
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2">Map your bottlenecks.</h2>
+        <h2 className="text-2xl sm:text-3xl font-serif font-normal tracking-tight mb-2">Map your bottlenecks.</h2>
         <p className="text-muted-foreground max-w-lg mx-auto">Identify the tasks consuming your time.</p>
       </div>
 
