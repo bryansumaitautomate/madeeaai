@@ -191,13 +191,13 @@ export const ResultsDashboard = ({ data, analysis, hiddenData }: ResultsDashboar
               <div>
                 <p className="text-5xl md:text-7xl font-extrabold tracking-tighter text-blue-500"><AnimatedValue value={totalSavings} prefix="$" delay={300} /></p>
                 <p className="text-white/50 font-medium mt-3 text-sm md:text-base">Reclaimable Revenue</p>
-                <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <AnimatedBadge delay={500}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={roiMultiplier} suffix="x" delay={600} decimals={1} /></span><span className="text-white/50 text-[10px] md:text-xs uppercase tracking-widest">ROI</span></AnimatedBadge>
                 <AnimatedBadge delay={700}><span className="text-xl md:text-2xl font-bold text-white"><AnimatedValue value={hoursSaved} delay={800} /></span><span className="text-white/50 text-[10px] md:text-xs uppercase tracking-widest">Hours Saved</span></AnimatedBadge>
               </div>
             </div>
+            <FormulaBreakdown computationBreakdown={analysis.computation_breakdown} fullTable={analysis.full_table} />
 
             <div className="sm:hidden space-y-3">
               <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
