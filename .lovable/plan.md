@@ -1,21 +1,23 @@
 
-# Fix "Get Report" Button Animation Overflow
+
+# Fix "Get Report" Button Gradient Overflow
 
 ## Problem
-The spinning conic-gradient border animation on the "Get Report" button overflows beyond the button's visible area, as shown in the screenshot.
+The spinning conic-gradient background on the "Get Report" button overflows beyond the button border, appearing as a visible background bleed.
 
 ## Root Cause
-The `Button` component at line 121 has `overflow-hidden` but the inner `div` with `absolute inset-0` and the spinning conic-gradient may not be properly clipped due to the Button component's own styling or padding conflicts with `p-[1px]`.
+The spinning gradient `div` with `absolute inset-0` can overflow rounded corners during GPU-accelerated rotation. The `overflow-hidden` on the wrapper doesn't reliably clip spinning elements in all browsers.
 
 ## Fix
 
-### File: `src/components/audit/ResultsDashboard.tsx` (line 121)
-- Wrap the button content in a container `div` that has `overflow-hidden` and `rounded-lg` to properly clip the spinning gradient
-- Change the approach: instead of relying on the `Button` component's overflow, use an outer wrapper div with `relative overflow-hidden rounded-lg` and `p-[1px]`, and place the `Button` inside without the conflicting styles
+### File: `src/components/audit/ResultsDashboard.tsx` (lines 121-126)
 
-Specifically, replace the current Button (lines 121-126) with:
-- An outer `div` with `relative p-[1px] rounded-lg overflow-hidden inline-flex`
-- The spinning gradient `div` inside it with `absolute inset-0`
-- The `Button` inside with `relative bg-black rounded-lg` (no `p-[1px]`, no `overflow-hidden`)
+Replace the current wrapper+gradient+Button structure with the same proven pattern used in `MadeeaCTA.tsx`:
 
-This ensures the gradient is clipped by the outer wrapper's `overflow-hidden`.
+- Remove the outer wrapper `div`
+- Move the spinning gradient **inside** the `Button` itself
+- Use `inset-[-1000%]` on the gradient (instead of `inset-0`) so the gradient is oversized and covers evenly during spin
+- Add `overflow-hidden` and `relative` directly on the `Button`
+- Keep an inner `span` with `bg-black` and `rounded-[7px]` to mask the center, leaving only a 1px animated border visible
+
+This mirrors how `MadeeaCTA` handles the same effect without any overflow issues.
