@@ -119,7 +119,7 @@ const LeadMagnetGate = ({ data, analysis, onSuccess }: { data: AuditData; analys
             <label htmlFor="consent" className="text-white/50 text-xs leading-relaxed cursor-pointer">I agree to share my business data with Madeea for analysis.</label>
           </div>
           <div className="relative p-[1px] rounded-full overflow-hidden w-auto self-center">
-            <div className="absolute inset-0 rounded-full animate-[spin_3s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)' }} />
+            <div className="absolute inset-0 rounded-full animate-[spin_4s_linear_infinite]" style={{ background: 'conic-gradient(from 0deg, #3b82f6 0%, #60a5fa 25%, #93c5fd 50%, #60a5fa 75%, #3b82f6 100%)' }} />
             <button type="submit" disabled={isSubmitting} className="relative bg-black px-6 py-2.5 rounded-full flex items-center justify-center gap-2 text-sm font-semibold text-white hover:bg-black/90 transition-all disabled:opacity-50">
               {isSubmitting ? <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending...</> : <><Send className="w-4 h-4" />Get Report</>}
             </button>
