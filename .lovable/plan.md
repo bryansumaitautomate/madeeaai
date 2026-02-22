@@ -1,30 +1,26 @@
 
-
-# Add "weeks" Label to Formula Display
+# Add Vertical Grid Lines to AI Hub Hero
 
 ## Change
 
-In `src/components/audit/FormulaBreakdown.tsx`, line 50, update the core formula text from:
+Add the same 4-column vertical grid lines from the homepage's `AuraBackground` component to the AI Hub hero section. These are subtle `border-white/5` vertical dividers that create a refined grid overlay, hidden on mobile for performance.
 
+## Technical Details
+
+### File: `src/components/ai-hub/AutomationHero.tsx`
+
+Add the following block inside the `<section>` element (after the gradient orb div, before the container):
+
+```tsx
+{/* 4-column vertical grid lines - matching homepage */}
+<div className="absolute inset-0 hidden sm:flex pointer-events-none">
+  <div className="flex-1 border-r border-white/5" />
+  <div className="flex-1 border-r border-white/5" />
+  <div className="flex-1 border-r border-white/5" />
+  <div className="flex-1" />
+</div>
 ```
-(Hours/wk x People x Adjusted Rate x 52) x Efficiency %
-```
 
-to:
+This is the exact same pattern used in `AuraBackground.tsx` (lines 18-23), with `pointer-events-none` added so the lines don't interfere with the search input or other interactive elements.
 
-```
-(Hours/wk x People x Adjusted Rate x 52 weeks) x Efficiency %
-```
-
-## Computation Verification
-
-The backend logic in the edge function is correct:
-- `weeklyHours = hoursPerWeek * peopleInvolved` (line 89)
-- `annualCost = weeklyHours * adjustedRate * 52` (line 91)
-- `savings = savableWeeklyHours * adjustedRate * 52` (line 95)
-- `annualHoursSaved = savableWeeklyHours * 52` (line 94)
-
-The 52 correctly converts weekly figures to annual. No computation changes needed -- just the label fix.
-
-## File Modified
-- `src/components/audit/FormulaBreakdown.tsx` -- single text change on line 50
+No other files need changes.
