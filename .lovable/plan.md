@@ -1,26 +1,59 @@
 
 
-# Fix Navigation Links on AI Hub and Audit Pages
+# Apply Main Website Fonts and Card Design to AI Hub
 
-## Problem
-The Navigation component uses plain `<a>` tags for all links. This causes two issues when you're on the `/ai-hub` or `/audit` pages:
+## What Changes
 
-1. **Hash links don't work** -- Clicking "Problem", "Solutions", "How It Works", or "Results" tries to scroll to `#problems`, `#solutions`, etc., but those sections only exist on the homepage. Nothing happens.
-2. **Route links cause full reloads** -- Clicking "AI Hub" or "Free Audit" uses a plain `<a>` tag instead of React Router navigation, so the entire page reloads instead of smoothly transitioning.
+The AI Hub page currently uses generic sans-serif styling and simple flat cards. The main website uses a distinct typography hierarchy and premium card designs with rotating gradient borders. This plan brings those same design patterns to the AI Hub.
 
-## Solution
-Update the Navigation component to use React Router's `useNavigate` hook for proper client-side routing:
+## 1. Typography Updates
 
-- **Hash links** (`#problems`, `#solutions`, etc.): When on a sub-page, navigate to `/` first, then scroll to the section. When already on `/`, scroll smoothly as before.
-- **Route links** (`/ai-hub`, `/audit`): Use `navigate()` from React Router instead of letting the browser handle `<a>` tags with full reloads.
+Apply the main site's font hierarchy across all AI Hub components:
 
-## Technical Details
+- **Hero headline** ("Automation Library"): Switch to `font-serif` (Instrument Serif) with italic accent text, matching the Hero component's headline style
+- **Hero subtitle label** ("AI Automation Partner"): Switch to `font-mono` with uppercase tracking, matching the Hero's label style
+- **Hero body text**: Keep `font-light` with Geist Sans (already the default)
+- **Card titles**: Switch to `font-syne` (Syne), matching how RealityCheck and InfrastructureCard use it
+- **Card descriptions**: Add `font-syne`, matching RealityCheck's description style
+- **Tool badges**: Switch to `font-mono` for the technical/data aesthetic
+- **Category sidebar heading**: Switch to `font-mono` with uppercase tracking
+- **Modal title**: Switch to `font-syne`
+- **Modal section headers**: Switch to `font-mono`
 
-### File: `src/components/Navigation.tsx`
+## 2. Card Design -- Magic Border Effect
 
-1. Import `useNavigate` and `useLocation` from `react-router-dom`
-2. Update `handleNavClick`:
-   - For hash links (`#...`): Check if we're on `/`. If yes, smooth-scroll. If not, use `navigate('/' + href)` to go to homepage with the hash -- React Router will handle it and the browser will scroll to the anchor.
-   - For route links (`/...`): Use `navigate(href)` for client-side routing instead of default `<a>` behavior. Call `e.preventDefault()` to stop the full reload.
-3. Keep `<a>` tags in JSX for accessibility/SEO, but override their behavior via `handleNavClick`.
+Replace the current flat card design with the main website's "magic border" rotating gradient pattern (same as InfrastructureCard):
+
+- Wrap each automation card in the `infrastructure-card-wrapper` pattern
+- Add the `infrastructure-card-border` container with `overflow: clip`
+- Add the `infrastructure-card-gradient` rotating conic-gradient element (appears on hover)
+- Use `infrastructure-card-content` as the inner card with dark `#0a0a0f` background
+- Include the subtle top glow line on hover
+- Remove the old `ai-hub-card-hover` translateY effect in favor of the rotating border
+
+## Files to Modify
+
+### `src/components/ai-hub/AutomationHero.tsx`
+- Hero headline: add `font-serif`, make "AI-Powered Workflows" use `font-serif italic`
+- Glass pill label: add `font-mono`
+- Body text: keep as-is (Geist Sans is the default)
+
+### `src/components/ai-hub/AutomationCard.tsx`
+- Restructure JSX to use the three-layer magic border pattern (`infrastructure-card-wrapper` > `infrastructure-card-border` > `infrastructure-card-gradient` + `infrastructure-card-content`)
+- Card title: add `font-syne`
+- Card description: add `font-syne`
+- Tool badges: add `font-mono`
+
+### `src/components/ai-hub/CategoryTabs.tsx`
+- "Categories" heading: add `font-mono uppercase tracking-widest text-xs`
+- Category labels: add `font-syne`
+
+### `src/components/ai-hub/AutomationModal.tsx`
+- Modal title: add `font-syne`
+- Section headings ("What this automation does", "Tools & Integrations"): add `font-mono`
+- Tool badges: add `font-mono`
+
+### `src/pages/AIHub.tsx`
+- "Showing X workflows" text: add `font-mono` to the count
+- Footer text: keep as-is
 
