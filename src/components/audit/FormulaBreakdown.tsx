@@ -47,7 +47,7 @@ const FormulaBreakdown = ({ computationBreakdown, fullTable }: FormulaBreakdownP
               Core Formula (per process)
             </p>
             <p className="text-white/90 text-sm font-mono">
-              (Hours/wk × People × Adjusted Rate × 52) × Efficiency %
+              (Hours/wk × People × Adjusted Rate × 52 weeks) × Efficiency %
             </p>
           </div>
 
