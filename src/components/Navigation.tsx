@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ControlRoomButton from './ControlRoomButton';
@@ -24,6 +25,8 @@ const navLinks = [{
   href: '/audit'
 }];
 const Navigation = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   useEffect(() => {
@@ -46,12 +49,20 @@ const Navigation = () => {
     };
   }, [isMobileMenuOpen]);
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+
     if (href.startsWith('/')) {
-      // Let the browser handle internal routes naturally
-      setIsMobileMenuOpen(false);
+      navigate(href);
       return;
     }
-    e.preventDefault();
+
+    // Hash link
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+      return;
+    }
+
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     if (element) {
@@ -61,7 +72,6 @@ const Navigation = () => {
         behavior: 'smooth'
       });
     }
-    setIsMobileMenuOpen(false);
   };
   return <>
       {/* Main Navigation */}
