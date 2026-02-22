@@ -6,27 +6,32 @@ export const AuditAuraBackground = () => {
 
   useEffect(() => {
     if (scriptLoadedRef.current) return;
-    
-    const loadUnicornStudio = () => {
-      if (!window.UnicornStudio) {
-        (window as any).UnicornStudio = { isInitialized: !1 };
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/gh/nicholashamilton/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
-        script.onload = () => {
-          if (window.UnicornStudio && !window.UnicornStudio.isInitialized) {
-            window.UnicornStudio.init();
-            (window.UnicornStudio as any).isInitialized = true;
-          }
-        };
-        (document.head || document.body).appendChild(script);
-        scriptLoadedRef.current = true;
-      } else if (!window.UnicornStudio.isInitialized) {
+    scriptLoadedRef.current = true;
+
+    const existingScript = document.querySelector(
+      'script[src*="unicornStudio.umd.js"]'
+    );
+
+    const initStudio = () => {
+      if (
+        window.UnicornStudio &&
+        typeof window.UnicornStudio.init === "function"
+      ) {
         window.UnicornStudio.init();
-        (window.UnicornStudio as any).isInitialized = true;
       }
     };
 
-    loadUnicornStudio();
+    if (existingScript) {
+      // Script already in DOM – may or may not have loaded yet
+      initStudio();
+      existingScript.addEventListener("load", initStudio);
+    } else {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/gh/nicholashamilton/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
+      script.onload = initStudio;
+      document.head.appendChild(script);
+    }
   }, []);
 
   return (
