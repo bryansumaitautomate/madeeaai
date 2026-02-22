@@ -16,13 +16,13 @@ const AutomationHero = ({ searchQuery, onSearchChange }: AutomationHeroProps) =>
         <div className="flex items-center justify-center mb-8 animate-fade-in">
           <div className="ai-hub-glass-pill flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="uppercase tracking-widest text-xs">AI Automation Partner</span>
+            <span className="uppercase tracking-widest text-xs font-mono">AI Automation Partner</span>
           </div>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in leading-tight" style={{ animationDelay: "0.1s" }}>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 animate-fade-in leading-tight font-serif" style={{ animationDelay: "0.1s" }}>
           Automation Library
-          <span className="block text-primary ai-hub-glow-text italic">AI-Powered Workflows</span>
+          <span className="block text-primary ai-hub-glow-text font-serif italic">AI-Powered Workflows</span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>

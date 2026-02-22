@@ -20,7 +20,7 @@ const AutomationModal = ({ automation, isOpen, onClose }: AutomationModalProps) 
           <div className="flex items-start gap-4">
             <span className="text-3xl p-3 bg-secondary rounded-xl flex-shrink-0">{automation.icon}</span>
             <div className="flex-1 min-w-0">
-              <DialogTitle className="text-xl leading-tight">{automation.title}</DialogTitle>
+              <DialogTitle className="text-xl leading-tight font-syne">{automation.title}</DialogTitle>
               <div className="flex flex-wrap gap-1.5 mt-3">
                 {automation.categories.slice(0, 3).map((category) => (
                   <Badge key={category} variant="secondary" className="text-xs">
@@ -39,17 +39,17 @@ const AutomationModal = ({ automation, isOpen, onClose }: AutomationModalProps) 
 
         <div className="flex-1 overflow-y-auto min-h-0 px-6 py-5">
           <div>
-            <h4 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wide">What this automation does</h4>
+            <h4 className="font-mono text-foreground mb-3 text-xs uppercase tracking-widest">What this automation does</h4>
             <p className="text-muted-foreground leading-relaxed text-[15px] whitespace-pre-line">
               {automation.description}
             </p>
           </div>
 
           <div className="mt-6 pt-5 border-t border-border">
-            <h4 className="font-semibold text-foreground mb-3 text-sm uppercase tracking-wide">Tools & Integrations</h4>
+            <h4 className="font-mono text-foreground mb-3 text-xs uppercase tracking-widest">Tools & Integrations</h4>
             <div className="flex flex-wrap gap-2">
               {automation.tools.map((tool) => (
-                <span key={tool} className="ai-hub-tool-badge">
+                <span key={tool} className="ai-hub-tool-badge font-mono">
                   {tool}
                 </span>
               ))}

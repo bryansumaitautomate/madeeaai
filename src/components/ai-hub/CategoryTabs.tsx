@@ -22,8 +22,8 @@ const CategoryTabs = ({
     return (
       <div className="w-full lg:w-64 shrink-0">
         <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span className="font-semibold text-foreground">Categories</span>
+        <Sparkles className="w-4 h-4 text-primary" />
+          <span className="font-mono uppercase tracking-widest text-xs text-foreground">Categories</span>
         </div>
         <div className="space-y-2">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -38,7 +38,7 @@ const CategoryTabs = ({
     <div className="w-full lg:w-64 shrink-0">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-4 h-4 text-primary" />
-        <span className="font-semibold text-foreground">Categories</span>
+        <span className="font-mono uppercase tracking-widest text-xs text-foreground">Categories</span>
       </div>
 
       <ScrollArea className="h-[500px] lg:h-[600px] pr-4">
@@ -53,7 +53,7 @@ const CategoryTabs = ({
           >
             <div className="flex items-center gap-3">
               <RadioGroupItem value="all" id="category-all" className="border-primary" />
-              <span className="text-sm font-medium">All Workflows</span>
+              <span className="text-sm font-syne font-medium">All Workflows</span>
             </div>
             <span className="text-sm text-muted-foreground">{totalCount}</span>
           </Label>
@@ -70,7 +70,7 @@ const CategoryTabs = ({
                   id={`category-${category}`}
                   className="border-primary"
                 />
-                <span className="text-sm font-medium">{category}</span>
+                <span className="text-sm font-syne font-medium">{category}</span>
               </div>
               <span className="text-sm text-muted-foreground">{count}</span>
             </Label>
