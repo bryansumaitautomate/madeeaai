@@ -11,6 +11,14 @@ const AutomationHero = ({ searchQuery, onSearchChange }: AutomationHeroProps) =>
       {/* Subtle gradient orb */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
+      {/* 4-column vertical grid lines - matching homepage */}
+      <div className="absolute inset-0 hidden sm:flex pointer-events-none">
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1 border-r border-white/5" />
+        <div className="flex-1" />
+      </div>
+
       <div className="container mx-auto max-w-4xl text-center relative z-10">
         {/* Glass pill badge */}
         <div className="flex items-center justify-center mb-8 animate-fade-in">
