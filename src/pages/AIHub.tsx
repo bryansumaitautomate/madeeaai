@@ -73,7 +73,7 @@ const AIHub = () => {
             <div className="flex-1">
               <div className="mb-6">
                 <p className="text-muted-foreground">
-                  Showing <span className="font-semibold text-foreground">{filteredAutomations.length}</span> workflows
+                  Showing <span className="font-mono font-semibold text-foreground">{filteredAutomations.length}</span> workflows
                   {activeCategory !== "all" && (
                     <span> in <span className="font-semibold text-primary">{activeCategory}</span></span>
                   )}
