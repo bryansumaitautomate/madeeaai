@@ -1,27 +1,26 @@
 
 
-# Smooth Spinning Border on "Get Report" Button
+# Fix Navigation Links on AI Hub and Audit Pages
 
 ## Problem
-The spinning border animation feels "snappy" because the conic gradient has a visible seam. The gradient goes `#3b82f6 -> #60a5fa -> #3b82f6`, creating a hard transition point where the start and end colors meet. Each time the rotation completes a full 360-degree cycle, this seam snaps past, making it look jarring instead of smooth.
+The Navigation component uses plain `<a>` tags for all links. This causes two issues when you're on the `/ai-hub` or `/audit` pages:
+
+1. **Hash links don't work** -- Clicking "Problem", "Solutions", "How It Works", or "Results" tries to scroll to `#problems`, `#solutions`, etc., but those sections only exist on the homepage. Nothing happens.
+2. **Route links cause full reloads** -- Clicking "AI Hub" or "Free Audit" uses a plain `<a>` tag instead of React Router navigation, so the entire page reloads instead of smoothly transitioning.
 
 ## Solution
-Spread the gradient across more stops so the color transition is gradual across the full circle, eliminating the visible seam. Also slow down the spin slightly for a more elegant feel.
+Update the Navigation component to use React Router's `useNavigate` hook for proper client-side routing:
 
-### File: `src/components/audit/ResultsDashboard.tsx` (line 122)
+- **Hash links** (`#problems`, `#solutions`, etc.): When on a sub-page, navigate to `/` first, then scroll to the section. When already on `/`, scroll smoothly as before.
+- **Route links** (`/ai-hub`, `/audit`): Use `navigate()` from React Router instead of letting the browser handle `<a>` tags with full reloads.
 
-Update the gradient on the spinning div from:
-```
-conic-gradient(from 0deg, #3b82f6, #60a5fa, #3b82f6)
-```
-to a multi-stop gradient with smoother transitions:
-```
-conic-gradient(from 0deg, #3b82f6 0%, #60a5fa 25%, #93c5fd 50%, #60a5fa 75%, #3b82f6 100%)
-```
+## Technical Details
 
-And change the animation speed from `3s` to `4s` for a calmer, more premium feel:
-```
-animate-[spin_4s_linear_infinite]
-```
+### File: `src/components/Navigation.tsx`
 
-This ensures there's no hard color jump at any point during the rotation, making the spin feel continuous and seamless.
+1. Import `useNavigate` and `useLocation` from `react-router-dom`
+2. Update `handleNavClick`:
+   - For hash links (`#...`): Check if we're on `/`. If yes, smooth-scroll. If not, use `navigate('/' + href)` to go to homepage with the hash -- React Router will handle it and the browser will scroll to the anchor.
+   - For route links (`/...`): Use `navigate(href)` for client-side routing instead of default `<a>` behavior. Call `e.preventDefault()` to stop the full reload.
+3. Keep `<a>` tags in JSX for accessibility/SEO, but override their behavior via `handleNavClick`.
+
