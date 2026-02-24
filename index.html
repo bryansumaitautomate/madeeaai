@@ -46,6 +46,50 @@
               }
             }
           });
+
+          // Force dark theme on Voiceflow widget via shadow DOM injection
+          var injectDarkTheme = function() {
+            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
+            if (!chatEl) return;
+            var shadow = chatEl.shadowRoot;
+            if (!shadow) return;
+            
+            var style = document.createElement('style');
+            style.textContent = [
+              ':host { --vf-primary: #2346DC !important; }',
+              '.vfrc-chat { background: #0C0F14 !important; color: #E9ECFC !important; }',
+              '.vfrc-chat--dialog { background: #0C0F14 !important; }',
+              '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35, 70, 220, 0.2) !important; }',
+              '.vfrc-header--title { color: #ffffff !important; }',
+              '.vfrc-header--subtitle { color: #94A3B8 !important; }',
+              '.vfrc-message--response { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; }',
+              '.vfrc-message--request { background: #2346DC !important; color: #ffffff !important; }',
+              '.vfrc-footer { background: #0C0F14 !important; border-top: 1px solid rgba(35, 70, 220, 0.15) !important; }',
+              '.vfrc-footer input, .vfrc-input textarea, .vfrc-chat-input textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+              '.vfrc-chat-input { background: #0C0F14 !important; }',
+              '.vfrc-launcher { background: #2346DC !important; box-shadow: 0 0 24px rgba(35, 70, 220, 0.5) !important; }',
+              '.vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; }',
+              '.vfrc-button, .vfrc-chip { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
+              '.vfrc-button:hover, .vfrc-chip:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
+              '.vfrc-system-response .vfrc-message { color: #E9ECFC !important; }',
+              'a { color: #5B8DEF !important; }',
+              '::placeholder { color: #64748B !important; }',
+              '.vfrc-assistant-info { background: #0C0F14 !important; }',
+              '.vfrc-assistant-info--title { color: #ffffff !important; }',
+              '.vfrc-assistant-info--description { color: #94A3B8 !important; }'
+            ].join('\n');
+            shadow.appendChild(style);
+          };
+          
+          // Retry injection until shadow DOM is available
+          var attempts = 0;
+          var interval = setInterval(function() {
+            attempts++;
+            injectDarkTheme();
+            if (attempts > 30) clearInterval(interval);
+            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
+            if (chatEl && chatEl.shadowRoot && chatEl.shadowRoot.querySelector('style')) clearInterval(interval);
+          }, 500);
         };
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";

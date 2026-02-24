@@ -882,3 +882,31 @@
 .animate-scale-in {
   animation: ai-hub-scale-in 0.3s ease-out forwards;
 }
+
+/* ===== VOICEFLOW CHATBOT DARK THEME OVERRIDES ===== */
+#voiceflow-chat {
+  --vf-primary: hsl(var(--primary)) !important;
+}
+
+#voiceflow-chat,
+div[id^="voiceflow"] {
+  /* Target the widget's shadow DOM host */
+  --vf-bg: hsl(var(--background)) !important;
+  --vf-text: hsl(var(--foreground)) !important;
+}
+
+/* Override the launcher button */
+#voiceflow-chat button[class*="launcher"],
+div[id^="voiceflow"] button {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.4) !important;
+}
+
+/* Override the chat container */
+#voiceflow-chat div[class*="chat"],
+div[id^="voiceflow"] iframe {
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 0 40px hsl(var(--primary) / 0.15) !important;
+}
