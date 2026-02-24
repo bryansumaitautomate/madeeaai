@@ -92,7 +92,23 @@
               '.vfrc-assistant-info { background: #0C0F14 !important; }',
               '.vfrc-assistant-info--title { color: #ffffff !important; }',
               '.vfrc-assistant-info--description { color: #94A3B8 !important; }',
-              'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }'
+              'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
+              '.vfrc-loading { background: transparent !important; }',
+              '.vfrc-typing { background: transparent !important; }',
+              '.vfrc-typing-indicator { background: #161A22 !important; }',
+              'div[class*="loading"] { background: transparent !important; }',
+              'div[class*="Loading"] { background: transparent !important; }',
+              'div[class*="typing"] { background: transparent !important; }',
+              'div[class*="Typing"] { background: transparent !important; }',
+              'div[class*="indicator"] { background: #161A22 !important; }',
+              'div[class*="Indicator"] { background: #161A22 !important; }',
+              'div[class*="busy"] { background: transparent !important; }',
+              'div[class*="status"] { background: transparent !important; }',
+              'div[class*="Status"] { background: transparent !important; }',
+              'div > div { background-color: inherit !important; }',
+              'div:not(.vfrc-launcher):not(.vfrc-message--request):not(.vfrc-user-response .vfrc-bubble) { background-color: transparent !important; }',
+              '.vfrc-chat, .vfrc-chat--dialog, .vfrc-header, .vfrc-footer, .vfrc-chat-input, .vfrc-assistant-info { background-color: #0C0F14 !important; }',
+              '.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble, div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }'
             ].join('\n');
             shadow.appendChild(style);
           };
