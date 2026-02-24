@@ -60,10 +60,12 @@
             'textarea::placeholder,input::placeholder{color:#64748B!important;-webkit-text-fill-color:#64748B!important}',
             '*:focus,*:focus-visible{outline:none!important}',
             '[class*="powered"],[class*="Powered"],[class*="branding"],[class*="Branding"],[class*="credit"],[class*="Credit"],[class*="watermark"],[class*="Watermark"]{display:none!important}',
-            'p,span,h1,h2,h3,h4,h5,h6,label{color:#E9ECFC!important}',
+            'p,span,li,ul,ol,h1,h2,h3,h4,h5,h6,label,div{color:#E9ECFC!important}',
             'a{color:#5B8DEF!important}',
             'button{background:#1e2430!important;color:#E9ECFC!important;border:1px solid rgba(255,255,255,0.1)!important}',
-            'button:hover{background:#2a303d!important}'
+            'button:hover{background:#2a303d!important}',
+            'div[class*="input"],div[class*="Input"]{background:#0C0F14!important}',
+            'form,fieldset{background:transparent!important;border:none!important}'
           ].join('\n');
 
           var dataUri = 'data:text/css;base64,' + btoa(css);
@@ -85,6 +87,22 @@
               stylesheet: dataUri
             }
           });
+
+          // Fallback: also inject styles directly into shadow DOM
+          var injectStyles = function() {
+            var el = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
+            if (!el || !el.shadowRoot) return false;
+            if (el.shadowRoot.querySelector('[data-madeea-theme]')) return true;
+            var s = document.createElement('style');
+            s.setAttribute('data-madeea-theme', '1');
+            s.textContent = css;
+            el.shadowRoot.appendChild(s);
+            return true;
+          };
+          var attempts = 0;
+          var iv = setInterval(function() {
+            if (injectStyles() || ++attempts > 60) clearInterval(iv);
+          }, 500);
         };
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";
