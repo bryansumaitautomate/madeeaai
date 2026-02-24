@@ -64,8 +64,14 @@
             'a{color:#5B8DEF!important}',
             'button{background:#1e2430!important;color:#E9ECFC!important;border:1px solid rgba(255,255,255,0.1)!important}',
             'button:hover{background:#2a303d!important}',
-            'div[class*="input"],div[class*="Input"]{background:#0C0F14!important}',
-            'form,fieldset{background:transparent!important;border:none!important}'
+            'div[class*="input"],div[class*="Input"]{background:#0C0F14!important;background-color:#0C0F14!important}',
+            'form,fieldset{background:transparent!important;border:none!important}',
+            ':host{--vf-bg:#0C0F14;--vf-text:#E9ECFC}',
+            '.vfrc-chat,.vfrc-chat>div{background:#0C0F14!important;background-color:#0C0F14!important}',
+            'div[class*="loading"],div[class*="Loading"],div[class*="typing"],div[class*="Typing"],div[class*="status"],div[class*="Status"],div[class*="indicator"],div[class*="Indicator"],div[class*="busy"]{background:transparent!important;background-color:transparent!important}',
+            'div[class*="footer"],div[class*="Footer"],div[class*="chat"],div[class*="Chat"],div[class*="dialog"],div[class*="Dialog"]{background:#0C0F14!important;background-color:#0C0F14!important}',
+            'div[class*="container"],div[class*="Container"],div[class*="wrapper"],div[class*="Wrapper"]{background:transparent!important;background-color:transparent!important}',
+            'section,main,aside,article,nav,footer,header{background:transparent!important;background-color:transparent!important}'
           ].join('\n');
 
           var dataUri = 'data:text/css;base64,' + btoa(css);
