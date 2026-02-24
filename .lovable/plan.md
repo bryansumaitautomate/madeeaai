@@ -1,38 +1,40 @@
 
 
-# Fix Remaining White Sections in Voiceflow Chatbot
+# Fix White Loading Message in Voiceflow Chatbot
 
 ## Problem
-The current shadow DOM CSS injection covers many selectors but misses some elements that remain white, specifically:
-- Message response bubbles (the text content area)
-- The input/message field at the bottom
-- Possibly the assistant info card and other container elements
+The Voiceflow chatbot's loading/typing indicator (the animated dots that appear while the bot is generating a response) still has a white background because our CSS overrides don't target the loading indicator elements.
 
 ## Change
 
-**File: `index.html`** (lines 58-79)
+**File: `index.html`** (line 95, before the closing `]`)
 
-Expand the CSS rules array to add broader wildcard overrides and additional specific selectors:
+Add CSS rules targeting the loading/typing indicator elements. Voiceflow uses classes like `.vfrc-loading`, `.vfrc-typing`, and internal dot indicators, plus broad selectors to catch any remaining white backgrounds:
 
 ```js
-// Add these new rules to the existing array:
-'* { color: #E9ECFC; }',
-'.vfrc-message { background: transparent !important; }',
-'.vfrc-system-response { background: transparent !important; }',
-'.vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
-'.vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #ffffff !important; }',
-'div[class*="message"] { background: transparent !important; }',
-'div[class*="response"] { background: transparent !important; }',
-'div[class*="Message"] { background: transparent !important; }',
-'div[class*="Response"] { background: transparent !important; }',
-'div[class*="input"] { background: #161A22 !important; color: #E9ECFC !important; }',
-'div[class*="Input"] { background: #161A22 !important; color: #E9ECFC !important; }',
-'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
-'div[class*="footer"], div[class*="Footer"] { background: #0C0F14 !important; }',
-'div[class*="chat"], div[class*="Chat"] { background: #0C0F14 !important; }',
-'div[class*="dialog"], div[class*="Dialog"] { background: #0C0F14 !important; }',
-'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
+// Add after the existing 'p, span, ...' rule:
+'.vfrc-loading { background: transparent !important; }',
+'.vfrc-typing { background: transparent !important; }',
+'.vfrc-typing-indicator { background: #161A22 !important; }',
+'div[class*="loading"] { background: transparent !important; }',
+'div[class*="Loading"] { background: transparent !important; }',
+'div[class*="typing"] { background: transparent !important; }',
+'div[class*="Typing"] { background: transparent !important; }',
+'div[class*="indicator"] { background: #161A22 !important; }',
+'div[class*="Indicator"] { background: #161A22 !important; }',
+'div[class*="busy"] { background: transparent !important; }',
+'div[class*="status"] { background: transparent !important; }',
+'div[class*="Status"] { background: transparent !important; }',
+'div > div { background-color: inherit !important; }',
 ```
 
-This blanket approach ensures that any Voiceflow internal class naming (which may differ across widget versions) gets forced to the dark theme. The specificity chain is: element-wide defaults with `!important`, then more specific selectors for the key interactive elements.
+Additionally, add a nuclear option to catch any remaining white elements inside the shadow DOM:
+
+```js
+'div:not(.vfrc-launcher):not(.vfrc-message--request):not(.vfrc-user-response .vfrc-bubble) { background-color: transparent !important; }',
+'.vfrc-chat, .vfrc-chat--dialog, .vfrc-header, .vfrc-footer, .vfrc-chat-input, .vfrc-assistant-info { background-color: #0C0F14 !important; }',
+'.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble, div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }',
+```
+
+This ensures the loading message container inherits the dark background instead of defaulting to white.
 
