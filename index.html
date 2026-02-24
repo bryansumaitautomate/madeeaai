@@ -36,11 +36,17 @@
             verify: { projectID: '699daccdde2b01982d12ac5e' },
             url: 'https://general-runtime.voiceflow.com',
             versionID: 'production',
-            voice: {
-              url: "https://runtime-api.voiceflow.com"
+            voice: { url: "https://runtime-api.voiceflow.com" },
+            render: {
+              mode: 'overlay',
+              theme: {
+                primaryColor: '#1A6BFF',
+                backgroundColor: '#0C0F14',
+                textColor: '#E6EAF2'
+              }
             }
           });
-        }
+        };
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";
         s.parentNode.insertBefore(v, s);
