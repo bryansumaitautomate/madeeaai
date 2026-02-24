@@ -32,125 +32,114 @@
       (function(d, t) {
         var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
         v.onload = function() {
-          var vfCss = ''
-            + '/* Madeea dark theme — build 2026-02-24b */\n'
-
-            /* Chat shell */
-            + '.vfrc-chat, .vfrc-chat--dialog { background: #0C0F14 !important; color: #E9ECFC !important; }\n'
-            + '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35,70,220,0.2) !important; }\n'
-            + '.vfrc-header--title { color: #fff !important; }\n'
-            + '.vfrc-header--subtitle { color: #94A3B8 !important; }\n'
-            + '.vfrc-assistant-info { background: #0C0F14 !important; }\n'
-            + '.vfrc-assistant-info--title { color: #fff !important; }\n'
-            + '.vfrc-assistant-info--description { color: #94A3B8 !important; }\n'
-
-            /* Messages */
-            + '.vfrc-message { background: transparent !important; }\n'
-            + '.vfrc-system-response { background: transparent !important; }\n'
-            + '.vfrc-system-response .vfrc-message { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }\n'
-            + '.vfrc-user-response .vfrc-message { background: #2346DC !important; color: #fff !important; }\n'
-            + '.vfrc-message p, .vfrc-message span { color: inherit !important; }\n'
-            + '.vfrc-message a { color: #5B8DEF !important; }\n'
-
-            /* Cards */
-            + '.vfrc-card--content { background: #161A22 !important; color: #E9ECFC !important; }\n'
-            + '.vfrc-card--header { color: #E9ECFC !important; }\n'
-            + '.vfrc-card--description { color: #94A3B8 !important; }\n'
-            + '.vfrc-carousel { background: transparent !important; }\n'
-
-            /* Chips / action buttons */
-            + '.vfrc-button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35,70,220,0.3) !important; }\n'
-            + '.vfrc-button:hover { background: #1e2430 !important; border-color: rgba(35,70,220,0.6) !important; }\n'
-
-            /* Footer & input — color only */
-            + '.vf-footer { background: #0C0F14 !important; border-top: 1px solid rgba(255,255,255,0.06) !important; }\n'
-            + '.vfrc-chat-input { background: #0C0F14 !important; }\n'
-            + '.vfrc-input { background: #161A22 !important; color: #E9ECFC !important; }\n'
-            + '.vfrc-input textarea, .vfrc-input input { background: transparent !important; color: #E9ECFC !important; caret-color: #E9ECFC !important; }\n'
-            + '.vfrc-input textarea::placeholder, .vfrc-input input::placeholder { color: #64748B !important; }\n'
-
-            /* Send button */
-            + '.vfrc-chat-input--button { display: inline-flex !important; align-items: center !important; justify-content: center !important; color: #E9ECFC !important; }\n'
-            + '.vfrc-chat-input--button svg { stroke: currentColor !important; }\n'
-            + '.vfrc-chat-input--button:hover { color: #3b82f6 !important; }\n'
-
-            /* Loading */
-            + '.vfrc-system-response--indicator { background: transparent !important; }\n'
-
-            /* Launcher — Ion Blue glow */
-            + '.vfrc-launcher { background: linear-gradient(135deg, #3b82f6, #2346DC) !important; border: 1px solid rgba(59,130,246,0.3) !important; box-shadow: 0 0 30px rgba(59,130,246,0.4), 0 0 60px rgba(35,70,220,0.2) !important; color: #fff !important; }\n'
-            + '.vfrc-launcher:hover { background: linear-gradient(135deg, #2563eb, #1a38b8) !important; box-shadow: 0 0 40px rgba(59,130,246,0.5), 0 0 80px rgba(35,70,220,0.3) !important; }\n'
-            + '.vfrc-launcher svg { color: #fff !important; stroke: #fff !important; }\n'
-            + '.vfrc-launcher span { color: #fff !important; }\n'
-
-            /* Watermark */
-            + '.vfrc-footer--watermark { opacity: 0.4 !important; }\n'
-
-            /* Text inside chat */
-            + '.vfrc-chat p, .vfrc-chat span, .vfrc-chat h1, .vfrc-chat h2, .vfrc-chat h3, .vfrc-chat label { color: #E9ECFC !important; }\n'
-            + '.vfrc-chat a { color: #5B8DEF !important; }\n'
-            + '.vfrc-chat img { border-radius: 8px !important; }\n'
-
-            /* Chat overlay background */
-            + '.vfrc-chat--overlay { background: rgba(0,0,0,0.5) !important; }\n'
-          ;
-
-          /* Encode as base64 data URL per Voiceflow docs */
-          var vfCssBase64 = btoa(unescape(encodeURIComponent(vfCss)));
-          var vfCssUrl = 'data:text/css;base64,' + vfCssBase64;
-
-          /* Load widget using documented assistant config */
           window.voiceflow.chat.load({
             verify: { projectID: '699daccdde2b01982d12ac5e' },
             url: 'https://general-runtime.voiceflow.com',
             versionID: 'production',
             voice: { url: "https://runtime-api.voiceflow.com" },
-            assistant: {
-              stylesheet: vfCssUrl
+            render: {
+              mode: 'overlay',
+              theme: {
+                primaryColor: '#2346DC',
+                backgroundColor: '#070E2C',
+                textColor: '#E9ECFC'
+              }
             }
           });
 
-          /* Fallback: Shadow DOM injection for widget-next */
-          function injectVfStyles() {
-            var containers = document.querySelectorAll('[id*="voiceflow"], [class*="voiceflow"]');
-            containers.forEach(function(host) {
-              if (!host.shadowRoot) return;
-              var sr = host.shadowRoot;
-              var existing = sr.getElementById('madeea-vf-theme');
-              if (existing) {
-                existing.textContent = vfCss;
-                return;
-              }
-              var style = document.createElement('style');
-              style.id = 'madeea-vf-theme';
-              style.textContent = vfCss;
-              sr.appendChild(style);
-            });
-
-            /* Also try all shadow roots on body children */
-            Array.from(document.body.children).forEach(function(el) {
-              if (!el.shadowRoot || el.id === 'root') return;
-              var sr = el.shadowRoot;
-              var existing = sr.getElementById('madeea-vf-theme');
-              if (existing) {
-                existing.textContent = vfCss;
-                return;
-              }
-              var style = document.createElement('style');
-              style.id = 'madeea-vf-theme';
-              style.textContent = vfCss;
-              sr.appendChild(style);
-            });
-          }
-
-          var observer = new MutationObserver(function() { injectVfStyles(); });
-          observer.observe(document.body, { childList: true, subtree: true });
-          setTimeout(injectVfStyles, 500);
-          setTimeout(injectVfStyles, 1500);
-          setTimeout(injectVfStyles, 3000);
-          setTimeout(injectVfStyles, 5000);
+          // Force dark theme on Voiceflow widget via shadow DOM injection
+          var injectDarkTheme = function() {
+            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
+            if (!chatEl) return;
+            var shadow = chatEl.shadowRoot;
+            if (!shadow) return;
+            
+            var style = document.createElement('style');
+            style.textContent = [
+              ':host { --vf-primary: #2346DC !important; }',
+              '* { color: #E9ECFC; }',
+              '.vfrc-chat { background: #0C0F14 !important; color: #E9ECFC !important; }',
+              '.vfrc-chat--dialog { background: #0C0F14 !important; }',
+              '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35, 70, 220, 0.2) !important; }',
+              '.vfrc-header--title { color: #ffffff !important; }',
+              '.vfrc-header--subtitle { color: #94A3B8 !important; }',
+              '.vfrc-message { background: transparent !important; }',
+              '.vfrc-message--response { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; }',
+              '.vfrc-message--request { background: #2346DC !important; color: #ffffff !important; }',
+              '.vfrc-system-response { background: transparent !important; }',
+              '.vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
+              '.vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #ffffff !important; }',
+              'div[class*="message"] { background: transparent !important; }',
+              'div[class*="response"] { background: transparent !important; }',
+              'div[class*="Message"] { background: transparent !important; }',
+              'div[class*="Response"] { background: transparent !important; }',
+              'div[class*="input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+              'div[class*="Input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+              'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+              'div[class*="footer"], div[class*="Footer"] { background: #0C0F14 !important; }',
+              'div[class*="chat"], div[class*="Chat"] { background: #0C0F14 !important; }',
+              'div[class*="dialog"], div[class*="Dialog"] { background: #0C0F14 !important; }',
+              '.vfrc-footer { background: #0C0F14 !important; border-top: 1px solid rgba(35, 70, 220, 0.15) !important; }',
+              '.vfrc-footer input, .vfrc-input textarea, .vfrc-chat-input textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+              '.vfrc-chat-input { background: #0C0F14 !important; }',
+              '.vfrc-launcher { background: #2346DC !important; box-shadow: 0 0 24px rgba(35, 70, 220, 0.5) !important; }',
+              '.vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; }',
+              '.vfrc-button, .vfrc-chip { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
+              '.vfrc-button:hover, .vfrc-chip:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
+              '.vfrc-system-response .vfrc-message { color: #E9ECFC !important; }',
+              'a { color: #5B8DEF !important; }',
+              '::placeholder { color: #64748B !important; }',
+              '.vfrc-assistant-info { background: #0C0F14 !important; }',
+              '.vfrc-assistant-info--title { color: #ffffff !important; }',
+              '.vfrc-assistant-info--description { color: #94A3B8 !important; }',
+              'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
+              '.vfrc-loading { background: transparent !important; }',
+              '.vfrc-typing { background: transparent !important; }',
+              '.vfrc-typing-indicator { background: #161A22 !important; }',
+              'div[class*="loading"] { background: transparent !important; }',
+              'div[class*="Loading"] { background: transparent !important; }',
+              'div[class*="typing"] { background: transparent !important; }',
+              'div[class*="Typing"] { background: transparent !important; }',
+              'div[class*="indicator"] { background: #161A22 !important; }',
+              'div[class*="Indicator"] { background: #161A22 !important; }',
+              'div[class*="busy"] { background: transparent !important; }',
+              'div[class*="status"] { background: transparent !important; }',
+              'div[class*="Status"] { background: transparent !important; }',
+              '.vfrc-chat, .vfrc-chat--dialog, .vfrc-header, .vfrc-footer, .vfrc-chat-input, .vfrc-assistant-info { background-color: #0C0F14 !important; }',
+              '.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble { background-color: #161A22 !important; }',
+              'div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }',
+              '.vfrc-card { background: #161A22 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; overflow: hidden !important; }',
+              '.vfrc-card--title, .vfrc-card--description { color: #E9ECFC !important; }',
+              '.vfrc-card--image { border-bottom: 1px solid rgba(255,255,255,0.06) !important; }',
+              '.vfrc-carousel { background: transparent !important; }',
+              'div[class*="card"], div[class*="Card"] { background: #161A22 !important; color: #E9ECFC !important; border-color: rgba(255,255,255,0.08) !important; }',
+              'div[class*="carousel"], div[class*="Carousel"] { background: transparent !important; }',
+              '.vfrc-card--action, .vfrc-card--button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
+              '.vfrc-card--action:hover, .vfrc-card--button:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
+              'button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+              'button:hover { background: #1e2430 !important; }',
+              'div[class*="actions"], div[class*="Actions"] { background: transparent !important; }',
+              'div[class*="content"], div[class*="Content"] { background: #161A22 !important; color: #E9ECFC !important; }',
+              'div[class*="body"], div[class*="Body"] { background: #161A22 !important; }',
+              'div[class*="container"], div[class*="Container"] { background: transparent !important; }',
+              'div[class*="wrapper"], div[class*="Wrapper"] { background: transparent !important; }',
+              'img { border-radius: 8px !important; }',
+              '.vfrc-launcher { background: #2346DC !important; border: none !important; }'
+            ].join('\n');
+            shadow.appendChild(style);
+          };
+          
+          // Retry injection until shadow DOM is available
+          var attempts = 0;
+          var interval = setInterval(function() {
+            attempts++;
+            injectDarkTheme();
+            if (attempts > 30) clearInterval(interval);
+            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
+            if (chatEl && chatEl.shadowRoot && chatEl.shadowRoot.querySelector('style')) clearInterval(interval);
+          }, 500);
         };
-        v.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";
         s.parentNode.insertBefore(v, s);
       })(document, 'script');
