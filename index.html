@@ -33,7 +33,9 @@
         var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
         v.onload = function() {
           var vfCss = [
-            '/* Madeea dark theme v2 */',
+            '/* Madeea dark theme — build 2026-02-24a */',
+            '',
+            '/* Chat shell */',
             '.vfrc-chat, .vfrc-chat--dialog { background: #0C0F14 !important; color: #E9ECFC !important; }',
             '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35,70,220,0.2) !important; }',
             '.vfrc-header--title { color: #fff !important; }',
@@ -64,13 +66,12 @@
             '.vfrc-button, .vfrc-chip { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35,70,220,0.3) !important; }',
             '.vfrc-button:hover, .vfrc-chip:hover { background: #1e2430 !important; border-color: rgba(35,70,220,0.6) !important; }',
             '',
-            '/* Footer & input — targeted, no generic selectors */',
+            '/* Footer & input — color only, no layout overrides */',
             '.vfrc-footer, .vf-footer { background: #0C0F14 !important; border-top: 1px solid rgba(255,255,255,0.06) !important; }',
             '.vfrc-chat-input { background: #0C0F14 !important; }',
-            '.vfrc-input { background: #161A22 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; }',
+            '.vfrc-input { background: #161A22 !important; color: #E9ECFC !important; }',
             '.vfrc-input textarea, .vfrc-input input { background: transparent !important; color: #E9ECFC !important; caret-color: #E9ECFC !important; }',
             '.vfrc-input textarea::placeholder, .vfrc-input input::placeholder { color: #64748B !important; }',
-            '.vfrc-input textarea:focus, .vfrc-input input:focus { outline: none !important; }',
             '',
             '/* Send button */',
             '.vfrc-chat-input--button { display: inline-flex !important; align-items: center !important; justify-content: center !important; color: #E9ECFC !important; }',
@@ -101,6 +102,7 @@
 
           var vfCssUrl = 'data:text/css;charset=utf-8,' + encodeURIComponent(vfCss);
 
+          /* Layer 1: official assistant.stylesheet */
           window.voiceflow.chat.load({
             verify: { projectID: '699daccdde2b01982d12ac5e' },
             url: 'https://general-runtime.voiceflow.com',
@@ -118,6 +120,29 @@
               stylesheet: vfCssUrl
             }
           });
+
+          /* Layer 2: Shadow DOM injection fallback */
+          function injectVfStyles() {
+            var host = document.getElementById('voiceflow-chat');
+            if (!host || !host.shadowRoot) return;
+            var sr = host.shadowRoot;
+            var existing = sr.getElementById('madeea-vf-theme');
+            if (existing) {
+              existing.textContent = vfCss;
+              return;
+            }
+            var style = document.createElement('style');
+            style.id = 'madeea-vf-theme';
+            style.textContent = vfCss;
+            sr.appendChild(style);
+          }
+
+          var observer = new MutationObserver(function() { injectVfStyles(); });
+          observer.observe(document.body, { childList: true, subtree: true });
+          setTimeout(injectVfStyles, 500);
+          setTimeout(injectVfStyles, 1500);
+          setTimeout(injectVfStyles, 3000);
+          setTimeout(injectVfStyles, 5000);
         };
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";
