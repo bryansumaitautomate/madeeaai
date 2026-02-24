@@ -1,54 +1,113 @@
 
 
-## Root cause analysis
+## Problem
 
-The blue focus ring, invisible text, and card background have persisted because the current approach (appending a `<style>` element to the shadow root) is being overridden by Voiceflow's own inline styles and CSS specificity rules inside the shadow DOM. The injected stylesheet simply cannot win the specificity war reliably.
+The Voiceflow chat input field shows a bright blue focus ring when clicked. This is caused by the `primaryColor: '#2346DC'` setting in `render.theme`, which Voiceflow uses as a CSS variable internally to style focus states (border/box-shadow) on the `.vfrc-input` wrapper. Our CSS overrides using `!important` are not winning against Voiceflow's internal styling.
 
-**The fix**: Voiceflow's `chat.load()` API supports an `assistant.stylesheet` property that accepts a CSS data URI. Stylesheets loaded this way are applied **inside** the widget's shadow DOM with proper priority -- this is the officially supported customization method. This completely sidesteps the shadow DOM injection hack.
+## Root cause
+
+Looking at the screenshot, the blue ring appears on the `.vfrc-input` container (the wrapper div around the textarea), not on the textarea itself. Voiceflow applies `box-shadow` and/or `border-color` using the `primaryColor` variable on `:focus-within`. Our current CSS targets `.vfrc-input:focus-within` but the specificity or application order is losing.
 
 ## Plan
 
-### Step 1: Create a dedicated CSS string for the Voiceflow widget
+### Only change: Isolate and fix the input field styling in `index.html`
 
-All dark theme overrides (currently in the array joined with `\n`) will be converted into a proper CSS stylesheet string and base64-encoded as a `data:text/css;base64,...` URI.
+No other components will be touched. Only the CSS rules related to the input field (lines 58-66 in `index.html`) will be modified.
 
-### Step 2: Pass it via `assistant.stylesheet` in `chat.load()`
+**Specific changes:**
 
-Add the `assistant` property to the existing `chat.load()` config:
+1. **Add ultra-high specificity selectors** for the input wrapper focus state. Instead of just `.vfrc-input:focus-within`, use repeated class selectors for higher specificity: `.vfrc-input.vfrc-input:focus-within` and target the `box-shadow` and `border-color` properties.
 
-```js
-window.voiceflow.chat.load({
-  verify: { projectID: '...' },
-  url: '...',
-  versionID: 'production',
-  voice: { ... },
-  render: { ... },
-  assistant: {
-    stylesheet: 'data:text/css;base64,...'
-  }
-});
+2. **Add wildcard focus override** scoped only to the footer/input area: `.vf-footer *:focus-within, .vfrc-footer *:focus-within` to catch any element that receives the blue focus styling.
+
+3. **Replace the input CSS lines (58-66)** with these rules:
+
+```css
+/* Input wrapper - normal state */
+.vfrc-input,
+.vfrc-input.vfrc-input {
+  background: #161A22 !important;
+  background-color: #161A22 !important;
+  color: #E9ECFC !important;
+  -webkit-text-fill-color: #E9ECFC !important;
+  caret-color: #E9ECFC !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 8px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Input wrapper - ALL focus states (the blue ring killer) */
+.vfrc-input:focus,
+.vfrc-input:focus-within,
+.vfrc-input:focus-visible,
+.vfrc-input.vfrc-input:focus,
+.vfrc-input.vfrc-input:focus-within,
+.vfrc-input.vfrc-input:focus-visible,
+.vfrc-input:has(:focus),
+.vfrc-input:has(textarea:focus) {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+/* Everything inside input - no focus styles */
+.vfrc-input *,
+.vfrc-input *:focus,
+.vfrc-input *:focus-within,
+.vfrc-input *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Textarea and input elements inside */
+.vfrc-input textarea,
+.vfrc-input input {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #E9ECFC !important;
+  -webkit-text-fill-color: #E9ECFC !important;
+  caret-color: #E9ECFC !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.vfrc-input textarea:focus,
+.vfrc-input input:focus,
+.vfrc-input textarea:focus-visible,
+.vfrc-input input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.vfrc-input textarea::placeholder,
+.vfrc-input input::placeholder {
+  color: #64748B !important;
+  -webkit-text-fill-color: #64748B !important;
+}
 ```
 
-### Step 3: Fix the three specific issues in the CSS
+4. **Override the CSS custom property** that Voiceflow uses for the primary color inside the input scope:
 
-1. **Blue focus ring** -- Target the textarea and its wrapper with `outline: none !important; box-shadow: none !important;` on `:focus`, `:focus-within`, and `:focus-visible`. Set border to subtle grey (`rgba(255,255,255,0.15)`) on focus.
+```css
+.vfrc-input {
+  --vf-primary: rgba(255,255,255,0.12) !important;
+  --vfrc-primary: rgba(255,255,255,0.12) !important;
+}
+```
 
-2. **Invisible text** -- Set `color: #E9ECFC !important; -webkit-text-fill-color: #E9ECFC !important; caret-color: #E9ECFC !important;` on `textarea` and `input` elements.
+5. **Keep the existing global `textarea,input` rules** (lines 64-66) but those are a fallback only.
 
-3. **Card/branding section** -- Set `display: none !important;` on `[class*="powered"]`, `[class*="branding"]`, `[class*="credit"]`, and the Voiceflow watermark/footer elements.
+### File changed
 
-### Step 4: Remove the old shadow DOM injection code
+- `index.html` — lines 58-66 only (the input-specific CSS rules in the `css` array)
 
-The entire `injectDarkTheme` function, the `setInterval` retry loop, and the massive CSS array will be removed. They are replaced by the single `assistant.stylesheet` data URI, resulting in much cleaner code.
+### What will NOT change
 
-### Step 5: Keep the `primaryColor` theme config
-
-The `render.theme` config (`primaryColor`, `backgroundColor`, `textColor`) stays since it handles base theming. The stylesheet handles the edge cases Voiceflow's theme config doesn't cover.
-
-## Technical details
-
-- The base64 data URI approach is documented at [Voiceflow Embed Docs](https://docs.voiceflow.com/docs/embed-customize-styling)
-- All existing dark theme rules will be preserved but reorganized into proper CSS
-- The CSS will use high-specificity selectors with `!important` to override widget defaults
-- File changed: `index.html` only
+- All other Voiceflow CSS rules (chat backgrounds, bubbles, buttons, launcher, etc.)
+- No React components
+- No other files
 
