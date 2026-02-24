@@ -102,14 +102,38 @@
           });
 
           // Fallback: also inject styles directly into shadow DOM
+          var inputCss = [
+            '.vf-footer,.vfrc-footer{--vf-primary:rgba(255,255,255,0.22)!important;--vfrc-primary:rgba(255,255,255,0.22)!important}',
+            '.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea),.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea){background:#161A22!important;background-color:#161A22!important;border:1px solid rgba(255,255,255,0.18)!important;border-radius:9999px!important;outline:none!important;box-shadow:none!important;filter:none!important}',
+            '.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus,.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus-within,.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus-visible,.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus,.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus-within,.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea):focus-visible{outline:none!important;border-color:rgba(255,255,255,0.38)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.10)!important}',
+            '.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea)::before,.vf-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea)::after,.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea)::before,.vfrc-footer :is(.vfrc-input,.vfrc-chat-input,.vfrc-chat-input--textarea)::after{outline:none!important;box-shadow:none!important;border:none!important;filter:none!important}',
+            '.vf-footer :is(textarea,input),.vfrc-footer :is(textarea,input){background:transparent!important;background-color:transparent!important;color:#E9ECFC!important;-webkit-text-fill-color:#E9ECFC!important;caret-color:#E9ECFC!important;outline:none!important;box-shadow:none!important;border:none!important}',
+            '.vf-footer :is(textarea,input)::placeholder,.vfrc-footer :is(textarea,input)::placeholder{color:rgba(148,163,184,0.9)!important;-webkit-text-fill-color:rgba(148,163,184,0.9)!important}'
+          ].join('\n');
+
+          function upsertStyle(shadowRoot, key, cssText) {
+            var attr = 'data-' + key;
+            var style = shadowRoot.querySelector('style[' + attr + ']');
+            if (!style) {
+              style = document.createElement('style');
+              style.setAttribute(attr, '1');
+            }
+            style.textContent = cssText;
+            shadowRoot.appendChild(style); // moves to LAST position
+          }
+
           var injectStyles = function() {
             var el = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
             if (!el || !el.shadowRoot) return false;
-            if (el.shadowRoot.querySelector('[data-madeea-theme]')) return true;
-            var s = document.createElement('style');
-            s.setAttribute('data-madeea-theme', '1');
-            s.textContent = css;
-            el.shadowRoot.appendChild(s);
+            upsertStyle(el.shadowRoot, 'madeea-theme', css);
+            upsertStyle(el.shadowRoot, 'madeea-input-theme', inputCss);
+            // Attach MutationObserver once to keep input theme last
+            if (!el.__madeeaObserver) {
+              el.__madeeaObserver = new MutationObserver(function() {
+                upsertStyle(el.shadowRoot, 'madeea-input-theme', inputCss);
+              });
+              el.__madeeaObserver.observe(el.shadowRoot, { childList: true, subtree: false });
+            }
             return true;
           };
           var attempts = 0;
