@@ -105,10 +105,9 @@
               'div[class*="busy"] { background: transparent !important; }',
               'div[class*="status"] { background: transparent !important; }',
               'div[class*="Status"] { background: transparent !important; }',
-              'div > div { background-color: inherit !important; }',
-              'div:not(.vfrc-launcher):not(.vfrc-message--request):not(.vfrc-user-response .vfrc-bubble) { background-color: transparent !important; }',
               '.vfrc-chat, .vfrc-chat--dialog, .vfrc-header, .vfrc-footer, .vfrc-chat-input, .vfrc-assistant-info { background-color: #0C0F14 !important; }',
-              '.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble, div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }'
+              '.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble { background-color: #161A22 !important; }',
+              'div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }'
             ].join('\n');
             shadow.appendChild(style);
           };
