@@ -57,13 +57,28 @@
             var style = document.createElement('style');
             style.textContent = [
               ':host { --vf-primary: #2346DC !important; }',
+              '* { color: #E9ECFC; }',
               '.vfrc-chat { background: #0C0F14 !important; color: #E9ECFC !important; }',
               '.vfrc-chat--dialog { background: #0C0F14 !important; }',
               '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35, 70, 220, 0.2) !important; }',
               '.vfrc-header--title { color: #ffffff !important; }',
               '.vfrc-header--subtitle { color: #94A3B8 !important; }',
+              '.vfrc-message { background: transparent !important; }',
               '.vfrc-message--response { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; }',
               '.vfrc-message--request { background: #2346DC !important; color: #ffffff !important; }',
+              '.vfrc-system-response { background: transparent !important; }',
+              '.vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
+              '.vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #ffffff !important; }',
+              'div[class*="message"] { background: transparent !important; }',
+              'div[class*="response"] { background: transparent !important; }',
+              'div[class*="Message"] { background: transparent !important; }',
+              'div[class*="Response"] { background: transparent !important; }',
+              'div[class*="input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+              'div[class*="Input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+              'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+              'div[class*="footer"], div[class*="Footer"] { background: #0C0F14 !important; }',
+              'div[class*="chat"], div[class*="Chat"] { background: #0C0F14 !important; }',
+              'div[class*="dialog"], div[class*="Dialog"] { background: #0C0F14 !important; }',
               '.vfrc-footer { background: #0C0F14 !important; border-top: 1px solid rgba(35, 70, 220, 0.15) !important; }',
               '.vfrc-footer input, .vfrc-input textarea, .vfrc-chat-input textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
               '.vfrc-chat-input { background: #0C0F14 !important; }',
@@ -76,7 +91,8 @@
               '::placeholder { color: #64748B !important; }',
               '.vfrc-assistant-info { background: #0C0F14 !important; }',
               '.vfrc-assistant-info--title { color: #ffffff !important; }',
-              '.vfrc-assistant-info--description { color: #94A3B8 !important; }'
+              '.vfrc-assistant-info--description { color: #94A3B8 !important; }',
+              'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }'
             ].join('\n');
             shadow.appendChild(style);
           };
