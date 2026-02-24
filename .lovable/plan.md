@@ -1,47 +1,54 @@
 
 
-# Fix White Backgrounds in Voiceflow Chatbot Cards & Buttons
+## Root cause analysis
 
-## Problem
-The Voiceflow chatbot has card elements (like "Custom Pricing & ROI Analysis") and action buttons ("Start Free AI Audit", "Calculate ROI") that still render with white backgrounds. These are Voiceflow's card/carousel components which aren't covered by the current CSS overrides.
+The blue focus ring, invisible text, and card background have persisted because the current approach (appending a `<style>` element to the shadow root) is being overridden by Voiceflow's own inline styles and CSS specificity rules inside the shadow DOM. The injected stylesheet simply cannot win the specificity war reliably.
 
-## Change
+**The fix**: Voiceflow's `chat.load()` API supports an `assistant.stylesheet` property that accepts a CSS data URI. Stylesheets loaded this way are applied **inside** the widget's shadow DOM with proper priority -- this is the officially supported customization method. This completely sidesteps the shadow DOM injection hack.
 
-**File: `index.html`** (line 110, add new rules before the closing of the array)
+## Plan
 
-Add CSS rules targeting Voiceflow card, carousel, and action button elements:
+### Step 1: Create a dedicated CSS string for the Voiceflow widget
+
+All dark theme overrides (currently in the array joined with `\n`) will be converted into a proper CSS stylesheet string and base64-encoded as a `data:text/css;base64,...` URI.
+
+### Step 2: Pass it via `assistant.stylesheet` in `chat.load()`
+
+Add the `assistant` property to the existing `chat.load()` config:
 
 ```js
-// Card & carousel components
-'.vfrc-card { background: #161A22 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; overflow: hidden !important; }',
-'.vfrc-card--title, .vfrc-card--description { color: #E9ECFC !important; }',
-'.vfrc-card--image { border-bottom: 1px solid rgba(255,255,255,0.06) !important; }',
-'.vfrc-carousel { background: transparent !important; }',
-'div[class*="card"], div[class*="Card"] { background: #161A22 !important; color: #E9ECFC !important; border-color: rgba(255,255,255,0.08) !important; }',
-'div[class*="carousel"], div[class*="Carousel"] { background: transparent !important; }',
-
-// Action buttons inside cards
-'.vfrc-card--action, .vfrc-card--button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
-'.vfrc-card--action:hover, .vfrc-card--button:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
-'button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
-'button:hover { background: #1e2430 !important; }',
-
-// Broad catch-all for any remaining white containers
-'div[class*="actions"], div[class*="Actions"] { background: transparent !important; }',
-'div[class*="content"], div[class*="Content"] { background: #161A22 !important; color: #E9ECFC !important; }',
-'div[class*="body"], div[class*="Body"] { background: #161A22 !important; }',
-'div[class*="container"], div[class*="Container"] { background: transparent !important; }',
-'div[class*="wrapper"], div[class*="Wrapper"] { background: transparent !important; }',
-'img { border-radius: 8px !important; }',
-
-// Exclude launcher from button override
-'.vfrc-launcher { background: #2346DC !important; border: none !important; }'
+window.voiceflow.chat.load({
+  verify: { projectID: '...' },
+  url: '...',
+  versionID: 'production',
+  voice: { ... },
+  render: { ... },
+  assistant: {
+    stylesheet: 'data:text/css;base64,...'
+  }
+});
 ```
 
-This covers Voiceflow's card components (used for rich content with images and action buttons), carousels, and ensures the launcher button retains its blue styling despite the broad `button` override.
+### Step 3: Fix the three specific issues in the CSS
+
+1. **Blue focus ring** -- Target the textarea and its wrapper with `outline: none !important; box-shadow: none !important;` on `:focus`, `:focus-within`, and `:focus-visible`. Set border to subtle grey (`rgba(255,255,255,0.15)`) on focus.
+
+2. **Invisible text** -- Set `color: #E9ECFC !important; -webkit-text-fill-color: #E9ECFC !important; caret-color: #E9ECFC !important;` on `textarea` and `input` elements.
+
+3. **Card/branding section** -- Set `display: none !important;` on `[class*="powered"]`, `[class*="branding"]`, `[class*="credit"]`, and the Voiceflow watermark/footer elements.
+
+### Step 4: Remove the old shadow DOM injection code
+
+The entire `injectDarkTheme` function, the `setInterval` retry loop, and the massive CSS array will be removed. They are replaced by the single `assistant.stylesheet` data URI, resulting in much cleaner code.
+
+### Step 5: Keep the `primaryColor` theme config
+
+The `render.theme` config (`primaryColor`, `backgroundColor`, `textColor`) stays since it handles base theming. The stylesheet handles the edge cases Voiceflow's theme config doesn't cover.
 
 ## Technical details
-- The white card in the screenshot is a `.vfrc-card` component with action buttons
-- We use broad `div[class*="..."]` selectors as fallback since Voiceflow may use different internal class names across versions
-- The launcher button gets re-declared at the end to override the generic `button` rule
+
+- The base64 data URI approach is documented at [Voiceflow Embed Docs](https://docs.voiceflow.com/docs/embed-customize-styling)
+- All existing dark theme rules will be preserved but reorganized into proper CSS
+- The CSS will use high-specificity selectors with `!important` to override widget defaults
+- File changed: `index.html` only
 
