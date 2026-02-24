@@ -1,26 +1,39 @@
 
-# Add Vertical Grid Lines to AI Hub Hero
 
-## Change
+# Add Voiceflow Chatbot Widget to All Pages
 
-Add the same 4-column vertical grid lines from the homepage's `AuraBackground` component to the AI Hub hero section. These are subtle `border-white/5` vertical dividers that create a refined grid overlay, hidden on mobile for performance.
+## Recommendation
 
-## Technical Details
+I recommend loading the chatbot on **all pages**. It's a sales/support widget — visitors should be able to ask questions regardless of where they are (homepage, AI Hub, audit page). The widget floats in the corner and doesn't interfere with content.
 
-### File: `src/components/ai-hub/AutomationHero.tsx`
+## Approach
 
-Add the following block inside the `<section>` element (after the gradient orb div, before the container):
+Load the Voiceflow script once globally in `index.html`, inside the `<body>` tag before the root div. This ensures it loads on every route without any React-specific code.
 
-```tsx
-{/* 4-column vertical grid lines - matching homepage */}
-<div className="absolute inset-0 hidden sm:flex pointer-events-none">
-  <div className="flex-1 border-r border-white/5" />
-  <div className="flex-1 border-r border-white/5" />
-  <div className="flex-1 border-r border-white/5" />
-  <div className="flex-1" />
-</div>
+## File: `index.html`
+
+Add the Voiceflow script block inside `<body>`, before the `<div id="root">`:
+
+```html
+<script type="text/javascript">
+  (function(d, t) {
+    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+    v.onload = function() {
+      window.voiceflow.chat.load({
+        verify: { projectID: '699daccdde2b01982d12ac5e' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production',
+        voice: {
+          url: "https://runtime-api.voiceflow.com"
+        }
+      });
+    }
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+    v.type = "text/javascript";
+    s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
 ```
 
-This is the exact same pattern used in `AuraBackground.tsx` (lines 18-23), with `pointer-events-none` added so the lines don't interfere with the search input or other interactive elements.
+No React component changes needed. One file, one addition.
 
-No other files need changes.
