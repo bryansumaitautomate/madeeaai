@@ -1,34 +1,38 @@
 
 
-# Update Voiceflow Chatbot Theme Colors
+# Fix Remaining White Sections in Voiceflow Chatbot
 
-## Context
-
-The chatbot widget's visual appearance is primarily controlled by Voiceflow's own dashboard settings. However, the `render.theme` object in `index.html` can influence some widget versions. Updating these values to match the color palette from your image ensures consistency.
+## Problem
+The current shadow DOM CSS injection covers many selectors but misses some elements that remain white, specifically:
+- Message response bubbles (the text content area)
+- The input/message field at the bottom
+- Possibly the assistant info card and other container elements
 
 ## Change
 
-**File: `index.html`** (lines 42-45)
+**File: `index.html`** (lines 58-79)
 
-Update the theme colors from:
+Expand the CSS rules array to add broader wildcard overrides and additional specific selectors:
+
 ```js
-primaryColor: '#1A6BFF',
-backgroundColor: '#0C0F14',
-textColor: '#E6EAF2'
+// Add these new rules to the existing array:
+'* { color: #E9ECFC; }',
+'.vfrc-message { background: transparent !important; }',
+'.vfrc-system-response { background: transparent !important; }',
+'.vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
+'.vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #ffffff !important; }',
+'div[class*="message"] { background: transparent !important; }',
+'div[class*="response"] { background: transparent !important; }',
+'div[class*="Message"] { background: transparent !important; }',
+'div[class*="Response"] { background: transparent !important; }',
+'div[class*="input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+'div[class*="Input"] { background: #161A22 !important; color: #E9ECFC !important; }',
+'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
+'div[class*="footer"], div[class*="Footer"] { background: #0C0F14 !important; }',
+'div[class*="chat"], div[class*="Chat"] { background: #0C0F14 !important; }',
+'div[class*="dialog"], div[class*="Dialog"] { background: #0C0F14 !important; }',
+'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
 ```
 
-To match the palette from the uploaded image:
-```js
-primaryColor: '#2346DC',
-backgroundColor: '#070E2C',
-textColor: '#E9ECFC'
-```
-
-- `#2346DC` — the 500 shade (strong blue, good for buttons/links)
-- `#070E2C` — the 900 shade (deep navy, background)
-- `#E9ECFC` — the 50 shade (near-white, text on dark background)
-
-## Important Note
-
-If the chatbot still doesn't reflect these colors after this change, the styling is being controlled from the Voiceflow dashboard. You would need to update the "Primary color" and theme settings there to match.
+This blanket approach ensures that any Voiceflow internal class naming (which may differ across widget versions) gets forced to the dark theme. The specificity chain is: element-wide defaults with `!important`, then more specific selectors for the key interactive elements.
 
