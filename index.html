@@ -57,7 +57,7 @@
             var style = document.createElement('style');
             style.textContent = [
               ':host { --vf-primary: #2346DC !important; }',
-              '* { color: #E9ECFC; box-sizing: border-box; }',
+              '* { color: #E9ECFC; }',
               '.vfrc-chat, .vfrc-chat--dialog { background: #0C0F14 !important; color: #E9ECFC !important; }',
               '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35,70,220,0.2) !important; }',
               '.vfrc-header--title { color: #fff !important; }',
@@ -73,8 +73,8 @@
               '.vfrc-message--response, .vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
               '.vfrc-message--request, .vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #fff !important; }',
               '.vfrc-system-response .vfrc-message { color: #E9ECFC !important; }',
-              'input, textarea { background: #161A22 !important; color: #E9ECFC !important; }',
-              'input:focus, textarea:focus { background: #161A22 !important; color: #E9ECFC !important; }',
+              'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: none !important; outline: none !important; }',
+              'input:focus, textarea:focus { background: #161A22 !important; color: #E9ECFC !important; border: none !important; outline: none !important; box-shadow: none !important; }',
               '::placeholder { color: #64748B !important; }',
               '.vfrc-footer input, .vfrc-input textarea, .vfrc-chat-input textarea { background: #161A22 !important; color: #E9ECFC !important; }',
               '.vfrc-card { background: #161A22 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; overflow: hidden !important; }',
@@ -93,6 +93,7 @@
               'button svg, button svg * { stroke: currentColor !important; }',
               'button svg path { fill: currentColor !important; }',
               '*:focus-visible { outline-color: #2346DC !important; }',
+              '.vfrc-chat-input *:focus, .vfrc-chat-input *:focus-visible { outline: none !important; border: none !important; box-shadow: none !important; }',
               '.vfrc-loading, .vfrc-typing { background: transparent !important; }',
               '.vfrc-typing-indicator { background: #161A22 !important; }',
               'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
