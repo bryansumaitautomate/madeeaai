@@ -32,6 +32,42 @@
       (function(d, t) {
         var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
         v.onload = function() {
+          var css = [
+            '.vfrc-chat,.vfrc-chat--dialog,.vfrc-header,.vfrc-footer,.vfrc-chat-input,.vfrc-assistant-info{background-color:#0C0F14!important}',
+            '.vfrc-header{border-bottom:1px solid rgba(35,70,220,0.2)!important}',
+            '.vfrc-header--title{color:#fff!important}',
+            '.vfrc-header--subtitle{color:#94A3B8!important}',
+            '.vfrc-message{background:transparent!important}',
+            '.vfrc-message--response,.vfrc-system-response .vfrc-bubble,.vfrc-bubble{background:#161A22!important;color:#E9ECFC!important;border:1px solid rgba(255,255,255,0.06)!important;border-radius:12px!important}',
+            '.vfrc-message--request,.vfrc-user-response .vfrc-bubble{background:#2346DC!important;color:#fff!important}',
+            '.vfrc-system-response{background:transparent!important}',
+            '.vfrc-footer{border-top:1px solid rgba(255,255,255,0.06)!important}',
+            '.vfrc-assistant-info--title{color:#fff!important}',
+            '.vfrc-assistant-info--description{color:#94A3B8!important}',
+            '.vfrc-button,.vfrc-chip{background:#161A22!important;color:#E9ECFC!important;border:1px solid rgba(35,70,220,0.3)!important}',
+            '.vfrc-button:hover,.vfrc-chip:hover{background:#1e2430!important;border-color:rgba(35,70,220,0.6)!important}',
+            '.vfrc-card{background:#161A22!important;border:1px solid rgba(255,255,255,0.08)!important;border-radius:12px!important;overflow:hidden!important}',
+            '.vfrc-card--title,.vfrc-card--description{color:#E9ECFC!important}',
+            '.vfrc-card--action,.vfrc-card--button{background:#161A22!important;color:#E9ECFC!important;border:1px solid rgba(35,70,220,0.3)!important}',
+            '.vfrc-card--action:hover,.vfrc-card--button:hover{background:#1e2430!important;border-color:rgba(35,70,220,0.6)!important}',
+            '.vfrc-carousel{background:transparent!important}',
+            '.vfrc-loading,.vfrc-typing{background:transparent!important}',
+            '.vfrc-typing-indicator{background:#161A22!important}',
+            '.vfrc-launcher{background:#1e2430!important;border:1px solid rgba(59,130,246,0.25)!important;box-shadow:0 0 20px rgba(59,130,246,0.3),0 0 40px rgba(59,130,246,0.15),inset 0 1px 0 rgba(255,255,255,0.1)!important}',
+            '.vfrc-launcher:hover{box-shadow:0 0 28px rgba(59,130,246,0.45),0 0 56px rgba(59,130,246,0.2),inset 0 1px 0 rgba(255,255,255,0.15)!important;border-color:rgba(59,130,246,0.4)!important;transform:scale(1.03)!important}',
+            'textarea,input{background:#161A22!important;color:#E9ECFC!important;-webkit-text-fill-color:#E9ECFC!important;caret-color:#E9ECFC!important;border:1px solid rgba(255,255,255,0.1)!important;outline:none!important;box-shadow:none!important}',
+            'textarea:focus,input:focus,textarea:focus-visible,input:focus-visible{outline:none!important;box-shadow:none!important;border-color:rgba(255,255,255,0.15)!important}',
+            'textarea::placeholder,input::placeholder{color:#64748B!important;-webkit-text-fill-color:#64748B!important}',
+            '*:focus,*:focus-visible{outline:none!important}',
+            '[class*="powered"],[class*="Powered"],[class*="branding"],[class*="Branding"],[class*="credit"],[class*="Credit"],[class*="watermark"],[class*="Watermark"]{display:none!important}',
+            'p,span,h1,h2,h3,h4,h5,h6,label{color:#E9ECFC!important}',
+            'a{color:#5B8DEF!important}',
+            'button{background:#1e2430!important;color:#E9ECFC!important;border:1px solid rgba(255,255,255,0.1)!important}',
+            'button:hover{background:#2a303d!important}'
+          ].join('\n');
+
+          var dataUri = 'data:text/css;base64,' + btoa(css);
+
           window.voiceflow.chat.load({
             verify: { projectID: '699daccdde2b01982d12ac5e' },
             url: 'https://general-runtime.voiceflow.com',
@@ -44,112 +80,11 @@
                 backgroundColor: '#070E2C',
                 textColor: '#E9ECFC'
               }
+            },
+            assistant: {
+              stylesheet: dataUri
             }
           });
-
-          // Force dark theme on Voiceflow widget via shadow DOM injection
-          var injectDarkTheme = function() {
-            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
-            if (!chatEl) return;
-            var shadow = chatEl.shadowRoot;
-            if (!shadow) return;
-            
-            var style = document.createElement('style');
-            style.textContent = [
-              ':host { --vf-primary: #2346DC !important; }',
-              '* { color: #E9ECFC; }',
-              '.vfrc-chat { background: #0C0F14 !important; color: #E9ECFC !important; }',
-              '.vfrc-chat--dialog { background: #0C0F14 !important; }',
-              '.vfrc-header { background: #0C0F14 !important; border-bottom: 1px solid rgba(35, 70, 220, 0.2) !important; }',
-              '.vfrc-header--title { color: #ffffff !important; }',
-              '.vfrc-header--subtitle { color: #94A3B8 !important; }',
-              '.vfrc-message { background: transparent !important; }',
-              '.vfrc-message--response { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; }',
-              '.vfrc-message--request { background: #2346DC !important; color: #ffffff !important; }',
-              '.vfrc-system-response { background: transparent !important; }',
-              '.vfrc-system-response .vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.06) !important; border-radius: 12px !important; }',
-              '.vfrc-user-response .vfrc-bubble { background: #2346DC !important; color: #ffffff !important; }',
-              'div[class*="message"] { background: transparent !important; }',
-              'div[class*="response"] { background: transparent !important; }',
-              'div[class*="Message"] { background: transparent !important; }',
-              'div[class*="Response"] { background: transparent !important; }',
-              'div[class*="input"] { background: #161A22 !important; color: #E9ECFC !important; outline: none !important; box-shadow: none !important; }',
-              'div[class*="Input"] { background: #161A22 !important; color: #E9ECFC !important; outline: none !important; box-shadow: none !important; }',
-              'input, textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; outline: none !important; box-shadow: none !important; -webkit-text-fill-color: #E9ECFC !important; caret-color: #E9ECFC !important; }',
-              'input:focus, textarea:focus { border-color: rgba(255,255,255,0.2) !important; outline: none !important; box-shadow: none !important; }',
-              'input::placeholder, textarea::placeholder { color: #64748B !important; -webkit-text-fill-color: #64748B !important; }',
-              ':host textarea, :host input { color: #E9ECFC !important; -webkit-text-fill-color: #E9ECFC !important; caret-color: #E9ECFC !important; }',
-              ':host textarea::placeholder, :host input::placeholder { color: #64748B !important; -webkit-text-fill-color: #64748B !important; }',
-              ':host textarea:focus, :host input:focus { outline: none !important; box-shadow: none !important; }',
-              ':host .vfrc-chat-input, :host .vfrc-input { outline: none !important; box-shadow: none !important; border-color: rgba(255,255,255,0.12) !important; }',
-              ':host .vfrc-chat-input:focus-within, :host .vfrc-input:focus-within { outline: none !important; box-shadow: none !important; border-color: rgba(255,255,255,0.18) !important; }',
-              ':host .vfrc-chat-input *, :host .vfrc-input * { outline: none !important; box-shadow: none !important; }',
-              ':host [class*="powered"], :host [class*="Powered"], :host [class*="branding"], :host [class*="Branding"], :host [class*="credit"], :host [class*="Credit"] { background: transparent !important; border: none !important; box-shadow: none !important; }',
-              'div[class*="footer"], div[class*="Footer"] { background: #0C0F14 !important; }',
-              'div[class*="chat"], div[class*="Chat"] { background: #0C0F14 !important; }',
-              'div[class*="dialog"], div[class*="Dialog"] { background: #0C0F14 !important; }',
-              '.vfrc-footer { background: #0C0F14 !important; border-top: 1px solid rgba(255,255,255,0.06) !important; }',
-              '.vfrc-footer input, .vfrc-input textarea, .vfrc-chat-input textarea { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; outline: none !important; box-shadow: none !important; }',
-              '.vfrc-chat-input { background: #0C0F14 !important; }',
-              'div[class*="powered"], div[class*="Powered"], div[class*="branding"], div[class*="Branding"], div[class*="credit"] { background: #0C0F14 !important; color: #64748B !important; border: none !important; }',
-              'form, fieldset { background: transparent !important; border: none !important; }',
-              '.vfrc-launcher { background: #1e2430 !important; box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.1) !important; border: 1px solid rgba(59, 130, 246, 0.25) !important; }',
-              '.vfrc-launcher:hover { box-shadow: 0 0 28px rgba(59, 130, 246, 0.45), 0 0 56px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255,255,255,0.15) !important; border-color: rgba(59, 130, 246, 0.4) !important; transform: scale(1.03) !important; }',
-              '.vfrc-bubble { background: #161A22 !important; color: #E9ECFC !important; }',
-              '.vfrc-button, .vfrc-chip { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
-              '.vfrc-button:hover, .vfrc-chip:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
-              '.vfrc-system-response .vfrc-message { color: #E9ECFC !important; }',
-              'a { color: #5B8DEF !important; }',
-              '::placeholder { color: #64748B !important; }',
-              '.vfrc-assistant-info { background: #0C0F14 !important; }',
-              '.vfrc-assistant-info--title { color: #ffffff !important; }',
-              '.vfrc-assistant-info--description { color: #94A3B8 !important; }',
-              'p, span, h1, h2, h3, h4, h5, h6, label { color: #E9ECFC !important; }',
-              '.vfrc-loading { background: transparent !important; }',
-              '.vfrc-typing { background: transparent !important; }',
-              '.vfrc-typing-indicator { background: #161A22 !important; }',
-              'div[class*="loading"] { background: transparent !important; }',
-              'div[class*="Loading"] { background: transparent !important; }',
-              'div[class*="typing"] { background: transparent !important; }',
-              'div[class*="Typing"] { background: transparent !important; }',
-              'div[class*="indicator"] { background: #161A22 !important; }',
-              'div[class*="Indicator"] { background: #161A22 !important; }',
-              'div[class*="busy"] { background: transparent !important; }',
-              'div[class*="status"] { background: transparent !important; }',
-              'div[class*="Status"] { background: transparent !important; }',
-              '.vfrc-chat, .vfrc-chat--dialog, .vfrc-header, .vfrc-footer, .vfrc-chat-input, .vfrc-assistant-info { background-color: #0C0F14 !important; }',
-              '.vfrc-bubble, .vfrc-message--response, .vfrc-system-response .vfrc-bubble { background-color: #161A22 !important; }',
-              'div[class*="input"], div[class*="Input"], input, textarea { background-color: #161A22 !important; }',
-              '.vfrc-card { background: #161A22 !important; border: 1px solid rgba(255,255,255,0.08) !important; border-radius: 12px !important; overflow: hidden !important; }',
-              '.vfrc-card--title, .vfrc-card--description { color: #E9ECFC !important; }',
-              '.vfrc-card--image { border-bottom: 1px solid rgba(255,255,255,0.06) !important; }',
-              '.vfrc-carousel { background: transparent !important; }',
-              'div[class*="card"], div[class*="Card"] { background: #161A22 !important; color: #E9ECFC !important; border-color: rgba(255,255,255,0.08) !important; }',
-              'div[class*="carousel"], div[class*="Carousel"] { background: transparent !important; }',
-              '.vfrc-card--action, .vfrc-card--button { background: #161A22 !important; color: #E9ECFC !important; border: 1px solid rgba(35, 70, 220, 0.3) !important; }',
-              '.vfrc-card--action:hover, .vfrc-card--button:hover { background: #1e2430 !important; border-color: rgba(35, 70, 220, 0.6) !important; }',
-              'button { background: #1e2430 !important; color: #E9ECFC !important; border: 1px solid rgba(255,255,255,0.1) !important; }',
-              'button:hover { background: #2a303d !important; }',
-              'div[class*="actions"], div[class*="Actions"] { background: transparent !important; }',
-              'div[class*="content"], div[class*="Content"] { background: #161A22 !important; color: #E9ECFC !important; }',
-              'div[class*="body"], div[class*="Body"] { background: #161A22 !important; }',
-              'div[class*="container"], div[class*="Container"] { background: transparent !important; }',
-              'div[class*="wrapper"], div[class*="Wrapper"] { background: transparent !important; }',
-              'img { border-radius: 8px !important; }',
-              '.vfrc-launcher { background: #1e2430 !important; border: 1px solid rgba(59, 130, 246, 0.25) !important; box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.1) !important; }'
-            ].join('\n');
-            shadow.appendChild(style);
-          };
-          
-          // Retry injection until shadow DOM is available
-          var attempts = 0;
-          var interval = setInterval(function() {
-            attempts++;
-            injectDarkTheme();
-            if (attempts > 30) clearInterval(interval);
-            var chatEl = document.getElementById('voiceflow-chat') || document.querySelector('div[id^="voiceflow"]');
-            if (chatEl && chatEl.shadowRoot && chatEl.shadowRoot.querySelector('style')) clearInterval(interval);
-          }, 500);
         };
         v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
         v.type = "text/javascript";
