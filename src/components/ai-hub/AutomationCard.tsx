@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { ArrowRight } from "lucide-react";
 import type { Automation } from "@/lib/api/workflows";
 
@@ -6,9 +7,10 @@ interface AutomationCardProps {
   onClick: (automation: Automation) => void;
 }
 
-const AutomationCard = ({ automation, onClick }: AutomationCardProps) => {
+const AutomationCard = forwardRef<HTMLDivElement, AutomationCardProps>(({ automation, onClick }, ref) => {
   return (
     <div
+      ref={ref}
       onClick={() => onClick(automation)}
       className="infrastructure-card-wrapper group cursor-pointer"
     >
@@ -44,6 +46,8 @@ const AutomationCard = ({ automation, onClick }: AutomationCardProps) => {
       </div>
     </div>
   );
-};
+});
+
+AutomationCard.displayName = "AutomationCard";
 
 export default AutomationCard;

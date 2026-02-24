@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { ExternalLink } from "lucide-react";
 import type { Automation } from "@/lib/api/workflows";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -10,7 +11,7 @@ interface AutomationModalProps {
   onClose: () => void;
 }
 
-const AutomationModal = ({ automation, isOpen, onClose }: AutomationModalProps) => {
+const AutomationModal = forwardRef<HTMLDivElement, AutomationModalProps>(({ automation, isOpen, onClose }, ref) => {
   if (!automation) return null;
 
   return (
@@ -77,6 +78,8 @@ const AutomationModal = ({ automation, isOpen, onClose }: AutomationModalProps) 
       </DialogContent>
     </Dialog>
   );
-};
+});
+
+AutomationModal.displayName = "AutomationModal";
 
 export default AutomationModal;
